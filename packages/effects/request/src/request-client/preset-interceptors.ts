@@ -26,13 +26,13 @@ export const defaultResponseInterceptor = ({
         return response;
       }
 
+      const code = responseData[codeField] ?? 1;
+
       if (status >= 200 && status < 400) {
         if (config.responseReturn === 'body') {
           return responseData;
         } else if (
-          isFunction(successCode)
-            ? successCode(responseData[codeField])
-            : responseData[codeField] === successCode
+          isFunction(successCode) ? successCode(code) : code === successCode
         ) {
           return isFunction(dataField)
             ? dataField(responseData)
@@ -40,10 +40,7 @@ export const defaultResponseInterceptor = ({
         }
       }
 
-      throw Object.assign({}, response, {
-        response,
-        status: responseData[codeField] === 1000 ? 401 : status,
-      });
+      throw Object.assign({ code }, response, { response });
     },
   };
 };
@@ -63,9 +60,9 @@ export const authenticateResponseInterceptor = ({
 }): ResponseInterceptorConfig => {
   return {
     rejected: async (error) => {
-      const { config, response } = error;
-      // 如果不是 401 错误，直接抛出异常
-      if (response?.status !== 401) {
+      const { code, config } = error;
+      // 如果不是 1000（未登录） 错误，直接抛出异常
+      if (code !== 1000) {
         throw error;
       }
       // 判断是否启用了 refreshToken 功能

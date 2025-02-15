@@ -74,11 +74,13 @@ export const useAuthStore = defineStore('auth', () => {
     };
   }
 
-  async function logout(redirect: boolean = true) {
-    try {
-      await logoutApi();
-    } catch {
-      return;
+  async function logout(redirect: boolean = true, requestApi: boolean = true) {
+    if (requestApi) {
+      try {
+        await logoutApi();
+      } catch {
+        return;
+      }
     }
     resetAllStores();
     accessStore.setLoginExpired(false);
