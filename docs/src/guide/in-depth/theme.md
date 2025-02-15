@@ -256,7 +256,7 @@ css 变量内的颜色，必须使用 `hsl` 格式，如 `0 0% 100%`，不需要
 只需要在应用目录下的`preferences.ts`，自定义配置主色即可：
 
 ```ts
-import { defineOverridesPreferences } from '@vben/preferences';
+import { defineOverridesPreferences } from '@vben/preferences'
 
 export const overridesPreferences = defineOverridesPreferences({
   // overrides
@@ -270,7 +270,7 @@ export const overridesPreferences = defineOverridesPreferences({
     // 警告色
     colorWarning: 'hsl(42 84% 61%)',
   },
-});
+})
 ```
 
 ## 内置主题
@@ -278,14 +278,14 @@ export const overridesPreferences = defineOverridesPreferences({
 框架中内置了多种主题，你可以在`preferences.ts`中进行配置：
 
 ```ts
-import { defineOverridesPreferences } from '@vben/preferences';
+import { defineOverridesPreferences } from '@vben/preferences'
 
 export const overridesPreferences = defineOverridesPreferences({
   // overrides
   theme: {
     builtinType: 'default',
   },
-});
+})
 ```
 
 ### 内置主题列表
@@ -313,7 +313,7 @@ type BuiltinThemeType =
   | 'violet'
   | 'yellow'
   | 'zinc'
-  | (Record<never, never> & string);
+  | (Record<never, never> & string)
 ```
 
 :::
@@ -1142,14 +1142,14 @@ type BuiltinThemeType =
 - 在应用的 `src/preferences.ts`内新增一个主题配置。
 
 ```ts
-import { defineOverridesPreferences } from '@vben/preferences';
+import { defineOverridesPreferences } from '@vben/preferences'
 
 export const overridesPreferences = defineOverridesPreferences({
   // overrides
   theme: {
     builtinType: 'my-theme',
   },
-});
+})
 ```
 
 - 在你的css文件中，新增主题的css变量。
@@ -1208,14 +1208,14 @@ export const overridesPreferences = defineOverridesPreferences({
 框架中内置了多种主题，你可以在`preferences.ts`中进行配置，黑暗主题同样会读取css变量来进行配置：
 
 ```ts
-import { defineOverridesPreferences } from '@vben/preferences';
+import { defineOverridesPreferences } from '@vben/preferences'
 
 export const overridesPreferences = defineOverridesPreferences({
   // overrides
   theme: {
     mode: 'dark',
   },
-});
+})
 ```
 
 ## 自定义侧边栏颜色
@@ -1267,14 +1267,14 @@ export const overridesPreferences = defineOverridesPreferences({
 一般用于特殊场景，将设置为色弱模式，你可以在`preferences.ts`中进行配置：
 
 ```ts
-import { defineOverridesPreferences } from '@vben/preferences';
+import { defineOverridesPreferences } from '@vben/preferences'
 
 export const overridesPreferences = defineOverridesPreferences({
   // overrides
   app: {
     colorWeakMode: true,
   },
-});
+})
 ```
 
 ## 灰色模式
@@ -1282,12 +1282,12 @@ export const overridesPreferences = defineOverridesPreferences({
 一般用于特殊场景，将网页置灰，你可以在`preferences.ts`中进行配置：
 
 ```ts
-import { defineOverridesPreferences } from '@vben/preferences';
+import { defineOverridesPreferences } from '@vben/preferences'
 
 export const overridesPreferences = defineOverridesPreferences({
   // overrides
   app: {
     colorGrayMode: true,
   },
-});
+})
 ```

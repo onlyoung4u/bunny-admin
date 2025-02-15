@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { message } from 'ant-design-vue';
+import { message } from 'ant-design-vue'
 
-import { useVbenForm } from '#/adapter/form';
+import { useVbenForm } from '#/adapter/form'
 
 const [BaseForm] = useVbenForm({
   // 所有表单项共用，可单独在表单内覆盖
@@ -91,7 +91,7 @@ const [BaseForm] = useVbenForm({
       renderComponentContent: () => {
         return {
           default: () => ['Radio'],
-        };
+        }
       },
     },
     {
@@ -119,7 +119,7 @@ const [BaseForm] = useVbenForm({
       renderComponentContent: () => {
         return {
           default: () => ['我已阅读并同意'],
-        };
+        }
       },
     },
     {
@@ -217,12 +217,12 @@ const [BaseForm] = useVbenForm({
     },
   ],
   wrapperClass: 'grid-cols-1',
-});
+})
 
 function onSubmit(values: Record<string, any>) {
   message.success({
     content: `form values: ${JSON.stringify(values)}`,
-  });
+  })
 }
 </script>
 

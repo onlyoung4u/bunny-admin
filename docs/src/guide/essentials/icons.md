@@ -19,16 +19,16 @@
 
 ```ts
 // packages/icons/src/iconify/index.ts
-import { createIconifyIcon } from '@vben-core/icons';
+import { createIconifyIcon } from '@vben-core/icons'
 
-export const MdiKeyboardEsc = createIconifyIcon('mdi:keyboard-esc');
+export const MdiKeyboardEsc = createIconifyIcon('mdi:keyboard-esc')
 ```
 
 ### 使用
 
 ```vue
 <script setup lang="ts">
-import { MdiKeyboardEsc } from '@vben/icons';
+import { MdiKeyboardEsc } from '@vben/icons'
 </script>
 
 <template>
@@ -47,18 +47,18 @@ import { MdiKeyboardEsc } from '@vben/icons';
 
 ```ts
 // packages/icons/src/svg/index.ts
-import { createIconifyIcon } from '@vben-core/icons';
+import { createIconifyIcon } from '@vben-core/icons'
 
-const SvgTestIcon = createIconifyIcon('svg:test');
+const SvgTestIcon = createIconifyIcon('svg:test')
 
-export { SvgTestIcon };
+export { SvgTestIcon }
 ```
 
 ### 使用
 
 ```vue
 <script setup lang="ts">
-import { SvgTestIcon } from '@vben/icons';
+import { SvgTestIcon } from '@vben/icons'
 </script>
 
 <template>

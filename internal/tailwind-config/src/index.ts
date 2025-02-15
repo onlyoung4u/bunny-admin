@@ -1,26 +1,26 @@
-import type { Config } from 'tailwindcss';
+import type { Config } from 'tailwindcss'
 
-import path from 'node:path';
+import path from 'node:path'
 
-import { addDynamicIconSelectors } from '@iconify/tailwind';
-import { getPackagesSync } from '@manypkg/get-packages';
-import typographyPlugin from '@tailwindcss/typography';
-import animate from 'tailwindcss-animate';
+import { addDynamicIconSelectors } from '@iconify/tailwind'
+import { getPackagesSync } from '@manypkg/get-packages'
+import typographyPlugin from '@tailwindcss/typography'
+import animate from 'tailwindcss-animate'
 
-import { enterAnimationPlugin } from './plugins/entry';
+import { enterAnimationPlugin } from './plugins/entry'
 
 // import defaultTheme from 'tailwindcss/defaultTheme';
 
-const { packages } = getPackagesSync(process.cwd());
+const { packages } = getPackagesSync(process.cwd())
 
-const tailwindPackages: string[] = [];
+const tailwindPackages: string[] = []
 
 packages.forEach((pkg) => {
   // apps目录下和 @vben-core/tailwind-ui 包需要使用到 tailwindcss ui
   // if (fs.existsSync(path.join(pkg.dir, 'tailwind.config.mjs'))) {
-  tailwindPackages.push(pkg.dir);
+  tailwindPackages.push(pkg.dir)
   // }
-});
+})
 
 const shadcnUiColors = {
   accent: {
@@ -72,7 +72,7 @@ const shadcnUiColors = {
     desc: 'hsl(var(--secondary-desc))',
     foreground: 'hsl(var(--secondary-foreground))',
   },
-};
+}
 
 const customColors = {
   green: {
@@ -113,7 +113,7 @@ const customColors = {
     ...createColorsPalette('yellow'),
     foreground: 'hsl(var(--warning-foreground))',
   },
-};
+}
 
 export default {
   content: [
@@ -202,7 +202,7 @@ export default {
     },
   },
   safelist: ['dark'],
-} as Config;
+} as Config
 
 function createColorsPalette(name: string) {
   // backgroundLightest: '#EFF6FF', // Tailwind CSS 默认的 `blue-50`
@@ -262,5 +262,5 @@ function createColorsPalette(name: string) {
     'text-active': `hsl(var(--${name}-700))`,
     // 主色文本悬浮态
     'text-hover': `hsl(var(--${name}-600))`,
-  };
+  }
 }

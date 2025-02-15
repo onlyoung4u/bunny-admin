@@ -1,12 +1,12 @@
 <script lang="ts" setup>
-import { useVbenDrawer, VbenButton } from '@vben/common-ui';
+import { useVbenDrawer, VbenButton } from '@vben/common-ui'
 
-import ExtraDrawer from './drawer.vue';
+import ExtraDrawer from './drawer.vue'
 
 const [Drawer, drawerApi] = useVbenDrawer({
   // 连接抽离的组件
   connectedComponent: ExtraDrawer,
-});
+})
 
 function open() {
   drawerApi
@@ -14,7 +14,7 @@ function open() {
       content: '外部传递的数据 content',
       payload: '外部传递的数据 payload',
     })
-    .open();
+    .open()
 }
 </script>
 

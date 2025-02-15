@@ -1,32 +1,32 @@
 <script setup lang="ts">
-import type { CSSProperties } from 'vue';
+import type { CSSProperties } from 'vue'
 
-import { computed, useTemplateRef } from 'vue';
+import { computed, useTemplateRef } from 'vue'
 
-import { VbenSpineText } from '@vben-core/shadcn-ui';
+import { VbenSpineText } from '@vben-core/shadcn-ui'
 
 const props = defineProps<{
-  contentStyle: CSSProperties;
-  isPassing: boolean;
-  successText: string;
-  text: string;
-}>();
+  contentStyle: CSSProperties
+  isPassing: boolean
+  successText: string
+  text: string
+}>()
 
-const contentRef = useTemplateRef<HTMLDivElement>('contentRef');
+const contentRef = useTemplateRef<HTMLDivElement>('contentRef')
 
 const style = computed(() => {
-  const { contentStyle } = props;
+  const { contentStyle } = props
 
   return {
     ...contentStyle,
-  };
-});
+  }
+})
 
 defineExpose({
   getEl: () => {
-    return contentRef.value;
+    return contentRef.value
   },
-});
+})
 </script>
 
 <template>

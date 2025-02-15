@@ -1,32 +1,32 @@
-import type { ApplicationPluginOptions } from '../typing';
+import type { ApplicationPluginOptions } from '../typing'
 
-import { existsSync } from 'node:fs';
-import { join } from 'node:path';
+import { existsSync } from 'node:fs'
+import { join } from 'node:path'
 
-import { fs } from '@vben/node-utils';
+import { fs } from '@vben/node-utils'
 
-import dotenv from 'dotenv';
+import dotenv from 'dotenv'
 
-const getBoolean = (value: string | undefined) => value === 'true';
+const getBoolean = (value: string | undefined) => value === 'true'
 
 const getString = (value: string | undefined, fallback: string) =>
-  value ?? fallback;
+  value ?? fallback
 
 const getNumber = (value: string | undefined, fallback: number) =>
-  Number(value) || fallback;
+  Number(value) || fallback
 
 /**
  * 获取当前环境下生效的配置文件名
  */
 function getConfFiles() {
-  const script = process.env.npm_lifecycle_script as string;
-  const reg = /--mode ([\d_a-z]+)/;
-  const result = reg.exec(script);
-  let mode = 'production';
+  const script = process.env.npm_lifecycle_script as string
+  const reg = /--mode ([\d_a-z]+)/
+  const result = reg.exec(script)
+  let mode = 'production'
   if (result) {
-    mode = result[1] as string;
+    mode = result[1] as string
   }
-  return ['.env', '.env.local', `.env.${mode}`, `.env.${mode}.local`];
+  return ['.env', '.env.local', `.env.${mode}`, `.env.${mode}.local`]
 }
 
 /**
@@ -38,29 +38,29 @@ async function loadEnv<T = Record<string, string>>(
   match = 'VITE_GLOB_',
   confFiles = getConfFiles(),
 ) {
-  let envConfig = {};
+  let envConfig = {}
 
   for (const confFile of confFiles) {
     try {
-      const confFilePath = join(process.cwd(), confFile);
+      const confFilePath = join(process.cwd(), confFile)
       if (existsSync(confFilePath)) {
         const envPath = await fs.readFile(confFilePath, {
           encoding: 'utf8',
-        });
-        const env = dotenv.parse(envPath);
-        envConfig = { ...envConfig, ...env };
+        })
+        const env = dotenv.parse(envPath)
+        envConfig = { ...envConfig, ...env }
       }
     } catch (error) {
-      console.error(`Error while parsing ${confFile}`, error);
+      console.error(`Error while parsing ${confFile}`, error)
     }
   }
-  const reg = new RegExp(`^(${match})`);
+  const reg = new RegExp(`^(${match})`)
   Object.keys(envConfig).forEach((key) => {
     if (!reg.test(key)) {
-      Reflect.deleteProperty(envConfig, key);
+      Reflect.deleteProperty(envConfig, key)
     }
-  });
-  return envConfig as T;
+  })
+  return envConfig as T
 }
 
 async function loadAndConvertEnv(
@@ -68,12 +68,12 @@ async function loadAndConvertEnv(
   confFiles = getConfFiles(),
 ): Promise<
   Partial<ApplicationPluginOptions> & {
-    appTitle: string;
-    base: string;
-    port: number;
+    appTitle: string
+    base: string
+    port: number
   }
 > {
-  const envConfig = await loadEnv(match, confFiles);
+  const envConfig = await loadEnv(match, confFiles)
 
   const {
     VITE_APP_TITLE,
@@ -86,11 +86,11 @@ async function loadAndConvertEnv(
     VITE_PORT,
     VITE_PWA,
     VITE_VISUALIZER,
-  } = envConfig;
+  } = envConfig
 
   const compressTypes = (VITE_COMPRESS ?? '')
     .split(',')
-    .filter((item) => item === 'brotli' || item === 'gzip');
+    .filter((item) => item === 'brotli' || item === 'gzip')
 
   return {
     appTitle: getString(VITE_APP_TITLE, 'Vben Admin'),
@@ -104,7 +104,7 @@ async function loadAndConvertEnv(
     port: getNumber(VITE_PORT, 5173),
     pwa: getBoolean(VITE_PWA),
     visualizer: getBoolean(VITE_VISUALIZER),
-  };
+  }
 }
 
-export { loadAndConvertEnv, loadEnv };
+export { loadAndConvertEnv, loadEnv }

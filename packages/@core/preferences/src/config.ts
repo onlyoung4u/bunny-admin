@@ -1,4 +1,4 @@
-import type { Preferences } from './types';
+import type { Preferences } from './types'
 
 const defaultPreferences: Preferences = {
   app: {
@@ -116,6 +116,6 @@ const defaultPreferences: Preferences = {
     sidebarToggle: true,
     themeToggle: true,
   },
-};
+}
 
-export { defaultPreferences };
+export { defaultPreferences }

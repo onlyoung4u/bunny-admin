@@ -1,22 +1,22 @@
 <script setup lang="ts">
-import type { NumberFieldIncrementProps } from 'radix-vue';
+import type { NumberFieldIncrementProps } from 'radix-vue'
 
-import { computed } from 'vue';
+import { computed } from 'vue'
 
-import { cn } from '@vben-core/shared/utils';
+import { cn } from '@vben-core/shared/utils'
 
-import { Plus } from 'lucide-vue-next';
-import { NumberFieldIncrement, useForwardProps } from 'radix-vue';
+import { Plus } from 'lucide-vue-next'
+import { NumberFieldIncrement, useForwardProps } from 'radix-vue'
 
-const props = defineProps<NumberFieldIncrementProps & { class?: any }>();
+const props = defineProps<NumberFieldIncrementProps & { class?: any }>()
 
 const delegatedProps = computed(() => {
-  const { class: _, ...delegated } = props;
+  const { class: _, ...delegated } = props
 
-  return delegated;
-});
+  return delegated
+})
 
-const forwarded = useForwardProps(delegatedProps);
+const forwarded = useForwardProps(delegatedProps)
 </script>
 
 <template>

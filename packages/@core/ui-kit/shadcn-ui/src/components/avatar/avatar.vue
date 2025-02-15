@@ -3,35 +3,35 @@ import type {
   AvatarFallbackProps,
   AvatarImageProps,
   AvatarRootProps,
-} from 'radix-vue';
+} from 'radix-vue'
 
-import type { ClassType } from '@vben-core/typings';
+import type { ClassType } from '@vben-core/typings'
 
-import { computed } from 'vue';
+import { computed } from 'vue'
 
-import { Avatar, AvatarFallback, AvatarImage } from '../../ui';
+import { Avatar, AvatarFallback, AvatarImage } from '../../ui'
 
 interface Props extends AvatarFallbackProps, AvatarImageProps, AvatarRootProps {
-  alt?: string;
-  class?: ClassType;
-  dot?: boolean;
-  dotClass?: ClassType;
+  alt?: string
+  class?: ClassType
+  dot?: boolean
+  dotClass?: ClassType
 }
 
 defineOptions({
   inheritAttrs: false,
-});
+})
 
 const props = withDefaults(defineProps<Props>(), {
   alt: 'avatar',
   as: 'button',
   dot: false,
   dotClass: 'bg-green-500',
-});
+})
 
 const text = computed(() => {
-  return props.alt.slice(-2).toUpperCase();
-});
+  return props.alt.slice(-2).toUpperCase()
+})
 </script>
 
 <template>

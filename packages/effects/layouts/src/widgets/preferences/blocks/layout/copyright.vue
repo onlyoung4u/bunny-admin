@@ -1,23 +1,21 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed } from 'vue'
 
-import { $t } from '@vben/locales';
+import { $t } from '@vben/locales'
 
-import InputItem from '../input-item.vue';
-import SwitchItem from '../switch-item.vue';
+import InputItem from '../input-item.vue'
+import SwitchItem from '../switch-item.vue'
 
-const props = defineProps<{ disabled: boolean }>();
+const props = defineProps<{ disabled: boolean }>()
 
-const copyrightEnable = defineModel<boolean>('copyrightEnable');
-const copyrightDate = defineModel<string>('copyrightDate');
-const copyrightIcp = defineModel<string>('copyrightIcp');
-const copyrightIcpLink = defineModel<string>('copyrightIcpLink');
-const copyrightCompanyName = defineModel<string>('copyrightCompanyName');
-const copyrightCompanySiteLink = defineModel<string>(
-  'copyrightCompanySiteLink',
-);
+const copyrightEnable = defineModel<boolean>('copyrightEnable')
+const copyrightDate = defineModel<string>('copyrightDate')
+const copyrightIcp = defineModel<string>('copyrightIcp')
+const copyrightIcpLink = defineModel<string>('copyrightIcpLink')
+const copyrightCompanyName = defineModel<string>('copyrightCompanyName')
+const copyrightCompanySiteLink = defineModel<string>('copyrightCompanySiteLink')
 
-const itemDisabled = computed(() => props.disabled || !copyrightEnable.value);
+const itemDisabled = computed(() => props.disabled || !copyrightEnable.value)
 </script>
 
 <template>

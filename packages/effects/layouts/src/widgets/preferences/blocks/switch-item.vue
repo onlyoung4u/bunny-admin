@@ -1,25 +1,25 @@
 <script setup lang="ts">
-import { useSlots } from 'vue';
+import { useSlots } from 'vue'
 
-import { CircleHelp } from '@vben/icons';
+import { CircleHelp } from '@vben/icons'
 
-import { Switch, VbenTooltip } from '@vben-core/shadcn-ui';
+import { Switch, VbenTooltip } from '@vben-core/shadcn-ui'
 
 defineOptions({
   name: 'PreferenceSwitchItem',
-});
+})
 
 withDefaults(defineProps<{ disabled?: boolean; tip?: string }>(), {
   disabled: false,
   tip: '',
-});
+})
 
-const checked = defineModel<boolean>();
+const checked = defineModel<boolean>()
 
-const slots = useSlots();
+const slots = useSlots()
 
 function handleClick() {
-  checked.value = !checked.value;
+  checked.value = !checked.value
 }
 </script>
 

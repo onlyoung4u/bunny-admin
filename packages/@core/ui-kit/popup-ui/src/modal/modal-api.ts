@@ -1,14 +1,14 @@
-import type { ModalApiOptions, ModalState } from './modal';
+import type { ModalApiOptions, ModalState } from './modal'
 
-import { Store } from '@vben-core/shared/store';
-import { bindMethods, isFunction } from '@vben-core/shared/utils';
+import { Store } from '@vben-core/shared/store'
+import { bindMethods, isFunction } from '@vben-core/shared/utils'
 
 export class ModalApi {
   // 共享数据
   public sharedData: Record<'payload', any> = {
     payload: {},
-  };
-  public store: Store<ModalState>;
+  }
+  public store: Store<ModalState>
 
   private api: Pick<
     ModalApiOptions,
@@ -18,10 +18,10 @@ export class ModalApi {
     | 'onConfirm'
     | 'onOpenChange'
     | 'onOpened'
-  >;
+  >
 
   // private prevState!: ModalState;
-  private state!: ModalState;
+  private state!: ModalState
 
   constructor(options: ModalApiOptions = {}) {
     const {
@@ -33,7 +33,7 @@ export class ModalApi {
       onOpenChange,
       onOpened,
       ...storeState
-    } = options;
+    } = options
 
     const defaultState: ModalState = {
       bordered: true,
@@ -58,7 +58,7 @@ export class ModalApi {
       showCancelButton: true,
       showConfirmButton: true,
       title: '',
-    };
+    }
 
     this.store = new Store<ModalState>(
       {
@@ -67,20 +67,20 @@ export class ModalApi {
       },
       {
         onUpdate: () => {
-          const state = this.store.state;
+          const state = this.store.state
 
           // 每次更新状态时，都会调用 onOpenChange 回调函数
           if (state?.isOpen === this.state?.isOpen) {
-            this.state = state;
+            this.state = state
           } else {
-            this.state = state;
-            this.api.onOpenChange?.(!!state?.isOpen);
+            this.state = state
+            this.api.onOpenChange?.(!!state?.isOpen)
           }
         },
       },
-    );
+    )
 
-    this.state = this.store.state;
+    this.state = this.store.state
 
     this.api = {
       onBeforeClose,
@@ -89,8 +89,8 @@ export class ModalApi {
       onConfirm,
       onOpenChange,
       onOpened,
-    };
-    bindMethods(this);
+    }
+    bindMethods(this)
   }
 
   /**
@@ -100,18 +100,18 @@ export class ModalApi {
   async close() {
     // 通过 onBeforeClose 钩子函数来判断是否允许关闭弹窗
     // 如果 onBeforeClose 返回 false，则不关闭弹窗
-    const allowClose = (await this.api.onBeforeClose?.()) ?? true;
+    const allowClose = (await this.api.onBeforeClose?.()) ?? true
     if (allowClose) {
       this.store.setState((prev) => ({
         ...prev,
         isOpen: false,
         submitting: false,
-      }));
+      }))
     }
   }
 
   getData<T extends object = Record<string, any>>() {
-    return (this.sharedData?.payload ?? {}) as T;
+    return (this.sharedData?.payload ?? {}) as T
   }
 
   /**
@@ -120,7 +120,7 @@ export class ModalApi {
    * @param isLocked 是否锁定
    */
   lock(isLocked = true) {
-    return this.setState({ submitting: isLocked });
+    return this.setState({ submitting: isLocked })
   }
 
   /**
@@ -128,9 +128,9 @@ export class ModalApi {
    */
   onCancel() {
     if (this.api.onCancel) {
-      this.api.onCancel?.();
+      this.api.onCancel?.()
     } else {
-      this.close();
+      this.close()
     }
   }
 
@@ -139,7 +139,7 @@ export class ModalApi {
    */
   onClosed() {
     if (!this.state.isOpen) {
-      this.api.onClosed?.();
+      this.api.onClosed?.()
     }
   }
 
@@ -147,7 +147,7 @@ export class ModalApi {
    * 确认操作
    */
   onConfirm() {
-    this.api.onConfirm?.();
+    this.api.onConfirm?.()
   }
 
   /**
@@ -155,17 +155,17 @@ export class ModalApi {
    */
   onOpened() {
     if (this.state.isOpen) {
-      this.api.onOpened?.();
+      this.api.onOpened?.()
     }
   }
 
   open() {
-    this.store.setState((prev) => ({ ...prev, isOpen: true }));
+    this.store.setState((prev) => ({ ...prev, isOpen: true }))
   }
 
   setData<T>(payload: T) {
-    this.sharedData.payload = payload;
-    return this;
+    this.sharedData.payload = payload
+    return this
   }
 
   setState(
@@ -174,10 +174,10 @@ export class ModalApi {
       | Partial<ModalState>,
   ) {
     if (isFunction(stateOrFn)) {
-      this.store.setState(stateOrFn);
+      this.store.setState(stateOrFn)
     } else {
-      this.store.setState((prev) => ({ ...prev, ...stateOrFn }));
+      this.store.setState((prev) => ({ ...prev, ...stateOrFn }))
     }
-    return this;
+    return this
   }
 }

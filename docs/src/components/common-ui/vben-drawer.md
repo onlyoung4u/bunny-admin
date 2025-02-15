@@ -67,7 +67,7 @@ Drawer 内的内容一般业务中，会比较复杂，所以我们可以将 dra
 const [Drawer, drawerApi] = useVbenDrawer({
   // 属性
   // 事件
-});
+})
 ```
 
 ### Props

@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { Card, CardContent, CardHeader, CardTitle } from '@vben-core/shadcn-ui';
+import { Card, CardContent, CardHeader, CardTitle } from '@vben-core/shadcn-ui'
 
 interface Props {
-  title: string;
+  title: string
 }
 
 defineOptions({
   name: 'AnalysisChartCard',
-});
+})
 
-withDefaults(defineProps<Props>(), {});
+withDefaults(defineProps<Props>(), {})
 </script>
 
 <template>

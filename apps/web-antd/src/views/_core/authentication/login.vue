@@ -1,15 +1,15 @@
 <script lang="ts" setup>
-import type { VbenFormSchema } from '@vben/common-ui';
+import type { VbenFormSchema } from '@vben/common-ui'
 
-import { computed, markRaw } from 'vue';
+import { computed, markRaw } from 'vue'
 
-import { AuthenticationLogin, SliderCaptcha, z } from '@vben/common-ui';
+import { AuthenticationLogin, SliderCaptcha, z } from '@vben/common-ui'
 
-import { useAuthStore } from '#/store';
+import { useAuthStore } from '#/store'
 
-defineOptions({ name: 'Login' });
+defineOptions({ name: 'Login' })
 
-const authStore = useAuthStore();
+const authStore = useAuthStore()
 
 const formSchema = computed((): VbenFormSchema[] => {
   return [
@@ -38,8 +38,8 @@ const formSchema = computed((): VbenFormSchema[] => {
         message: '请完成验证',
       }),
     },
-  ];
-});
+  ]
+})
 </script>
 
 <template>

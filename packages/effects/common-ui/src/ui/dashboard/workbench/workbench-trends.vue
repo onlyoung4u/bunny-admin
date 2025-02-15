@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { WorkbenchTrendItem } from '../typing';
+import type { WorkbenchTrendItem } from '../typing'
 
 import {
   Card,
@@ -7,20 +7,20 @@ import {
   CardHeader,
   CardTitle,
   VbenIcon,
-} from '@vben-core/shadcn-ui';
+} from '@vben-core/shadcn-ui'
 
 interface Props {
-  items: WorkbenchTrendItem[];
-  title: string;
+  items: WorkbenchTrendItem[]
+  title: string
 }
 
 defineOptions({
   name: 'WorkbenchTrends',
-});
+})
 
 withDefaults(defineProps<Props>(), {
   items: () => [],
-});
+})
 </script>
 
 <template>

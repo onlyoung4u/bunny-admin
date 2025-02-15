@@ -1,94 +1,94 @@
 <script setup lang="ts">
-import type { BuiltinThemePreset } from '@vben/preferences';
-import type { BuiltinThemeType } from '@vben/types';
+import type { BuiltinThemePreset } from '@vben/preferences'
+import type { BuiltinThemeType } from '@vben/types'
 
-import { computed, ref, watch } from 'vue';
+import { computed, ref, watch } from 'vue'
 
-import { UserRoundPen } from '@vben/icons';
-import { $t } from '@vben/locales';
-import { BUILT_IN_THEME_PRESETS } from '@vben/preferences';
-import { convertToHsl, TinyColor } from '@vben/utils';
+import { UserRoundPen } from '@vben/icons'
+import { $t } from '@vben/locales'
+import { BUILT_IN_THEME_PRESETS } from '@vben/preferences'
+import { convertToHsl, TinyColor } from '@vben/utils'
 
 defineOptions({
   name: 'PreferenceBuiltinTheme',
-});
+})
 
-const props = defineProps<{ isDark: boolean }>();
+const props = defineProps<{ isDark: boolean }>()
 
-const colorInput = ref();
-const modelValue = defineModel<BuiltinThemeType>({ default: 'default' });
-const themeColorPrimary = defineModel<string>('themeColorPrimary');
+const colorInput = ref()
+const modelValue = defineModel<BuiltinThemeType>({ default: 'default' })
+const themeColorPrimary = defineModel<string>('themeColorPrimary')
 
 const inputValue = computed(() => {
-  return new TinyColor(themeColorPrimary.value || '').toHexString();
-});
+  return new TinyColor(themeColorPrimary.value || '').toHexString()
+})
 
 const builtinThemePresets = computed(() => {
-  return [...BUILT_IN_THEME_PRESETS];
-});
+  return [...BUILT_IN_THEME_PRESETS]
+})
 
 function typeView(name: BuiltinThemeType) {
   switch (name) {
     case 'custom': {
-      return $t('preferences.theme.builtin.custom');
+      return $t('preferences.theme.builtin.custom')
     }
     case 'deep-blue': {
-      return $t('preferences.theme.builtin.deepBlue');
+      return $t('preferences.theme.builtin.deepBlue')
     }
     case 'deep-green': {
-      return $t('preferences.theme.builtin.deepGreen');
+      return $t('preferences.theme.builtin.deepGreen')
     }
     case 'default': {
-      return $t('preferences.theme.builtin.default');
+      return $t('preferences.theme.builtin.default')
     }
     case 'gray': {
-      return $t('preferences.theme.builtin.gray');
+      return $t('preferences.theme.builtin.gray')
     }
     case 'green': {
-      return $t('preferences.theme.builtin.green');
+      return $t('preferences.theme.builtin.green')
     }
 
     case 'neutral': {
-      return $t('preferences.theme.builtin.neutral');
+      return $t('preferences.theme.builtin.neutral')
     }
     case 'orange': {
-      return $t('preferences.theme.builtin.orange');
+      return $t('preferences.theme.builtin.orange')
     }
     case 'pink': {
-      return $t('preferences.theme.builtin.pink');
+      return $t('preferences.theme.builtin.pink')
     }
     case 'rose': {
-      return $t('preferences.theme.builtin.rose');
+      return $t('preferences.theme.builtin.rose')
     }
     case 'sky-blue': {
-      return $t('preferences.theme.builtin.skyBlue');
+      return $t('preferences.theme.builtin.skyBlue')
     }
     case 'slate': {
-      return $t('preferences.theme.builtin.slate');
+      return $t('preferences.theme.builtin.slate')
     }
     case 'violet': {
-      return $t('preferences.theme.builtin.violet');
+      return $t('preferences.theme.builtin.violet')
     }
     case 'yellow': {
-      return $t('preferences.theme.builtin.yellow');
+      return $t('preferences.theme.builtin.yellow')
     }
     case 'zinc': {
-      return $t('preferences.theme.builtin.zinc');
+      return $t('preferences.theme.builtin.zinc')
     }
   }
 }
 
 function handleSelect(theme: BuiltinThemePreset) {
-  modelValue.value = theme.type;
+  modelValue.value = theme.type
 }
 
 function handleInputChange(e: Event) {
-  const target = e.target as HTMLInputElement;
-  themeColorPrimary.value = convertToHsl(target.value);
+  const target = e.target as HTMLInputElement
+  themeColorPrimary.value = convertToHsl(target.value)
 }
 
 function selectColor() {
-  colorInput.value?.[0]?.click?.();
+  colorInput.value?.[0]?.click?.()
 }
 
 watch(
@@ -96,16 +96,16 @@ watch(
   ([themeType, isDark]) => {
     const theme = builtinThemePresets.value.find(
       (item) => item.type === themeType,
-    );
+    )
     if (theme) {
       const primaryColor = isDark
         ? theme.darkPrimaryColor || theme.primaryColor
-        : theme.primaryColor;
+        : theme.primaryColor
 
-      themeColorPrimary.value = primaryColor || theme.color;
+      themeColorPrimary.value = primaryColor || theme.color
     }
   },
-);
+)
 </script>
 
 <template>

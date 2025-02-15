@@ -1,21 +1,21 @@
 <script lang="ts" setup>
-import type { DemoTableApi } from '../mock-api';
+import type { DemoTableApi } from '../mock-api'
 
-import type { VxeGridProps } from '#/adapter/vxe-table';
+import type { VxeGridProps } from '#/adapter/vxe-table'
 
-import { Button } from 'ant-design-vue';
+import { Button } from 'ant-design-vue'
 
-import { useVbenVxeGrid } from '#/adapter/vxe-table';
+import { useVbenVxeGrid } from '#/adapter/vxe-table'
 
-import { MOCK_API_DATA } from '../table-data';
+import { MOCK_API_DATA } from '../table-data'
 
 interface RowType {
-  category: string;
-  color: string;
-  id: string;
-  price: string;
-  productName: string;
-  releaseDate: string;
+  category: string
+  color: string
+  id: string
+  price: string
+  productName: string
+  releaseDate: string
 }
 
 // 数据实例
@@ -33,26 +33,26 @@ interface RowType {
 const sleep = (time = 1000) => {
   return new Promise((resolve) => {
     setTimeout(() => {
-      resolve(true);
-    }, time);
-  });
-};
+      resolve(true)
+    }, time)
+  })
+}
 
 /**
  * 获取示例表格数据
  */
 async function getExampleTableApi(params: DemoTableApi.PageFetchParams) {
   return new Promise<{ items: any; total: number }>((resolve) => {
-    const { page, pageSize } = params;
-    const items = MOCK_API_DATA.slice((page - 1) * pageSize, page * pageSize);
+    const { page, pageSize } = params
+    const items = MOCK_API_DATA.slice((page - 1) * pageSize, page * pageSize)
 
     sleep(1000).then(() => {
       resolve({
         total: items.length,
         items,
-      });
-    });
-  });
+      })
+    })
+  })
 }
 
 const gridOptions: VxeGridProps<RowType> = {
@@ -78,7 +78,7 @@ const gridOptions: VxeGridProps<RowType> = {
         return await getExampleTableApi({
           page: page.currentPage,
           pageSize: page.pageSize,
-        });
+        })
       },
     },
   },
@@ -89,11 +89,11 @@ const gridOptions: VxeGridProps<RowType> = {
     refresh: true,
     zoom: true,
   },
-};
+}
 
 const [Grid, gridApi] = useVbenVxeGrid({
   gridOptions,
-});
+})
 </script>
 
 <template>

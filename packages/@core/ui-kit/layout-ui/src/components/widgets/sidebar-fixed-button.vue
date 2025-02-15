@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { Pin, PinOff } from '@vben-core/icons';
+import { Pin, PinOff } from '@vben-core/icons'
 
-const expandOnHover = defineModel<boolean>('expandOnHover');
+const expandOnHover = defineModel<boolean>('expandOnHover')
 
 function toggleFixed() {
-  expandOnHover.value = !expandOnHover.value;
+  expandOnHover.value = !expandOnHover.value
 }
 </script>
 

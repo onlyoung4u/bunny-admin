@@ -1,22 +1,22 @@
 <script setup lang="ts">
-import type { ClassType } from '@vben-core/typings';
+import type { ClassType } from '@vben-core/typings'
 
-import { computed, ref } from 'vue';
+import { computed, ref } from 'vue'
 
-import { cn } from '@vben-core/shared/utils';
+import { cn } from '@vben-core/shared/utils'
 
-import { ScrollArea, ScrollBar } from '../../ui';
+import { ScrollArea, ScrollBar } from '../../ui'
 
 interface Props {
-  class?: ClassType;
-  horizontal?: boolean;
-  scrollBarClass?: ClassType;
-  shadow?: boolean;
-  shadowBorder?: boolean;
-  shadowBottom?: boolean;
-  shadowLeft?: boolean;
-  shadowRight?: boolean;
-  shadowTop?: boolean;
+  class?: ClassType
+  horizontal?: boolean
+  scrollBarClass?: ClassType
+  shadow?: boolean
+  shadowBorder?: boolean
+  shadowBottom?: boolean
+  shadowLeft?: boolean
+  shadowRight?: boolean
+  shadowTop?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -28,21 +28,21 @@ const props = withDefaults(defineProps<Props>(), {
   shadowLeft: false,
   shadowRight: false,
   shadowTop: true,
-});
+})
 
 const emit = defineEmits<{
-  scrollAt: [{ bottom: boolean; left: boolean; right: boolean; top: boolean }];
-}>();
+  scrollAt: [{ bottom: boolean; left: boolean; right: boolean; top: boolean }]
+}>()
 
-const isAtTop = ref(true);
-const isAtRight = ref(false);
-const isAtBottom = ref(false);
-const isAtLeft = ref(true);
+const isAtTop = ref(true)
+const isAtRight = ref(false)
+const isAtBottom = ref(false)
+const isAtLeft = ref(true)
 
-const showShadowTop = computed(() => props.shadow && props.shadowTop);
-const showShadowBottom = computed(() => props.shadow && props.shadowBottom);
-const showShadowLeft = computed(() => props.shadow && props.shadowLeft);
-const showShadowRight = computed(() => props.shadow && props.shadowRight);
+const showShadowTop = computed(() => props.shadow && props.shadowTop)
+const showShadowBottom = computed(() => props.shadow && props.shadowBottom)
+const showShadowLeft = computed(() => props.shadow && props.shadowLeft)
+const showShadowRight = computed(() => props.shadow && props.shadowRight)
 
 const computedShadowClasses = computed(() => {
   return {
@@ -53,28 +53,28 @@ const computedShadowClasses = computed(() => {
       showShadowRight.value,
     'left-shadow': !isAtLeft.value && showShadowLeft.value,
     'right-shadow': !isAtRight.value && showShadowRight.value,
-  };
-});
+  }
+})
 
 function handleScroll(event: Event) {
-  const target = event.target as HTMLElement;
-  const scrollTop = target?.scrollTop ?? 0;
-  const scrollLeft = target?.scrollLeft ?? 0;
-  const offsetHeight = target?.offsetHeight ?? 0;
-  const offsetWidth = target?.offsetWidth ?? 0;
-  const scrollHeight = target?.scrollHeight ?? 0;
-  const scrollWidth = target?.scrollWidth ?? 0;
-  isAtTop.value = scrollTop <= 0;
-  isAtLeft.value = scrollLeft <= 0;
-  isAtBottom.value = scrollTop + offsetHeight >= scrollHeight;
-  isAtRight.value = scrollLeft + offsetWidth >= scrollWidth;
+  const target = event.target as HTMLElement
+  const scrollTop = target?.scrollTop ?? 0
+  const scrollLeft = target?.scrollLeft ?? 0
+  const offsetHeight = target?.offsetHeight ?? 0
+  const offsetWidth = target?.offsetWidth ?? 0
+  const scrollHeight = target?.scrollHeight ?? 0
+  const scrollWidth = target?.scrollWidth ?? 0
+  isAtTop.value = scrollTop <= 0
+  isAtLeft.value = scrollLeft <= 0
+  isAtBottom.value = scrollTop + offsetHeight >= scrollHeight
+  isAtRight.value = scrollLeft + offsetWidth >= scrollWidth
 
   emit('scrollAt', {
     bottom: isAtBottom.value,
     left: isAtLeft.value,
     right: isAtRight.value,
     top: isAtTop.value,
-  });
+  })
 }
 </script>
 

@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { FormLabel, VbenHelpTooltip } from '@vben-core/shadcn-ui';
-import { cn } from '@vben-core/shared/utils';
+import { FormLabel, VbenHelpTooltip } from '@vben-core/shadcn-ui'
+import { cn } from '@vben-core/shared/utils'
 
 interface Props {
-  class?: string;
-  help?: string;
-  required?: boolean;
+  class?: string
+  help?: string
+  required?: boolean
 }
 
-const props = defineProps<Props>();
+const props = defineProps<Props>()
 </script>
 
 <template>

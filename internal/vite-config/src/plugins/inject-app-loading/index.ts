@@ -1,11 +1,11 @@
-import type { PluginOption } from 'vite';
+import type { PluginOption } from 'vite'
 
-import fs from 'node:fs';
-import fsp from 'node:fs/promises';
-import { join } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import fs from 'node:fs'
+import fsp from 'node:fs/promises'
+import { join } from 'node:path'
+import { fileURLToPath } from 'node:url'
 
-import { readPackageJSON } from '@vben/node-utils';
+import { readPackageJSON } from '@vben/node-utils'
 
 /**
  * 用于生成将loading样式注入到项目中
@@ -16,10 +16,10 @@ async function viteInjectAppLoadingPlugin(
   env: Record<string, any> = {},
   loadingTemplate = 'loading.html',
 ): Promise<PluginOption | undefined> {
-  const loadingHtml = await getLoadingRawByHtmlTemplate(loadingTemplate);
-  const { version } = await readPackageJSON(process.cwd());
-  const envRaw = isBuild ? 'prod' : 'dev';
-  const cacheName = `'${env.VITE_APP_NAMESPACE}-${version}-${envRaw}-preferences-theme'`;
+  const loadingHtml = await getLoadingRawByHtmlTemplate(loadingTemplate)
+  const { version } = await readPackageJSON(process.cwd())
+  const envRaw = isBuild ? 'prod' : 'dev'
+  const cacheName = `'${env.VITE_APP_NAMESPACE}-${version}-${envRaw}-preferences-theme'`
 
   // 获取缓存的主题
   // 保证黑暗主题下，刷新页面时，loading也是黑暗主题
@@ -28,10 +28,10 @@ async function viteInjectAppLoadingPlugin(
   var theme = localStorage.getItem(${cacheName});
   document.documentElement.classList.toggle('dark', /dark/.test(theme));
 </script>
-`;
+`
 
   if (!loadingHtml) {
-    return;
+    return
   }
 
   return {
@@ -39,13 +39,13 @@ async function viteInjectAppLoadingPlugin(
     name: 'vite:inject-app-loading',
     transformIndexHtml: {
       handler(html) {
-        const re = /<body\s*>/;
-        html = html.replace(re, `<body>${injectScript}${loadingHtml}`);
-        return html;
+        const re = /<body\s*>/
+        html = html.replace(re, `<body>${injectScript}${loadingHtml}`)
+        return html
       },
       order: 'pre',
     },
-  };
+  }
 }
 
 /**
@@ -53,14 +53,14 @@ async function viteInjectAppLoadingPlugin(
  */
 async function getLoadingRawByHtmlTemplate(loadingTemplate: string) {
   // 支持在app内自定义loading模板，模版参考default-loading.html即可
-  let appLoadingPath = join(process.cwd(), loadingTemplate);
+  let appLoadingPath = join(process.cwd(), loadingTemplate)
 
   if (!fs.existsSync(appLoadingPath)) {
-    const __dirname = fileURLToPath(new URL('.', import.meta.url));
-    appLoadingPath = join(__dirname, './default-loading.html');
+    const __dirname = fileURLToPath(new URL('.', import.meta.url))
+    appLoadingPath = join(__dirname, './default-loading.html')
   }
 
-  return await fsp.readFile(appLoadingPath, 'utf8');
+  return await fsp.readFile(appLoadingPath, 'utf8')
 }
 
-export { viteInjectAppLoadingPlugin };
+export { viteInjectAppLoadingPlugin }

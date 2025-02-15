@@ -1,20 +1,20 @@
 <script setup lang="ts">
-import type { AccordionTriggerProps } from 'radix-vue';
+import type { AccordionTriggerProps } from 'radix-vue'
 
-import { computed } from 'vue';
+import { computed } from 'vue'
 
-import { cn } from '@vben-core/shared/utils';
+import { cn } from '@vben-core/shared/utils'
 
-import { ChevronDown } from 'lucide-vue-next';
-import { AccordionHeader, AccordionTrigger } from 'radix-vue';
+import { ChevronDown } from 'lucide-vue-next'
+import { AccordionHeader, AccordionTrigger } from 'radix-vue'
 
-const props = defineProps<AccordionTriggerProps & { class?: any }>();
+const props = defineProps<AccordionTriggerProps & { class?: any }>()
 
 const delegatedProps = computed(() => {
-  const { class: _, ...delegated } = props;
+  const { class: _, ...delegated } = props
 
-  return delegated;
-});
+  return delegated
+})
 </script>
 
 <template>

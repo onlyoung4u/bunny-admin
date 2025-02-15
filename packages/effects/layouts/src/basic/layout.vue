@@ -1,40 +1,40 @@
 <script lang="ts" setup>
-import type { SetupContext } from 'vue';
+import type { SetupContext } from 'vue'
 
-import type { MenuRecordRaw } from '@vben/types';
+import type { MenuRecordRaw } from '@vben/types'
 
-import { computed, useSlots, watch } from 'vue';
+import { computed, useSlots, watch } from 'vue'
 
-import { useRefresh } from '@vben/hooks';
-import { $t, i18n } from '@vben/locales';
+import { useRefresh } from '@vben/hooks'
+import { $t, i18n } from '@vben/locales'
 import {
   preferences,
   updatePreferences,
   usePreferences,
-} from '@vben/preferences';
-import { useLockStore } from '@vben/stores';
-import { cloneDeep, mapTree } from '@vben/utils';
+} from '@vben/preferences'
+import { useLockStore } from '@vben/stores'
+import { cloneDeep, mapTree } from '@vben/utils'
 
-import { VbenAdminLayout } from '@vben-core/layout-ui';
-import { VbenBackTop, VbenLogo } from '@vben-core/shadcn-ui';
+import { VbenAdminLayout } from '@vben-core/layout-ui'
+import { VbenBackTop, VbenLogo } from '@vben-core/shadcn-ui'
 
-import { Breadcrumb, CheckUpdates, Preferences } from '../widgets';
-import { LayoutContent, LayoutContentSpinner } from './content';
-import { Copyright } from './copyright';
-import { LayoutFooter } from './footer';
-import { LayoutHeader } from './header';
+import { Breadcrumb, CheckUpdates, Preferences } from '../widgets'
+import { LayoutContent, LayoutContentSpinner } from './content'
+import { Copyright } from './copyright'
+import { LayoutFooter } from './footer'
+import { LayoutHeader } from './header'
 import {
   LayoutExtraMenu,
   LayoutMenu,
   LayoutMixedMenu,
   useExtraMenu,
   useMixedMenu,
-} from './menu';
-import { LayoutTabbar } from './tabbar';
+} from './menu'
+import { LayoutTabbar } from './tabbar'
 
-defineOptions({ name: 'BasicLayout' });
+defineOptions({ name: 'BasicLayout' })
 
-const emit = defineEmits<{ clearPreferencesAndLogout: [] }>();
+const emit = defineEmits<{ clearPreferencesAndLogout: [] }>()
 
 const {
   isDark,
@@ -48,57 +48,57 @@ const {
   preferencesButtonPosition,
   sidebarCollapsed,
   theme,
-} = usePreferences();
-const lockStore = useLockStore();
-const { refresh } = useRefresh();
+} = usePreferences()
+const lockStore = useLockStore()
+const { refresh } = useRefresh()
 
 const sidebarTheme = computed(() => {
-  const dark = isDark.value || preferences.theme.semiDarkSidebar;
-  return dark ? 'dark' : 'light';
-});
+  const dark = isDark.value || preferences.theme.semiDarkSidebar
+  return dark ? 'dark' : 'light'
+})
 
 const headerTheme = computed(() => {
-  const dark = isDark.value || preferences.theme.semiDarkHeader;
-  return dark ? 'dark' : 'light';
-});
+  const dark = isDark.value || preferences.theme.semiDarkHeader
+  return dark ? 'dark' : 'light'
+})
 
 const logoClass = computed(() => {
-  const { collapsedShowTitle } = preferences.sidebar;
-  const classes: string[] = [];
+  const { collapsedShowTitle } = preferences.sidebar
+  const classes: string[] = []
 
   if (collapsedShowTitle && sidebarCollapsed.value && !isMixedNav.value) {
-    classes.push('mx-auto');
+    classes.push('mx-auto')
   }
 
   if (isSideMixedNav.value) {
-    classes.push('flex-center');
+    classes.push('flex-center')
   }
 
-  return classes.join(' ');
-});
+  return classes.join(' ')
+})
 
 const isMenuRounded = computed(() => {
-  return preferences.navigation.styleType === 'rounded';
-});
+  return preferences.navigation.styleType === 'rounded'
+})
 
 const logoCollapsed = computed(() => {
   if (isMobile.value && sidebarCollapsed.value) {
-    return true;
+    return true
   }
   if (isHeaderNav.value || isMixedNav.value || isHeaderSidebarNav.value) {
-    return false;
+    return false
   }
   return (
     sidebarCollapsed.value || isSideMixedNav.value || isHeaderMixedNav.value
-  );
-});
+  )
+})
 
 const showHeaderNav = computed(() => {
   return (
     !isMobile.value &&
     (isHeaderNav.value || isMixedNav.value || isHeaderMixedNav.value)
-  );
-});
+  )
+})
 
 const {
   handleMenuSelect,
@@ -109,7 +109,7 @@ const {
   sidebarMenus,
   mixHeaderMenus,
   sidebarVisible,
-} = useMixedMenu();
+} = useMixedMenu()
 
 // 侧边多列菜单
 const {
@@ -120,7 +120,7 @@ const {
   handleMixedMenuSelect,
   handleSideMouseLeave,
   sidebarExtraVisible,
-} = useExtraMenu(mixHeaderMenus);
+} = useExtraMenu(mixHeaderMenus)
 
 /**
  * 包装菜单，翻译菜单名称
@@ -130,11 +130,11 @@ const {
 function wrapperMenus(menus: MenuRecordRaw[], deep: boolean = true) {
   return deep
     ? mapTree(menus, (item) => {
-        return { ...cloneDeep(item), name: $t(item.name) };
+        return { ...cloneDeep(item), name: $t(item.name) }
       })
     : menus.map((item) => {
-        return { ...cloneDeep(item), name: $t(item.name) };
-      });
+        return { ...cloneDeep(item), name: $t(item.name) }
+      })
 }
 
 function toggleSidebar() {
@@ -142,11 +142,11 @@ function toggleSidebar() {
     sidebar: {
       hidden: !preferences.sidebar.hidden,
     },
-  });
+  })
 }
 
 function clearPreferencesAndLogout() {
-  emit('clearPreferencesAndLogout');
+  emit('clearPreferencesAndLogout')
 }
 
 watch(
@@ -157,19 +157,19 @@ watch(
         sidebar: {
           hidden: false,
         },
-      });
+      })
     }
   },
-);
+)
 
 // 语言更新后，刷新页面
 // i18n.global.locale会在preference.app.locale变更之后才会更新，因此watchpreference.app.locale是不合适的，刷新页面时可能语言配置尚未完全加载完成
-watch(i18n.global.locale, refresh, { flush: 'post' });
+watch(i18n.global.locale, refresh, { flush: 'post' })
 
-const slots: SetupContext['slots'] = useSlots();
+const slots: SetupContext['slots'] = useSlots()
 const headerSlots = computed(() => {
-  return Object.keys(slots).filter((key) => key.startsWith('header-'));
-});
+  return Object.keys(slots).filter((key) => key.startsWith('header-'))
+})
 </script>
 
 <template>

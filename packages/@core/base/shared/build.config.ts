@@ -1,4 +1,4 @@
-import { defineBuildConfig } from 'unbuild';
+import { defineBuildConfig } from 'unbuild'
 
 export default defineBuildConfig({
   clean: true,
@@ -11,4 +11,4 @@ export default defineBuildConfig({
     'src/cache/index',
     'src/global-state',
   ],
-});
+})

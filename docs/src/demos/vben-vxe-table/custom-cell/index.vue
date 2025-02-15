@@ -1,22 +1,22 @@
 <script lang="ts" setup>
-import type { VxeGridProps } from '#/adapter/vxe-table';
+import type { VxeGridProps } from '#/adapter/vxe-table'
 
-import { Button, Image, Switch, Tag } from 'ant-design-vue';
+import { Button, Image, Switch, Tag } from 'ant-design-vue'
 
-import { useVbenVxeGrid } from '#/adapter/vxe-table';
+import { useVbenVxeGrid } from '#/adapter/vxe-table'
 
-import { getExampleTableApi } from '../mock-api';
+import { getExampleTableApi } from '../mock-api'
 
 interface RowType {
-  category: string;
-  color: string;
-  id: string;
-  imageUrl: string;
-  open: boolean;
-  price: string;
-  productName: string;
-  releaseDate: string;
-  status: 'error' | 'success' | 'warning';
+  category: string
+  color: string
+  id: string
+  imageUrl: string
+  open: boolean
+  price: string
+  productName: string
+  releaseDate: string
+  status: 'error' | 'success' | 'warning'
 }
 
 const gridOptions: VxeGridProps<RowType> = {
@@ -76,13 +76,13 @@ const gridOptions: VxeGridProps<RowType> = {
         return await getExampleTableApi({
           page: page.currentPage,
           pageSize: page.pageSize,
-        });
+        })
       },
     },
   },
-};
+}
 
-const [Grid] = useVbenVxeGrid({ gridOptions });
+const [Grid] = useVbenVxeGrid({ gridOptions })
 </script>
 
 <template>

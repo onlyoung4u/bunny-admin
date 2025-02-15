@@ -1,59 +1,59 @@
 <script lang="ts" setup>
-import type { ColPageProps } from './types';
+import type { ColPageProps } from './types'
 
-import { computed, ref, useSlots } from 'vue';
+import { computed, ref, useSlots } from 'vue'
 
 import {
   ResizableHandle,
   ResizablePanel,
   ResizablePanelGroup,
-} from '@vben-core/shadcn-ui';
+} from '@vben-core/shadcn-ui'
 
-import Page from '../page/page.vue';
+import Page from '../page/page.vue'
 
 defineOptions({
   name: 'ColPage',
   inheritAttrs: false,
-});
+})
 
 const props = withDefaults(defineProps<ColPageProps>(), {
   leftWidth: 30,
   rightWidth: 70,
   resizable: true,
-});
+})
 
 const delegatedProps = computed(() => {
-  const { leftWidth: _, ...delegated } = props;
-  return delegated;
-});
+  const { leftWidth: _, ...delegated } = props
+  return delegated
+})
 
-const slots = useSlots();
+const slots = useSlots()
 
 const delegatedSlots = computed(() => {
-  const resultSlots: string[] = [];
+  const resultSlots: string[] = []
 
   for (const key of Object.keys(slots)) {
     if (!['default', 'left'].includes(key)) {
-      resultSlots.push(key);
+      resultSlots.push(key)
     }
   }
-  return resultSlots;
-});
+  return resultSlots
+})
 
-const leftPanelRef = ref<InstanceType<typeof ResizablePanel>>();
+const leftPanelRef = ref<InstanceType<typeof ResizablePanel>>()
 
 function expandLeft() {
-  leftPanelRef.value?.expand();
+  leftPanelRef.value?.expand()
 }
 
 function collapseLeft() {
-  leftPanelRef.value?.collapse();
+  leftPanelRef.value?.collapse()
 }
 
 defineExpose({
   expandLeft,
   collapseLeft,
-});
+})
 </script>
 <template>
   <Page v-bind="delegatedProps">

@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import type { CaptchaPoint, PointSelectionCaptchaProps } from '../types';
+import type { CaptchaPoint, PointSelectionCaptchaProps } from '../types'
 
-import { RotateCw } from '@vben/icons';
-import { $t } from '@vben/locales';
+import { RotateCw } from '@vben/icons'
+import { $t } from '@vben/locales'
 
-import { VbenButton, VbenIconButton } from '@vben-core/shadcn-ui';
+import { VbenButton, VbenIconButton } from '@vben-core/shadcn-ui'
 
-import { useCaptchaPoints } from '../hooks/useCaptchaPoints';
-import CaptchaCard from './point-selection-captcha-card.vue';
+import { useCaptchaPoints } from '../hooks/useCaptchaPoints'
+import CaptchaCard from './point-selection-captcha-card.vue'
 
 const props = withDefaults(defineProps<PointSelectionCaptchaProps>(), {
   height: '220px',
@@ -18,96 +18,96 @@ const props = withDefaults(defineProps<PointSelectionCaptchaProps>(), {
   showConfirm: false,
   title: '',
   width: '300px',
-});
+})
 const emit = defineEmits<{
-  click: [CaptchaPoint];
-  confirm: [Array<CaptchaPoint>, clear: () => void];
-  refresh: [];
-}>();
-const { addPoint, clearPoints, points } = useCaptchaPoints();
+  click: [CaptchaPoint]
+  confirm: [Array<CaptchaPoint>, clear: () => void]
+  refresh: []
+}>()
+const { addPoint, clearPoints, points } = useCaptchaPoints()
 
 if (!props.hintImage && !props.hintText) {
-  console.warn('At least one of hint image or hint text must be provided');
+  console.warn('At least one of hint image or hint text must be provided')
 }
 
-const POINT_OFFSET = 11;
+const POINT_OFFSET = 11
 
 function getElementPosition(element: HTMLElement) {
-  const rect = element.getBoundingClientRect();
+  const rect = element.getBoundingClientRect()
   return {
     x: rect.left + window.scrollX,
     y: rect.top + window.scrollY,
-  };
+  }
 }
 
 function handleClick(e: MouseEvent) {
   try {
-    const dom = e.currentTarget as HTMLElement;
-    if (!dom) throw new Error('Element not found');
+    const dom = e.currentTarget as HTMLElement
+    if (!dom) throw new Error('Element not found')
 
-    const { x: domX, y: domY } = getElementPosition(dom);
+    const { x: domX, y: domY } = getElementPosition(dom)
 
-    const mouseX = e.clientX + window.scrollX;
-    const mouseY = e.clientY + window.scrollY;
+    const mouseX = e.clientX + window.scrollX
+    const mouseY = e.clientY + window.scrollY
 
     if (typeof mouseX !== 'number' || typeof mouseY !== 'number') {
-      throw new TypeError('Mouse coordinates not found');
+      throw new TypeError('Mouse coordinates not found')
     }
 
-    const xPos = mouseX - domX;
-    const yPos = mouseY - domY;
+    const xPos = mouseX - domX
+    const yPos = mouseY - domY
 
-    const rect = dom.getBoundingClientRect();
+    const rect = dom.getBoundingClientRect()
 
     // 点击位置边界校验
     if (xPos < 0 || yPos < 0 || xPos > rect.width || yPos > rect.height) {
-      console.warn('Click position is out of the valid range');
-      return;
+      console.warn('Click position is out of the valid range')
+      return
     }
 
-    const x = Math.ceil(xPos);
-    const y = Math.ceil(yPos);
+    const x = Math.ceil(xPos)
+    const y = Math.ceil(yPos)
 
     const point = {
       i: points.length,
       t: Date.now(),
       x,
       y,
-    };
+    }
 
-    addPoint(point);
+    addPoint(point)
 
-    emit('click', point);
-    e.stopPropagation();
-    e.preventDefault();
+    emit('click', point)
+    e.stopPropagation()
+    e.preventDefault()
   } catch (error) {
-    console.error('Error in handleClick:', error);
+    console.error('Error in handleClick:', error)
   }
 }
 
 function clear() {
   try {
-    clearPoints();
+    clearPoints()
   } catch (error) {
-    console.error('Error in clear:', error);
+    console.error('Error in clear:', error)
   }
 }
 
 function handleRefresh() {
   try {
-    clear();
-    emit('refresh');
+    clear()
+    emit('refresh')
   } catch (error) {
-    console.error('Error in handleRefresh:', error);
+    console.error('Error in handleRefresh:', error)
   }
 }
 
 function handleConfirm() {
-  if (!props.showConfirm) return;
+  if (!props.showConfirm) return
   try {
-    emit('confirm', points, clear);
+    emit('confirm', points, clear)
   } catch (error) {
-    console.error('Error in handleConfirm:', error);
+    console.error('Error in handleConfirm:', error)
   }
 }
 </script>

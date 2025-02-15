@@ -27,13 +27,13 @@ outline: deep
 ::: details vxe-table 表格适配器
 
 ```ts
-import { h } from 'vue';
+import { h } from 'vue'
 
-import { setupVbenVxeTable, useVbenVxeGrid } from '@vben/plugins/vxe-table';
+import { setupVbenVxeTable, useVbenVxeGrid } from '@vben/plugins/vxe-table'
 
-import { Button, Image } from 'ant-design-vue';
+import { Button, Image } from 'ant-design-vue'
 
-import { useVbenForm } from './form';
+import { useVbenForm } from './form'
 
 setupVbenVxeTable({
   configVxeTable: (vxeUI) => {
@@ -63,37 +63,37 @@ setupVbenVxeTable({
         showOverflow: true,
         size: 'small',
       },
-    });
+    })
 
     // 表格配置项可以用 cellRender: { name: 'CellImage' },
     vxeUI.renderer.add('CellImage', {
       renderTableDefault(_renderOpts, params) {
-        const { column, row } = params;
-        return h(Image, { src: row[column.field] });
+        const { column, row } = params
+        return h(Image, { src: row[column.field] })
       },
-    });
+    })
 
     // 表格配置项可以用 cellRender: { name: 'CellLink' },
     vxeUI.renderer.add('CellLink', {
       renderTableDefault(renderOpts) {
-        const { props } = renderOpts;
+        const { props } = renderOpts
         return h(
           Button,
           { size: 'small', type: 'link' },
           { default: () => props?.text },
-        );
+        )
       },
-    });
+    })
 
     // 这里可以自行扩展 vxe-table 的全局配置，比如自定义格式化
     // vxeUI.formats.add
   },
   useVbenForm,
-});
+})
 
-export { useVbenVxeGrid };
+export { useVbenVxeGrid }
 
-export type * from '@vben/plugins/vxe-table';
+export type * from '@vben/plugins/vxe-table'
 ```
 
 :::
@@ -141,22 +141,22 @@ treeConfig: {
 // 表格配置项可以用 cellRender: { name: 'CellImage' },
 vxeUI.renderer.add('CellImage', {
   renderDefault(_renderOpts, params) {
-    const { column, row } = params;
-    return h(Image, { src: row[column.field] } as any); // 注意此处的Image 组件，来源于Antd，需要自行引入,否则会使用js的Image类
+    const { column, row } = params
+    return h(Image, { src: row[column.field] } as any) // 注意此处的Image 组件，来源于Antd，需要自行引入,否则会使用js的Image类
   },
-});
+})
 
 // 表格配置项可以用 cellRender: { name: 'CellLink' },
 vxeUI.renderer.add('CellLink', {
   renderDefault(renderOpts) {
-    const { props } = renderOpts;
+    const { props } = renderOpts
     return h(
       Button,
       { size: 'small', type: 'link' },
       { default: () => props?.text },
-    );
+    )
   },
-});
+})
 ```
 
 <DemoPreview dir="demos/vben-vxe-table/custom-cell" />
@@ -195,7 +195,7 @@ vxeUI.renderer.add('CellLink', {
 
 ```vue
 <script setup lang="ts">
-import { useVbenVxeGrid } from '#/adapter/vxe-table';
+import { useVbenVxeGrid } from '#/adapter/vxe-table'
 
 // Grid 为表格组件
 // gridApi 为表格的方法
@@ -205,7 +205,7 @@ const [Grid, gridApi] = useVbenVxeGrid({
   gridEvents: {},
   // 属性
   // 事件
-});
+})
 </script>
 
 <template>

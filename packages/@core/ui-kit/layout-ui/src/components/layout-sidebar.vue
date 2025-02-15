@@ -1,87 +1,87 @@
 <script setup lang="ts">
-import type { CSSProperties } from 'vue';
+import type { CSSProperties } from 'vue'
 
-import { computed, shallowRef, useSlots, watchEffect } from 'vue';
+import { computed, shallowRef, useSlots, watchEffect } from 'vue'
 
-import { VbenScrollbar } from '@vben-core/shadcn-ui';
+import { VbenScrollbar } from '@vben-core/shadcn-ui'
 
-import { useScrollLock } from '@vueuse/core';
+import { useScrollLock } from '@vueuse/core'
 
-import { SidebarCollapseButton, SidebarFixedButton } from './widgets';
+import { SidebarCollapseButton, SidebarFixedButton } from './widgets'
 
 interface Props {
   /**
    * 折叠区域高度
    * @default 42
    */
-  collapseHeight?: number;
+  collapseHeight?: number
   /**
    * 折叠宽度
    * @default 48
    */
-  collapseWidth?: number;
+  collapseWidth?: number
   /**
    * 隐藏的dom是否可见
    * @default true
    */
-  domVisible?: boolean;
+  domVisible?: boolean
   /**
    * 扩展区域宽度
    */
-  extraWidth: number;
+  extraWidth: number
   /**
    * 固定扩展区域
    * @default false
    */
-  fixedExtra?: boolean;
+  fixedExtra?: boolean
   /**
    * 头部高度
    */
-  headerHeight: number;
+  headerHeight: number
   /**
    * 是否侧边混合模式
    * @default false
    */
-  isSidebarMixed?: boolean;
+  isSidebarMixed?: boolean
   /**
    * 顶部margin
    * @default 60
    */
-  marginTop?: number;
+  marginTop?: number
   /**
    * 混合菜单宽度
    * @default 80
    */
-  mixedWidth?: number;
+  mixedWidth?: number
   /**
    * 顶部padding
    * @default 60
    */
-  paddingTop?: number;
+  paddingTop?: number
   /**
    * 是否显示
    * @default true
    */
-  show?: boolean;
+  show?: boolean
   /**
    * 显示折叠按钮
    * @default false
    */
-  showCollapseButton?: boolean;
+  showCollapseButton?: boolean
   /**
    * 主题
    */
-  theme: string;
+  theme: string
 
   /**
    * 宽度
    */
-  width: number;
+  width: number
   /**
    * zIndex
    * @default 0
    */
-  zIndex?: number;
+  zIndex?: number
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -96,24 +96,24 @@ const props = withDefaults(defineProps<Props>(), {
   show: true,
   showCollapseButton: true,
   zIndex: 0,
-});
+})
 
-const emit = defineEmits<{ leave: [] }>();
-const collapse = defineModel<boolean>('collapse');
-const extraCollapse = defineModel<boolean>('extraCollapse');
-const expandOnHovering = defineModel<boolean>('expandOnHovering');
-const expandOnHover = defineModel<boolean>('expandOnHover');
-const extraVisible = defineModel<boolean>('extraVisible');
+const emit = defineEmits<{ leave: [] }>()
+const collapse = defineModel<boolean>('collapse')
+const extraCollapse = defineModel<boolean>('extraCollapse')
+const expandOnHovering = defineModel<boolean>('expandOnHovering')
+const expandOnHover = defineModel<boolean>('expandOnHover')
+const extraVisible = defineModel<boolean>('extraVisible')
 
-const isLocked = useScrollLock(document.body);
-const slots = useSlots();
+const isLocked = useScrollLock(document.body)
+const slots = useSlots()
 
-const asideRef = shallowRef<HTMLDivElement | null>();
+const asideRef = shallowRef<HTMLDivElement | null>()
 
-const hiddenSideStyle = computed((): CSSProperties => calcMenuWidthStyle(true));
+const hiddenSideStyle = computed((): CSSProperties => calcMenuWidthStyle(true))
 
 const style = computed((): CSSProperties => {
-  const { isSidebarMixed, marginTop, paddingTop, zIndex } = props;
+  const { isSidebarMixed, marginTop, paddingTop, zIndex } = props
 
   return {
     '--scroll-shadow': 'var(--sidebar)',
@@ -123,84 +123,84 @@ const style = computed((): CSSProperties => {
     paddingTop: `${paddingTop}px`,
     zIndex,
     ...(isSidebarMixed && extraVisible.value ? { transition: 'none' } : {}),
-  };
-});
+  }
+})
 
 const extraStyle = computed((): CSSProperties => {
-  const { extraWidth, show, width, zIndex } = props;
+  const { extraWidth, show, width, zIndex } = props
 
   return {
     left: `${width}px`,
     width: extraVisible.value && show ? `${extraWidth}px` : 0,
     zIndex,
-  };
-});
+  }
+})
 
 const extraTitleStyle = computed((): CSSProperties => {
-  const { headerHeight } = props;
+  const { headerHeight } = props
 
   return {
     height: `${headerHeight - 1}px`,
-  };
-});
+  }
+})
 
 const contentWidthStyle = computed((): CSSProperties => {
-  const { collapseWidth, fixedExtra, isSidebarMixed, mixedWidth } = props;
+  const { collapseWidth, fixedExtra, isSidebarMixed, mixedWidth } = props
   if (isSidebarMixed && fixedExtra) {
-    return { width: `${collapse.value ? collapseWidth : mixedWidth}px` };
+    return { width: `${collapse.value ? collapseWidth : mixedWidth}px` }
   }
-  return {};
-});
+  return {}
+})
 
 const contentStyle = computed((): CSSProperties => {
-  const { collapseHeight, headerHeight } = props;
+  const { collapseHeight, headerHeight } = props
 
   return {
     height: `calc(100% - ${headerHeight + collapseHeight}px)`,
     paddingTop: '8px',
     ...contentWidthStyle.value,
-  };
-});
+  }
+})
 
 const headerStyle = computed((): CSSProperties => {
-  const { headerHeight, isSidebarMixed } = props;
+  const { headerHeight, isSidebarMixed } = props
 
   return {
     ...(isSidebarMixed ? { display: 'flex', justifyContent: 'center' } : {}),
     height: `${headerHeight - 1}px`,
     ...contentWidthStyle.value,
-  };
-});
+  }
+})
 
 const extraContentStyle = computed((): CSSProperties => {
-  const { collapseHeight, headerHeight } = props;
+  const { collapseHeight, headerHeight } = props
   return {
     height: `calc(100% - ${headerHeight + collapseHeight}px)`,
-  };
-});
+  }
+})
 
 const collapseStyle = computed((): CSSProperties => {
   return {
     height: `${props.collapseHeight}px`,
-  };
-});
+  }
+})
 
 watchEffect(() => {
-  extraVisible.value = props.fixedExtra ? true : extraVisible.value;
-});
+  extraVisible.value = props.fixedExtra ? true : extraVisible.value
+})
 
 function calcMenuWidthStyle(isHiddenDom: boolean): CSSProperties {
-  const { extraWidth, fixedExtra, isSidebarMixed, show, width } = props;
+  const { extraWidth, fixedExtra, isSidebarMixed, show, width } = props
 
   let widthValue =
     width === 0
       ? '0px'
-      : `${width + (isSidebarMixed && fixedExtra && extraVisible.value ? extraWidth : 0)}px`;
+      : `${width + (isSidebarMixed && fixedExtra && extraVisible.value ? extraWidth : 0)}px`
 
-  const { collapseWidth } = props;
+  const { collapseWidth } = props
 
   if (isHiddenDom && expandOnHovering.value && !expandOnHover.value) {
-    widthValue = `${collapseWidth}px`;
+    widthValue = `${collapseWidth}px`
   }
 
   return {
@@ -210,39 +210,39 @@ function calcMenuWidthStyle(isHiddenDom: boolean): CSSProperties {
     maxWidth: widthValue,
     minWidth: widthValue,
     width: widthValue,
-  };
+  }
 }
 
 function handleMouseenter(e: MouseEvent) {
   if (e?.offsetX < 10) {
-    return;
+    return
   }
 
   // 未开启和未折叠状态不生效
   if (expandOnHover.value) {
-    return;
+    return
   }
   if (!expandOnHovering.value) {
-    collapse.value = false;
+    collapse.value = false
   }
   if (props.isSidebarMixed) {
-    isLocked.value = true;
+    isLocked.value = true
   }
-  expandOnHovering.value = true;
+  expandOnHovering.value = true
 }
 
 function handleMouseleave() {
-  emit('leave');
+  emit('leave')
   if (props.isSidebarMixed) {
-    isLocked.value = false;
+    isLocked.value = false
   }
   if (expandOnHover.value) {
-    return;
+    return
   }
 
-  expandOnHovering.value = false;
-  collapse.value = true;
-  extraVisible.value = false;
+  expandOnHovering.value = false
+  collapse.value = true
+  extraVisible.value = false
 }
 </script>
 

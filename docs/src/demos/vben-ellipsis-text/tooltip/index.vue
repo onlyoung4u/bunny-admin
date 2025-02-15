@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { EllipsisText } from '@vben/common-ui';
+import { EllipsisText } from '@vben/common-ui'
 </script>
 <template>
   <EllipsisText :max-width="240">

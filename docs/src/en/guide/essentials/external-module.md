@@ -21,14 +21,14 @@ pnpm add ant-design-vue
 ### Global Import
 
 ```ts
-import { createApp } from 'vue';
-import Antd from 'ant-design-vue';
-import App from './App';
-import 'ant-design-vue/dist/reset.css';
+import { createApp } from 'vue'
+import Antd from 'ant-design-vue'
+import App from './App'
+import 'ant-design-vue/dist/reset.css'
 
-const app = createApp(App);
+const app = createApp(App)
 
-app.use(Antd).mount('#app');
+app.use(Antd).mount('#app')
 ```
 
 #### Usage
@@ -43,7 +43,7 @@ app.use(Antd).mount('#app');
 
 ```vue
 <script setup lang="ts">
-import { Button } from 'ant-design-vue';
+import { Button } from 'ant-design-vue'
 </script>
 
 <template>

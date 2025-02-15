@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { $t } from '@vben/locales';
+import { $t } from '@vben/locales'
 
-import SwitchItem from '../switch-item.vue';
+import SwitchItem from '../switch-item.vue'
 
-const footerEnable = defineModel<boolean>('footerEnable');
-const footerFixed = defineModel<boolean>('footerFixed');
+const footerEnable = defineModel<boolean>('footerEnable')
+const footerFixed = defineModel<boolean>('footerFixed')
 </script>
 
 <template>

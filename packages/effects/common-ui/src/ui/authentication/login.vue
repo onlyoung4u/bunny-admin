@@ -1,28 +1,28 @@
 <script setup lang="ts">
-import type { Recordable } from '@vben/types';
+import type { Recordable } from '@vben/types'
 
-import type { VbenFormSchema } from '@vben-core/form-ui';
+import type { VbenFormSchema } from '@vben-core/form-ui'
 
-import type { AuthenticationProps } from './types';
+import type { AuthenticationProps } from './types'
 
-import { computed, onMounted, reactive, ref } from 'vue';
-import { useRouter } from 'vue-router';
+import { computed, onMounted, reactive, ref } from 'vue'
+import { useRouter } from 'vue-router'
 
-import { $t } from '@vben/locales';
+import { $t } from '@vben/locales'
 
-import { useVbenForm } from '@vben-core/form-ui';
-import { VbenButton, VbenCheckbox } from '@vben-core/shadcn-ui';
+import { useVbenForm } from '@vben-core/form-ui'
+import { VbenButton, VbenCheckbox } from '@vben-core/shadcn-ui'
 
-import Title from './auth-title.vue';
-import ThirdPartyLogin from './third-party-login.vue';
+import Title from './auth-title.vue'
+import ThirdPartyLogin from './third-party-login.vue'
 
 interface Props extends AuthenticationProps {
-  formSchema: VbenFormSchema[];
+  formSchema: VbenFormSchema[]
 }
 
 defineOptions({
   name: 'AuthenticationLogin',
-});
+})
 
 const props = withDefaults(defineProps<Props>(), {
   codeLoginPath: '/auth/code-login',
@@ -40,11 +40,11 @@ const props = withDefaults(defineProps<Props>(), {
   submitButtonText: '',
   subTitle: '',
   title: '',
-});
+})
 
 const emit = defineEmits<{
-  submit: [Recordable<any>];
-}>();
+  submit: [Recordable<any>]
+}>()
 
 const [Form, formApi] = useVbenForm(
   reactive({
@@ -55,40 +55,40 @@ const [Form, formApi] = useVbenForm(
     schema: computed(() => props.formSchema),
     showDefaultActions: false,
   }),
-);
-const router = useRouter();
+)
+const router = useRouter()
 
-const REMEMBER_ME_KEY = `REMEMBER_ME_USERNAME_${location.hostname}`;
+const REMEMBER_ME_KEY = `REMEMBER_ME_USERNAME_${location.hostname}`
 
-const localUsername = localStorage.getItem(REMEMBER_ME_KEY) || '';
+const localUsername = localStorage.getItem(REMEMBER_ME_KEY) || ''
 
-const rememberMe = ref(!!localUsername);
+const rememberMe = ref(!!localUsername)
 
 async function handleSubmit() {
-  const { valid } = await formApi.validate();
-  const values = await formApi.getValues();
+  const { valid } = await formApi.validate()
+  const values = await formApi.getValues()
   if (valid) {
     localStorage.setItem(
       REMEMBER_ME_KEY,
       rememberMe.value ? values?.username : '',
-    );
-    emit('submit', values);
+    )
+    emit('submit', values)
   }
 }
 
 function handleGo(path: string) {
-  router.push(path);
+  router.push(path)
 }
 
 onMounted(() => {
   if (localUsername) {
-    formApi.setFieldValue('username', localUsername);
+    formApi.setFieldValue('username', localUsername)
   }
-});
+})
 
 defineExpose({
   getFormApi: () => formApi,
-});
+})
 </script>
 
 <template>

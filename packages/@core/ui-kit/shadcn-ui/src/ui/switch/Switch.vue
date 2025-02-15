@@ -1,23 +1,23 @@
 <script setup lang="ts">
-import type { SwitchRootEmits, SwitchRootProps } from 'radix-vue';
+import type { SwitchRootEmits, SwitchRootProps } from 'radix-vue'
 
-import { computed } from 'vue';
+import { computed } from 'vue'
 
-import { cn } from '@vben-core/shared/utils';
+import { cn } from '@vben-core/shared/utils'
 
-import { SwitchRoot, SwitchThumb, useForwardPropsEmits } from 'radix-vue';
+import { SwitchRoot, SwitchThumb, useForwardPropsEmits } from 'radix-vue'
 
-const props = defineProps<SwitchRootProps & { class?: any }>();
+const props = defineProps<SwitchRootProps & { class?: any }>()
 
-const emits = defineEmits<SwitchRootEmits>();
+const emits = defineEmits<SwitchRootEmits>()
 
 const delegatedProps = computed(() => {
-  const { class: _, ...delegated } = props;
+  const { class: _, ...delegated } = props
 
-  return delegated;
-});
+  return delegated
+})
 
-const forwarded = useForwardPropsEmits(delegatedProps, emits);
+const forwarded = useForwardPropsEmits(delegatedProps, emits)
 </script>
 
 <template>

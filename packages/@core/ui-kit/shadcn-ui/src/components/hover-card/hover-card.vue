@@ -3,25 +3,25 @@ import type {
   HoverCardContentProps,
   HoverCardRootEmits,
   HoverCardRootProps,
-} from 'radix-vue';
+} from 'radix-vue'
 
-import type { ClassType } from '@vben-core/typings';
+import type { ClassType } from '@vben-core/typings'
 
-import { computed } from 'vue';
+import { computed } from 'vue'
 
-import { useForwardPropsEmits } from 'radix-vue';
+import { useForwardPropsEmits } from 'radix-vue'
 
-import { HoverCard, HoverCardContent, HoverCardTrigger } from '../../ui';
+import { HoverCard, HoverCardContent, HoverCardTrigger } from '../../ui'
 
 interface Props extends HoverCardRootProps {
-  class?: ClassType;
-  contentClass?: ClassType;
-  contentProps?: HoverCardContentProps;
+  class?: ClassType
+  contentClass?: ClassType
+  contentProps?: HoverCardContentProps
 }
 
-const props = defineProps<Props>();
+const props = defineProps<Props>()
 
-const emits = defineEmits<HoverCardRootEmits>();
+const emits = defineEmits<HoverCardRootEmits>()
 
 const delegatedProps = computed(() => {
   const {
@@ -29,12 +29,12 @@ const delegatedProps = computed(() => {
     contentClass: _,
     contentProps: _cProps,
     ...delegated
-  } = props;
+  } = props
 
-  return delegated;
-});
+  return delegated
+})
 
-const forwarded = useForwardPropsEmits(delegatedProps, emits);
+const forwarded = useForwardPropsEmits(delegatedProps, emits)
 </script>
 
 <template>

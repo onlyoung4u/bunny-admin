@@ -1,17 +1,17 @@
 <script lang="ts" setup>
-import { VbenAvatar } from '@vben-core/shadcn-ui';
+import { VbenAvatar } from '@vben-core/shadcn-ui'
 
 interface Props {
-  avatar?: string;
+  avatar?: string
 }
 
 defineOptions({
   name: 'WorkbenchHeader',
-});
+})
 
 withDefaults(defineProps<Props>(), {
   avatar: '',
-});
+})
 </script>
 <template>
   <div class="card-box p-4 py-6 lg:flex">

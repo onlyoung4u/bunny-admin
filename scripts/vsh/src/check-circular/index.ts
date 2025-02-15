@@ -1,10 +1,10 @@
-import type { CAC } from 'cac';
+import type { CAC } from 'cac'
 
-import { extname } from 'node:path';
+import { extname } from 'node:path'
 
-import { getStagedFiles } from '@vben/node-utils';
+import { getStagedFiles } from '@vben/node-utils'
 
-import { circularDepsDetect, printCircles } from 'circular-dependency-scanner';
+import { circularDepsDetect, printCircles } from 'circular-dependency-scanner'
 
 const IGNORE_DIR = [
   'dist',
@@ -16,13 +16,13 @@ const IGNORE_DIR = [
   'packages/effects/request/src/',
   'packages/@core/ui-kit/menu-ui/src/',
   'packages/@core/ui-kit/popup-ui/src/',
-].join(',');
+].join(',')
 
-const IGNORE = [`**/{${IGNORE_DIR}}/**`];
+const IGNORE = [`**/{${IGNORE_DIR}}/**`]
 
 interface CommandOptions {
-  staged: boolean;
-  verbose: boolean;
+  staged: boolean
+  verbose: boolean
 }
 
 async function checkCircular({ staged, verbose }: CommandOptions) {
@@ -30,10 +30,10 @@ async function checkCircular({ staged, verbose }: CommandOptions) {
     absolute: staged,
     cwd: process.cwd(),
     ignore: IGNORE,
-  });
+  })
 
   if (staged) {
-    let files = await getStagedFiles();
+    let files = await getStagedFiles()
 
     const allowedExtensions = new Set([
       '.cjs',
@@ -43,24 +43,24 @@ async function checkCircular({ staged, verbose }: CommandOptions) {
       '.ts',
       '.tsx',
       '.vue',
-    ]);
+    ])
 
     // 过滤文件列表
-    files = files.filter((file) => allowedExtensions.has(extname(file)));
+    files = files.filter((file) => allowedExtensions.has(extname(file)))
 
-    const circularFiles: string[][] = [];
+    const circularFiles: string[][] = []
 
     for (const file of files) {
       for (const result of results) {
-        const resultFiles = result.flat();
+        const resultFiles = result.flat()
         if (resultFiles.includes(file)) {
-          circularFiles.push(result);
+          circularFiles.push(result)
         }
       }
     }
-    verbose && printCircles(circularFiles);
+    verbose && printCircles(circularFiles)
   } else {
-    verbose && printCircles(results);
+    verbose && printCircles(results)
   }
 }
 
@@ -73,8 +73,8 @@ function defineCheckCircularCommand(cac: CAC) {
     )
     .usage(`Analysis of project circular dependencies.`)
     .action(async ({ staged }) => {
-      await checkCircular({ staged, verbose: true });
-    });
+      await checkCircular({ staged, verbose: true })
+    })
 }
 
-export { defineCheckCircularCommand };
+export { defineCheckCircularCommand }

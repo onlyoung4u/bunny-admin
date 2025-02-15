@@ -2,7 +2,7 @@
 import type {
   DropdownMenuProps,
   VbenDropdownMenuItem as IDropdownMenuItem,
-} from './interface';
+} from './interface'
 
 import {
   DropdownMenu,
@@ -11,18 +11,18 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '../../ui';
+} from '../../ui'
 
 interface Props extends DropdownMenuProps {}
 
-defineOptions({ name: 'DropdownMenu' });
-const props = withDefaults(defineProps<Props>(), {});
+defineOptions({ name: 'DropdownMenu' })
+const props = withDefaults(defineProps<Props>(), {})
 
 function handleItemClick(menu: IDropdownMenuItem) {
   if (menu.disabled) {
-    return;
+    return
   }
-  menu?.handler?.(props);
+  menu?.handler?.(props)
 }
 </script>
 <template>

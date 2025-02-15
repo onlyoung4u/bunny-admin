@@ -1,8 +1,8 @@
-import type { DefaultTheme } from 'vitepress';
+import type { DefaultTheme } from 'vitepress'
 
-import { defineConfig } from 'vitepress';
+import { defineConfig } from 'vitepress'
 
-import { version } from '../../../package.json';
+import { version } from '../../../package.json'
 
 export const en = defineConfig({
   description: 'Vben Admin & Enterprise level management system framework',
@@ -45,7 +45,7 @@ export const en = defineConfig({
       '/en/guide/': { base: '/en/guide/', items: sidebarGuide() },
     },
   },
-});
+})
 
 function sidebarGuide(): DefaultTheme.SidebarItem[] {
   return [
@@ -112,7 +112,7 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
         { link: 'other/faq', text: 'FAQ' },
       ],
     },
-  ];
+  ]
 }
 
 function sidebarCommercial(): DefaultTheme.SidebarItem[] {
@@ -129,7 +129,7 @@ function sidebarCommercial(): DefaultTheme.SidebarItem[] {
       link: 'customized',
       text: 'Customized',
     },
-  ];
+  ]
 }
 
 function nav(): DefaultTheme.NavItem[] {
@@ -227,5 +227,5 @@ function nav(): DefaultTheme.NavItem[] {
     //   link: '/friend-links/',
     //   text: '🤝 Friend Links',
     // },
-  ];
+  ]
 }

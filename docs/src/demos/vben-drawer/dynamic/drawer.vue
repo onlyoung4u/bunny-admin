@@ -1,18 +1,18 @@
 <script lang="ts" setup>
-import { useVbenDrawer, VbenButton } from '@vben/common-ui';
+import { useVbenDrawer, VbenButton } from '@vben/common-ui'
 
 const [Drawer, drawerApi] = useVbenDrawer({
   onCancel() {
-    drawerApi.close();
+    drawerApi.close()
   },
   onConfirm() {
-    console.info('onConfirm');
+    console.info('onConfirm')
   },
   title: '动态修改配置示例',
-});
+})
 
 function handleUpdateTitle() {
-  drawerApi.setState({ title: '内部动态标题' });
+  drawerApi.setState({ title: '内部动态标题' })
 }
 </script>
 <template>

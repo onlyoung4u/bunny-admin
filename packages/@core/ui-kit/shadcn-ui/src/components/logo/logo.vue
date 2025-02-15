@@ -1,36 +1,36 @@
 <script setup lang="ts">
-import { VbenAvatar } from '../avatar';
+import { VbenAvatar } from '../avatar'
 
 interface Props {
   /**
    * @zh_CN 是否收起文本
    */
-  collapsed?: boolean;
+  collapsed?: boolean
   /**
    * @zh_CN Logo 跳转地址
    */
-  href?: string;
+  href?: string
   /**
    * @zh_CN Logo 图片大小
    */
-  logoSize?: number;
+  logoSize?: number
   /**
    * @zh_CN Logo 图标
    */
-  src?: string;
+  src?: string
   /**
    * @zh_CN Logo 文本
    */
-  text: string;
+  text: string
   /**
    * @zh_CN Logo 主题
    */
-  theme?: string;
+  theme?: string
 }
 
 defineOptions({
   name: 'VbenLogo',
-});
+})
 
 withDefaults(defineProps<Props>(), {
   collapsed: false,
@@ -38,7 +38,7 @@ withDefaults(defineProps<Props>(), {
   logoSize: 32,
   src: '',
   theme: 'light',
-});
+})
 </script>
 
 <template>

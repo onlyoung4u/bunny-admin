@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import type { SelectOption } from '@vben/types';
+import type { SelectOption } from '@vben/types'
 
-import { ToggleGroup, ToggleGroupItem } from '@vben-core/shadcn-ui';
+import { ToggleGroup, ToggleGroupItem } from '@vben-core/shadcn-ui'
 
 defineOptions({
   name: 'PreferenceToggleItem',
-});
+})
 
 withDefaults(defineProps<{ disabled?: boolean; items: SelectOption[] }>(), {
   disabled: false,
   items: () => [],
-});
+})
 
-const modelValue = defineModel<string>();
+const modelValue = defineModel<string>()
 </script>
 
 <template>

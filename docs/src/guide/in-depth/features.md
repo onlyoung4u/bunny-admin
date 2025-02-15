@@ -11,14 +11,14 @@
 登录超时会跳转到登录页
 
 ```ts
-import { defineOverridesPreferences } from '@vben/preferences';
+import { defineOverridesPreferences } from '@vben/preferences'
 
 export const overridesPreferences = defineOverridesPreferences({
   // overrides
   app: {
     loginExpiredMode: 'page',
   },
-});
+})
 ```
 
 ### 打开登录弹窗
@@ -30,14 +30,14 @@ export const overridesPreferences = defineOverridesPreferences({
 配置：
 
 ```ts
-import { defineOverridesPreferences } from '@vben/preferences';
+import { defineOverridesPreferences } from '@vben/preferences'
 
 export const overridesPreferences = defineOverridesPreferences({
   // overrides
   app: {
     loginExpiredMode: 'modal',
   },
-});
+})
 ```
 
 ## 动态标题
@@ -52,7 +52,7 @@ export const overridesPreferences = defineOverridesPreferences({
   app: {
     dynamicTitle: true,
   },
-});
+})
 ```
 
 ## 页面水印
@@ -67,18 +67,18 @@ export const overridesPreferences = defineOverridesPreferences({
   app: {
     watermark: true,
   },
-});
+})
 ```
 
 如果你想更新水印的内容，可以这么做，参数可以参考 [watermark-js-plus](https://zhensherlock.github.io/watermark-js-plus/)：
 
 ```ts
-import { useWatermark } from '@vben/hooks';
+import { useWatermark } from '@vben/hooks'
 
-const { destroyWatermark, updateWatermark } = useWatermark();
+const { destroyWatermark, updateWatermark } = useWatermark()
 
 await updateWatermark({
   // 水印内容
   content: 'hello my watermark',
-});
+})
 ```

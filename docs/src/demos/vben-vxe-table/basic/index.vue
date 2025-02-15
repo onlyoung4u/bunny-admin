@@ -1,19 +1,19 @@
 <script lang="ts" setup>
-import type { VxeGridListeners, VxeGridProps } from '#/adapter/vxe-table';
+import type { VxeGridListeners, VxeGridProps } from '#/adapter/vxe-table'
 
-import { Button, message } from 'ant-design-vue';
+import { Button, message } from 'ant-design-vue'
 
-import { useVbenVxeGrid } from '#/adapter/vxe-table';
+import { useVbenVxeGrid } from '#/adapter/vxe-table'
 
-import { MOCK_TABLE_DATA } from '../table-data';
+import { MOCK_TABLE_DATA } from '../table-data'
 
 interface RowType {
-  address: string;
-  age: number;
-  id: number;
-  name: string;
-  nickname: string;
-  role: string;
+  address: string
+  age: number
+  id: number
+  name: string
+  nickname: string
+  role: string
 }
 
 const gridOptions: VxeGridProps<RowType> = {
@@ -32,36 +32,36 @@ const gridOptions: VxeGridProps<RowType> = {
   sortConfig: {
     multiple: true,
   },
-};
+}
 
 const gridEvents: VxeGridListeners<RowType> = {
   cellClick: ({ row }) => {
-    message.info(`cell-click: ${row.name}`);
+    message.info(`cell-click: ${row.name}`)
   },
-};
+}
 
-const [Grid, gridApi] = useVbenVxeGrid({ gridEvents, gridOptions });
+const [Grid, gridApi] = useVbenVxeGrid({ gridEvents, gridOptions })
 
-const showBorder = gridApi.useStore((state) => state.gridOptions?.border);
-const showStripe = gridApi.useStore((state) => state.gridOptions?.stripe);
+const showBorder = gridApi.useStore((state) => state.gridOptions?.border)
+const showStripe = gridApi.useStore((state) => state.gridOptions?.stripe)
 
 function changeBorder() {
   gridApi.setGridOptions({
     border: !showBorder.value,
-  });
+  })
 }
 
 function changeStripe() {
   gridApi.setGridOptions({
     stripe: !showStripe.value,
-  });
+  })
 }
 
 function changeLoading() {
-  gridApi.setLoading(true);
+  gridApi.setLoading(true)
   setTimeout(() => {
-    gridApi.setLoading(false);
-  }, 2000);
+    gridApi.setLoading(false)
+  }, 2000)
 }
 </script>
 

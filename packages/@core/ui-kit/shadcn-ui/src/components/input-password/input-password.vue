@@ -1,31 +1,31 @@
 <script setup lang="ts">
-import { ref, useSlots } from 'vue';
+import { ref, useSlots } from 'vue'
 
-import { Eye, EyeOff } from '@vben-core/icons';
-import { cn } from '@vben-core/shared/utils';
+import { Eye, EyeOff } from '@vben-core/icons'
+import { cn } from '@vben-core/shared/utils'
 
-import { Input } from '../../ui';
-import PasswordStrength from './password-strength.vue';
+import { Input } from '../../ui'
+import PasswordStrength from './password-strength.vue'
 
 interface Props {
-  class?: any;
+  class?: any
   /**
    * 是否显示密码强度
    */
-  passwordStrength?: boolean;
+  passwordStrength?: boolean
 }
 
 defineOptions({
   inheritAttrs: false,
-});
+})
 
-const props = defineProps<Props>();
+const props = defineProps<Props>()
 
-const modelValue = defineModel<string>();
+const modelValue = defineModel<string>()
 
-const slots = useSlots();
+const slots = useSlots()
 
-const show = ref(false);
+const show = ref(false)
 </script>
 
 <template>

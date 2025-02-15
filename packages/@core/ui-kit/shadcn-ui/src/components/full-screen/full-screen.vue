@@ -1,13 +1,13 @@
 <script lang="ts" setup>
-import { Maximize, Minimize } from '@vben-core/icons';
+import { Maximize, Minimize } from '@vben-core/icons'
 
-import { useFullscreen } from '@vueuse/core';
+import { useFullscreen } from '@vueuse/core'
 
-import { VbenIconButton } from '../button';
+import { VbenIconButton } from '../button'
 
-defineOptions({ name: 'FullScreen' });
+defineOptions({ name: 'FullScreen' })
 
-const { isFullscreen, toggle } = useFullscreen();
+const { isFullscreen, toggle } = useFullscreen()
 
 // 重新检查全屏状态
 isFullscreen.value = !!(
@@ -18,7 +18,7 @@ isFullscreen.value = !!(
   document.mozFullScreenElement ||
   // @ts-ignore
   document.msFullscreenElement
-);
+)
 </script>
 <template>
   <VbenIconButton @click="toggle">

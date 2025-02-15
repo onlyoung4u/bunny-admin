@@ -73,7 +73,7 @@ Modal 内的内容一般业务中，会比较复杂，所以我们可以将 moda
 const [Modal, modalApi] = useVbenModal({
   // 属性
   // 事件
-});
+})
 ```
 
 ### Props

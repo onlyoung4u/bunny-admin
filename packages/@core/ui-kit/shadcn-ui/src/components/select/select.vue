@@ -5,15 +5,15 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '../../ui';
+} from '../../ui'
 
 interface Props {
-  class?: any;
-  options?: Array<{ label: string; value: string }>;
-  placeholder?: string;
+  class?: any
+  options?: Array<{ label: string; value: string }>
+  placeholder?: string
 }
 
-const props = defineProps<Props>();
+const props = defineProps<Props>()
 </script>
 <template>
   <Select>

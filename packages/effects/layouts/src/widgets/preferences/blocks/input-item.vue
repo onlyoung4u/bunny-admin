@@ -1,32 +1,32 @@
 <script setup lang="ts">
-import type { SelectOption } from '@vben/types';
+import type { SelectOption } from '@vben/types'
 
-import { useSlots } from 'vue';
+import { useSlots } from 'vue'
 
-import { CircleHelp } from '@vben/icons';
+import { CircleHelp } from '@vben/icons'
 
-import { Input, VbenTooltip } from '@vben-core/shadcn-ui';
+import { Input, VbenTooltip } from '@vben-core/shadcn-ui'
 
 defineOptions({
   name: 'PreferenceSelectItem',
-});
+})
 
 withDefaults(
   defineProps<{
-    disabled?: boolean;
-    items?: SelectOption[];
-    placeholder?: string;
+    disabled?: boolean
+    items?: SelectOption[]
+    placeholder?: string
   }>(),
   {
     disabled: false,
     placeholder: '',
     items: () => [],
   },
-);
+)
 
-const inputValue = defineModel<string>();
+const inputValue = defineModel<string>()
 
-const slots = useSlots();
+const slots = useSlots()
 </script>
 
 <template>

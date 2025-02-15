@@ -1,51 +1,51 @@
 <script setup lang="ts">
-import type { StyleValue } from 'vue';
+import type { StyleValue } from 'vue'
 
-import type { PageProps } from './types';
+import type { PageProps } from './types'
 
-import { computed, nextTick, onMounted, ref, useTemplateRef } from 'vue';
+import { computed, nextTick, onMounted, ref, useTemplateRef } from 'vue'
 
-import { CSS_VARIABLE_LAYOUT_CONTENT_HEIGHT } from '@vben-core/shared/constants';
-import { cn } from '@vben-core/shared/utils';
+import { CSS_VARIABLE_LAYOUT_CONTENT_HEIGHT } from '@vben-core/shared/constants'
+import { cn } from '@vben-core/shared/utils'
 
 defineOptions({
   name: 'Page',
-});
+})
 
-const { autoContentHeight = false } = defineProps<PageProps>();
+const { autoContentHeight = false } = defineProps<PageProps>()
 
-const headerHeight = ref(0);
-const footerHeight = ref(0);
-const shouldAutoHeight = ref(false);
+const headerHeight = ref(0)
+const footerHeight = ref(0)
+const shouldAutoHeight = ref(false)
 
-const headerRef = useTemplateRef<HTMLDivElement>('headerRef');
-const footerRef = useTemplateRef<HTMLDivElement>('footerRef');
+const headerRef = useTemplateRef<HTMLDivElement>('headerRef')
+const footerRef = useTemplateRef<HTMLDivElement>('footerRef')
 
 const contentStyle = computed<StyleValue>(() => {
   if (autoContentHeight) {
     return {
       height: `calc(var(${CSS_VARIABLE_LAYOUT_CONTENT_HEIGHT}) - ${headerHeight.value}px)`,
       overflowY: shouldAutoHeight.value ? 'auto' : 'unset',
-    };
+    }
   }
-  return {};
-});
+  return {}
+})
 
 async function calcContentHeight() {
   if (!autoContentHeight) {
-    return;
+    return
   }
-  await nextTick();
-  headerHeight.value = headerRef.value?.offsetHeight || 0;
-  footerHeight.value = footerRef.value?.offsetHeight || 0;
+  await nextTick()
+  headerHeight.value = headerRef.value?.offsetHeight || 0
+  footerHeight.value = footerRef.value?.offsetHeight || 0
   setTimeout(() => {
-    shouldAutoHeight.value = true;
-  }, 30);
+    shouldAutoHeight.value = true
+  }, 30)
 }
 
 onMounted(() => {
-  calcContentHeight();
-});
+  calcContentHeight()
+})
 </script>
 
 <template>

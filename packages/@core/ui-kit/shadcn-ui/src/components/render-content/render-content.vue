@@ -1,9 +1,9 @@
 <script lang="ts">
-import type { Component, PropType } from 'vue';
+import type { Component, PropType } from 'vue'
 
-import { defineComponent, h } from 'vue';
+import { defineComponent, h } from 'vue'
 
-import { isFunction, isObject } from '@vben-core/shared/utils';
+import { isFunction, isObject } from '@vben-core/shared/utils'
 
 export default defineComponent({
   name: 'RenderContent',
@@ -18,13 +18,13 @@ export default defineComponent({
   setup(props, { attrs, slots }) {
     return () => {
       if (!props.content) {
-        return null;
+        return null
       }
       const isComponent =
         (isObject(props.content) || isFunction(props.content)) &&
-        props.content !== null;
+        props.content !== null
       if (!isComponent) {
-        return props.content;
+        return props.content
       }
       return h(props.content as never, {
         ...attrs,
@@ -33,8 +33,8 @@ export default defineComponent({
           ...attrs,
         },
         slots,
-      });
-    };
+      })
+    }
   },
-});
+})
 </script>

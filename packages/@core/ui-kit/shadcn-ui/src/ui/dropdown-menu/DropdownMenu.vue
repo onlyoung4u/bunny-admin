@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import type { DropdownMenuRootEmits, DropdownMenuRootProps } from 'radix-vue';
+import type { DropdownMenuRootEmits, DropdownMenuRootProps } from 'radix-vue'
 
-import { DropdownMenuRoot, useForwardPropsEmits } from 'radix-vue';
+import { DropdownMenuRoot, useForwardPropsEmits } from 'radix-vue'
 
 const props = withDefaults(defineProps<DropdownMenuRootProps>(), {
   modal: false,
-});
-const emits = defineEmits<DropdownMenuRootEmits>();
+})
+const emits = defineEmits<DropdownMenuRootEmits>()
 
-const forwarded = useForwardPropsEmits(props, emits);
+const forwarded = useForwardPropsEmits(props, emits)
 </script>
 
 <template>

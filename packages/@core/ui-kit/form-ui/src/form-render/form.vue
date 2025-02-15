@@ -1,23 +1,23 @@
 <script setup lang="ts">
-import type { GenericObject } from 'vee-validate';
-import type { ZodTypeAny } from 'zod';
+import type { GenericObject } from 'vee-validate'
+import type { ZodTypeAny } from 'zod'
 
 import type {
   FormCommonConfig,
   FormRenderProps,
   FormSchema,
   FormShape,
-} from '../types';
+} from '../types'
 
-import { computed } from 'vue';
+import { computed } from 'vue'
 
-import { Form } from '@vben-core/shadcn-ui';
-import { cn, isString, mergeWithArrayOverride } from '@vben-core/shared/utils';
+import { Form } from '@vben-core/shadcn-ui'
+import { cn, isString, mergeWithArrayOverride } from '@vben-core/shared/utils'
 
-import { provideFormRenderProps } from './context';
-import { useExpandable } from './expandable';
-import FormField from './form-field.vue';
-import { getBaseRules, getDefaultValueInZodStack } from './helper';
+import { provideFormRenderProps } from './context'
+import { useExpandable } from './expandable'
+import FormField from './form-field.vue'
+import { getBaseRules, getDefaultValueInZodStack } from './helper'
 
 interface Props extends FormRenderProps {}
 
@@ -30,40 +30,40 @@ const props = withDefaults(
     showCollapseButton: false,
     wrapperClass: 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3',
   },
-);
+)
 
 const emits = defineEmits<{
-  submit: [event: any];
-}>();
+  submit: [event: any]
+}>()
 
-provideFormRenderProps(props);
+provideFormRenderProps(props)
 
-const { isCalculated, keepFormItemIndex, wrapperRef } = useExpandable(props);
+const { isCalculated, keepFormItemIndex, wrapperRef } = useExpandable(props)
 
 const shapes = computed(() => {
-  const resultShapes: FormShape[] = [];
+  const resultShapes: FormShape[] = []
   props.schema?.forEach((schema) => {
-    const { fieldName } = schema;
-    const rules = schema.rules as ZodTypeAny;
+    const { fieldName } = schema
+    const rules = schema.rules as ZodTypeAny
 
-    let typeName = '';
+    let typeName = ''
     if (rules && !isString(rules)) {
-      typeName = rules._def.typeName;
+      typeName = rules._def.typeName
     }
 
-    const baseRules = getBaseRules(rules) as ZodTypeAny;
+    const baseRules = getBaseRules(rules) as ZodTypeAny
 
     resultShapes.push({
       default: getDefaultValueInZodStack(rules),
       fieldName,
       required: !['ZodNullable', 'ZodOptional'].includes(typeName),
       rules: baseRules,
-    });
-  });
-  return resultShapes;
-});
+    })
+  })
+  return resultShapes
+})
 
-const formComponent = computed(() => (props.form ? 'form' : Form));
+const formComponent = computed(() => (props.form ? 'form' : Form))
 
 const formComponentProps = computed(() => {
   return props.form
@@ -72,17 +72,17 @@ const formComponentProps = computed(() => {
       }
     : {
         onSubmit: (val: GenericObject) => emits('submit', val),
-      };
-});
+      }
+})
 
 const formCollapsed = computed(() => {
-  return props.collapsed && isCalculated.value;
-});
+  return props.collapsed && isCalculated.value
+})
 
 const computedSchema = computed(
   (): (Omit<FormSchema, 'formFieldProps'> & {
-    commonComponentProps: Record<string, any>;
-    formFieldProps: Record<string, any>;
+    commonComponentProps: Record<string, any>
+    formFieldProps: Record<string, any>
   })[] => {
     const {
       colon = false,
@@ -100,15 +100,15 @@ const computedSchema = computed(
       labelWidth = 100,
       modelPropName = '',
       wrapperClass = '',
-    } = mergeWithArrayOverride(props.commonConfig, props.globalCommonConfig);
+    } = mergeWithArrayOverride(props.commonConfig, props.globalCommonConfig)
     return (props.schema || []).map((schema, index) => {
-      const keepIndex = keepFormItemIndex.value;
+      const keepIndex = keepFormItemIndex.value
 
       const hidden =
         // 折叠状态 & 显示折叠按钮 & 当前索引大于保留索引
         props.showCollapseButton && !!formCollapsed.value && keepIndex
           ? keepIndex <= index
-          : false;
+          : false
 
       return {
         colon,
@@ -136,10 +136,10 @@ const computedSchema = computed(
           schema.formItemClass,
         ),
         labelClass: cn(labelClass, schema.labelClass),
-      };
-    });
+      }
+    })
   },
-);
+)
 </script>
 
 <template>

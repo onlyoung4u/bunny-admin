@@ -5,7 +5,7 @@ export type ButtonVariantSize =
   | 'sm'
   | 'xs'
   | null
-  | undefined;
+  | undefined
 
 export type ButtonVariants =
   | 'default'
@@ -17,4 +17,4 @@ export type ButtonVariants =
   | 'outline'
   | 'secondary'
   | null
-  | undefined;
+  | undefined

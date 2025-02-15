@@ -1,34 +1,34 @@
-import type { PwaOptions } from '@vite-pwa/vitepress';
-import type { HeadConfig } from 'vitepress';
+import type { PwaOptions } from '@vite-pwa/vitepress'
+import type { HeadConfig } from 'vitepress'
 
-import { resolve } from 'node:path';
+import { resolve } from 'node:path'
 
 import {
   viteArchiverPlugin,
   viteVxeTableImportsPlugin,
-} from '@vben/vite-config';
+} from '@vben/vite-config'
 
 import {
   GitChangelog,
   GitChangelogMarkdownSection,
-} from '@nolebase/vitepress-plugin-git-changelog/vite';
-import tailwind from 'tailwindcss';
-import { defineConfig, postcssIsolateStyles } from 'vitepress';
+} from '@nolebase/vitepress-plugin-git-changelog/vite'
+import tailwind from 'tailwindcss'
+import { defineConfig, postcssIsolateStyles } from 'vitepress'
 import {
   groupIconMdPlugin,
   groupIconVitePlugin,
-} from 'vitepress-plugin-group-icons';
+} from 'vitepress-plugin-group-icons'
 
-import { demoPreviewPlugin } from './plugins/demo-preview';
-import { search as zhSearch } from './zh.mts';
+import { demoPreviewPlugin } from './plugins/demo-preview'
+import { search as zhSearch } from './zh.mts'
 
 export const shared = defineConfig({
   appearance: 'dark',
   head: head(),
   markdown: {
     preConfig(md) {
-      md.use(demoPreviewPlugin);
-      md.use(groupIconMdPlugin);
+      md.use(demoPreviewPlugin)
+      md.use(groupIconMdPlugin)
     },
   },
   pwa: pwa(),
@@ -107,7 +107,7 @@ export const shared = defineConfig({
       external: ['@vue/repl'],
     },
   },
-});
+})
 
 function head(): HeadConfig[] {
   return [
@@ -136,7 +136,7 @@ function head(): HeadConfig[] {
     //     src: 'https://cdn.tailwindcss.com',
     //   },
     // ],
-  ];
+  ]
 }
 
 function pwa(): PwaOptions {
@@ -168,5 +168,5 @@ function pwa(): PwaOptions {
       globPatterns: ['**/*.{css,js,html,svg,png,ico,txt,woff2}'],
       maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
     },
-  };
+  }
 }

@@ -3,94 +3,94 @@ import type {
   LayoutHeaderModeType,
   LayoutType,
   ThemeModeType,
-} from '@vben-core/typings';
+} from '@vben-core/typings'
 
 interface VbenLayoutProps {
   /**
    * 内容区域定宽
    * @default 'wide'
    */
-  contentCompact?: ContentCompactType;
+  contentCompact?: ContentCompactType
   /**
    * 定宽布局宽度
    * @default 1200
    */
-  contentCompactWidth?: number;
+  contentCompactWidth?: number
   /**
    * padding
    * @default 16
    */
-  contentPadding?: number;
+  contentPadding?: number
   /**
    * paddingBottom
    * @default 16
    */
-  contentPaddingBottom?: number;
+  contentPaddingBottom?: number
   /**
    * paddingLeft
    * @default 16
    */
-  contentPaddingLeft?: number;
+  contentPaddingLeft?: number
   /**
    * paddingRight
    * @default 16
    */
-  contentPaddingRight?: number;
+  contentPaddingRight?: number
   /**
    * paddingTop
    * @default 16
    */
-  contentPaddingTop?: number;
+  contentPaddingTop?: number
   /**
    * footer 是否可见
    * @default false
    */
-  footerEnable?: boolean;
+  footerEnable?: boolean
   /**
    * footer 是否固定
    * @default true
    */
-  footerFixed?: boolean;
+  footerFixed?: boolean
   /**
    * footer 高度
    * @default 32
    */
-  footerHeight?: number;
+  footerHeight?: number
 
   /**
    * header高度
    * @default 48
    */
-  headerHeight?: number;
+  headerHeight?: number
   /**
    * 顶栏是否隐藏
    * @default false
    */
-  headerHidden?: boolean;
+  headerHidden?: boolean
   /**
    * header 显示模式
    * @default 'fixed'
    */
-  headerMode?: LayoutHeaderModeType;
+  headerMode?: LayoutHeaderModeType
   /**
    * header 顶栏主题
    */
-  headerTheme?: ThemeModeType;
+  headerTheme?: ThemeModeType
   /**
    * 是否显示header切换侧边栏按钮
    * @default
    */
-  headerToggleSidebarButton?: boolean;
+  headerToggleSidebarButton?: boolean
   /**
    * header是否显示
    * @default true
    */
-  headerVisible?: boolean;
+  headerVisible?: boolean
   /**
    * 是否移动端显示
    * @default false
    */
-  isMobile?: boolean;
+  isMobile?: boolean
   /**
    * 布局方式
    * sidebar-nav 侧边菜单布局
@@ -100,66 +100,66 @@ interface VbenLayoutProps {
    * full-content 全屏内容布局
    * @default sidebar-nav
    */
-  layout?: LayoutType;
+  layout?: LayoutType
   /**
    * 侧边菜单折叠状态
    * @default false
    */
-  sidebarCollapse?: boolean;
+  sidebarCollapse?: boolean
   /**
    * 侧边菜单是否折叠时，是否显示title
    * @default true
    */
-  sidebarCollapseShowTitle?: boolean;
+  sidebarCollapseShowTitle?: boolean
   /**
    * 侧边栏是否可见
    * @default true
    */
-  sidebarEnable?: boolean;
+  sidebarEnable?: boolean
   /**
    * 侧边菜单折叠额外宽度
    * @default 48
    */
-  sidebarExtraCollapsedWidth?: number;
+  sidebarExtraCollapsedWidth?: number
   /**
    * 侧边栏是否隐藏
    * @default false
    */
-  sidebarHidden?: boolean;
+  sidebarHidden?: boolean
   /**
    * 混合侧边栏宽度
    * @default 80
    */
-  sidebarMixedWidth?: number;
+  sidebarMixedWidth?: number
   /**
    * 侧边栏
    * @default dark
    */
-  sidebarTheme?: ThemeModeType;
+  sidebarTheme?: ThemeModeType
   /**
    * 侧边栏宽度
    * @default 210
    */
-  sidebarWidth?: number;
+  sidebarWidth?: number
   /**
    *  侧边菜单折叠宽度
    * @default 48
    */
-  sideCollapseWidth?: number;
+  sideCollapseWidth?: number
   /**
    * tab是否可见
    * @default true
    */
-  tabbarEnable?: boolean;
+  tabbarEnable?: boolean
   /**
    * tab高度
    * @default 30
    */
-  tabbarHeight?: number;
+  tabbarHeight?: number
   /**
    * zIndex
    * @default 100
    */
-  zIndex?: number;
+  zIndex?: number
 }
-export type { VbenLayoutProps };
+export type { VbenLayoutProps }

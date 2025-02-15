@@ -5,7 +5,7 @@
 当网站有更新时，您可能需要检查更新。框架提供了这一功能，通过定时检查更新，您可以在应用的 preferences.ts 文件中配置 `checkUpdatesInterval`和 `enableCheckUpdates` 字段，以开启和设置检查更新的时间间隔（单位：分钟）。
 
 ```ts
-import { defineOverridesPreferences } from '@vben/preferences';
+import { defineOverridesPreferences } from '@vben/preferences'
 
 export const overridesPreferences = defineOverridesPreferences({
   // overrides
@@ -15,7 +15,7 @@ export const overridesPreferences = defineOverridesPreferences({
     // 检查更新的时间间隔，单位为分钟
     checkUpdatesInterval: 1,
   },
-});
+})
 ```
 
 ## 效果
@@ -35,14 +35,12 @@ async function getVersionTag() {
     const response = await fetch('/', {
       cache: 'no-cache',
       method: 'HEAD',
-    });
+    })
 
-    return (
-      response.headers.get('etag') || response.headers.get('last-modified')
-    );
+    return response.headers.get('etag') || response.headers.get('last-modified')
   } catch {
-    console.error('Failed to fetch version tag');
-    return null;
+    console.error('Failed to fetch version tag')
+    return null
   }
 }
 ```

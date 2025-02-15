@@ -1,8 +1,8 @@
-import { execSync } from 'node:child_process';
+import { execSync } from 'node:child_process'
 
-import { getPackagesSync } from '@vben/node-utils';
+import { getPackagesSync } from '@vben/node-utils'
 
-const { packages } = getPackagesSync();
+const { packages } = getPackagesSync()
 
 const allowedScopes = [
   ...packages.map((pkg) => pkg.packageJson.name),
@@ -13,7 +13,7 @@ const allowedScopes = [
   'dev',
   'deploy',
   'other',
-];
+]
 
 // precomputed scope
 const scopeComplete = execSync('git status --porcelain || true')
@@ -23,7 +23,7 @@ const scopeComplete = execSync('git status --porcelain || true')
   .find((r) => ~r.indexOf('M  src'))
   ?.replace(/(\/)/g, '%%')
   ?.match(/src%%((\w|-)*)/)?.[1]
-  ?.replace(/s$/, '');
+  ?.replace(/s$/, '')
 
 /**
  * @type {import('cz-git').UserConfig}
@@ -108,10 +108,10 @@ const userConfig = {
       'always',
       (parsed) => {
         if (!parsed.scope || allowedScopes.includes(parsed.scope)) {
-          return [true];
+          return [true]
         }
 
-        return [false, `scope must be one of ${allowedScopes.join(', ')}`];
+        return [false, `scope must be one of ${allowedScopes.join(', ')}`]
       },
     ],
     /**
@@ -148,6 +148,6 @@ const userConfig = {
       ],
     ],
   },
-};
+}
 
-export default userConfig;
+export default userConfig

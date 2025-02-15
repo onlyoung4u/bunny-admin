@@ -4,15 +4,15 @@ import type {
   SliderCaptchaActionType,
   SliderRotateCaptchaProps,
   SliderRotateVerifyPassingData,
-} from '../types';
+} from '../types'
 
-import { computed, reactive, unref, useTemplateRef, watch } from 'vue';
+import { computed, reactive, unref, useTemplateRef, watch } from 'vue'
 
-import { $t } from '@vben/locales';
+import { $t } from '@vben/locales'
 
-import { useTimeoutFn } from '@vueuse/core';
+import { useTimeoutFn } from '@vueuse/core'
 
-import SliderCaptcha from '../slider-captcha/index.vue';
+import SliderCaptcha from '../slider-captcha/index.vue'
 
 const props = withDefaults(defineProps<SliderRotateCaptchaProps>(), {
   defaultTip: '',
@@ -21,13 +21,13 @@ const props = withDefaults(defineProps<SliderRotateCaptchaProps>(), {
   maxDegree: 300,
   minDegree: 120,
   src: '',
-});
+})
 
 const emit = defineEmits<{
-  success: [CaptchaVerifyPassingData];
-}>();
+  success: [CaptchaVerifyPassingData]
+}>()
 
-const slideBarRef = useTemplateRef<SliderCaptchaActionType>('slideBarRef');
+const slideBarRef = useTemplateRef<SliderCaptchaActionType>('slideBarRef')
 
 const state = reactive({
   currentRotate: 0,
@@ -39,128 +39,128 @@ const state = reactive({
   showTip: false,
   startTime: 0,
   toOrigin: false,
-});
+})
 
-const modalValue = defineModel<boolean>({ default: false });
+const modalValue = defineModel<boolean>({ default: false })
 
 watch(
   () => state.isPassing,
   (isPassing) => {
     if (isPassing) {
-      const { endTime, startTime } = state;
-      const time = (endTime - startTime) / 1000;
-      emit('success', { isPassing, time: time.toFixed(1) });
+      const { endTime, startTime } = state
+      const time = (endTime - startTime) / 1000
+      emit('success', { isPassing, time: time.toFixed(1) })
     }
-    modalValue.value = isPassing;
+    modalValue.value = isPassing
   },
-);
+)
 
 const getImgWrapStyleRef = computed(() => {
-  const { imageSize, imageWrapperStyle } = props;
+  const { imageSize, imageWrapperStyle } = props
   return {
     height: `${imageSize}px`,
     width: `${imageSize}px`,
     ...imageWrapperStyle,
-  };
-});
+  }
+})
 
 const getFactorRef = computed(() => {
-  const { maxDegree, minDegree } = props;
+  const { maxDegree, minDegree } = props
   if (minDegree > maxDegree) {
-    console.warn('minDegree should not be greater than maxDegree');
+    console.warn('minDegree should not be greater than maxDegree')
   }
 
   if (minDegree === maxDegree) {
-    return Math.floor(1 + Math.random() * 1) / 10 + 1;
+    return Math.floor(1 + Math.random() * 1) / 10 + 1
   }
-  return 1;
-});
+  return 1
+})
 
 function handleStart() {
-  state.startTime = Date.now();
+  state.startTime = Date.now()
 }
 
 function handleDragBarMove(data: SliderRotateVerifyPassingData) {
-  state.dragging = true;
-  const { imageSize, maxDegree } = props;
-  const { moveX } = data;
-  const denominator = imageSize!;
+  state.dragging = true
+  const { imageSize, maxDegree } = props
+  const { moveX } = data
+  const denominator = imageSize!
   if (denominator === 0) {
-    return;
+    return
   }
   const currentRotate = Math.ceil(
     (moveX / denominator) * 1.5 * maxDegree! * unref(getFactorRef),
-  );
-  state.currentRotate = currentRotate;
-  setImgRotate(state.randomRotate - currentRotate);
+  )
+  state.currentRotate = currentRotate
+  setImgRotate(state.randomRotate - currentRotate)
 }
 
 function handleImgOnLoad() {
-  const { maxDegree, minDegree } = props;
+  const { maxDegree, minDegree } = props
   const ranRotate = Math.floor(
     minDegree! + Math.random() * (maxDegree! - minDegree!),
-  ); // 生成随机角度
-  state.randomRotate = ranRotate;
-  setImgRotate(ranRotate);
+  ) // 生成随机角度
+  state.randomRotate = ranRotate
+  setImgRotate(ranRotate)
 }
 
 function handleDragEnd() {
-  const { currentRotate, randomRotate } = state;
-  const { diffDegree } = props;
+  const { currentRotate, randomRotate } = state
+  const { diffDegree } = props
 
   if (Math.abs(randomRotate - currentRotate) >= (diffDegree || 20)) {
-    setImgRotate(randomRotate);
-    state.toOrigin = true;
+    setImgRotate(randomRotate)
+    state.toOrigin = true
     useTimeoutFn(() => {
-      state.toOrigin = false;
-      state.showTip = true;
+      state.toOrigin = false
+      state.showTip = true
       //  时间与动画时间保持一致
-    }, 300);
+    }, 300)
   } else {
-    checkPass();
+    checkPass()
   }
-  state.showTip = true;
-  state.dragging = false;
+  state.showTip = true
+  state.dragging = false
 }
 
 function setImgRotate(deg: number) {
   state.imgStyle = {
     transform: `rotateZ(${deg}deg)`,
-  };
+  }
 }
 
 function checkPass() {
-  state.isPassing = true;
-  state.endTime = Date.now();
+  state.isPassing = true
+  state.endTime = Date.now()
 }
 
 function resume() {
-  state.showTip = false;
-  const basicEl = unref(slideBarRef);
+  state.showTip = false
+  const basicEl = unref(slideBarRef)
   if (!basicEl) {
-    return;
+    return
   }
-  state.isPassing = false;
+  state.isPassing = false
 
-  basicEl.resume();
-  handleImgOnLoad();
+  basicEl.resume()
+  handleImgOnLoad()
 }
 
 const imgCls = computed(() => {
-  return state.toOrigin ? ['transition-transform duration-300'] : [];
-});
+  return state.toOrigin ? ['transition-transform duration-300'] : []
+})
 
 const verifyTip = computed(() => {
   return state.isPassing
     ? $t('ui.captcha.sliderRotateSuccessTip', [
         ((state.endTime - state.startTime) / 1000).toFixed(1),
       ])
-    : $t('ui.captcha.sliderRotateFailTip');
-});
+    : $t('ui.captcha.sliderRotateFailTip')
+})
 
 defineExpose({
   resume,
-});
+})
 </script>
 
 <template>

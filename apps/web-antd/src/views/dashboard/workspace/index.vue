@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import { WorkbenchHeader } from '@vben/common-ui';
-import { preferences } from '@vben/preferences';
-import { useUserStore } from '@vben/stores';
+import { WorkbenchHeader } from '@vben/common-ui'
+import { preferences } from '@vben/preferences'
+import { useUserStore } from '@vben/stores'
 
-import dayjs from 'dayjs';
+import dayjs from 'dayjs'
 
-const userStore = useUserStore();
+const userStore = useUserStore()
 </script>
 
 <template>

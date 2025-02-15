@@ -1,12 +1,12 @@
-import type { Arrayable, MaybeElementRef } from '@vueuse/core';
+import type { Arrayable, MaybeElementRef } from '@vueuse/core'
 
-import type { Ref } from 'vue';
+import type { Ref } from 'vue'
 
-import { computed, onUnmounted, ref, watch } from 'vue';
+import { computed, onUnmounted, ref, watch } from 'vue'
 
-import { isFunction } from '@vben/utils';
+import { isFunction } from '@vben/utils'
 
-import { useMouseInElement } from '@vueuse/core';
+import { useMouseInElement } from '@vueuse/core'
 
 /**
  * 监测鼠标是否在元素内部，如果在元素内部则返回 true，否则返回 false
@@ -18,47 +18,47 @@ export function useHoverToggle(
   refElement: Arrayable<MaybeElementRef>,
   delay: (() => number) | number = 500,
 ) {
-  const isOutsides: Array<Ref<boolean>> = [];
-  const value = ref(false);
-  const timer = ref<ReturnType<typeof setTimeout> | undefined>();
-  const refs = Array.isArray(refElement) ? refElement : [refElement];
+  const isOutsides: Array<Ref<boolean>> = []
+  const value = ref(false)
+  const timer = ref<ReturnType<typeof setTimeout> | undefined>()
+  const refs = Array.isArray(refElement) ? refElement : [refElement]
   refs.forEach((refEle) => {
-    const listener = useMouseInElement(refEle, { handleOutside: true });
-    isOutsides.push(listener.isOutside);
-  });
-  const isOutsideAll = computed(() => isOutsides.every((v) => v.value));
+    const listener = useMouseInElement(refEle, { handleOutside: true })
+    isOutsides.push(listener.isOutside)
+  })
+  const isOutsideAll = computed(() => isOutsides.every((v) => v.value))
 
   function setValueDelay(val: boolean) {
-    timer.value && clearTimeout(timer.value);
+    timer.value && clearTimeout(timer.value)
     timer.value = setTimeout(
       () => {
-        value.value = val;
-        timer.value = undefined;
+        value.value = val
+        timer.value = undefined
       },
       isFunction(delay) ? delay() : delay,
-    );
+    )
   }
 
   const watcher = watch(
     isOutsideAll,
     (val) => {
-      setValueDelay(!val);
+      setValueDelay(!val)
     },
     { immediate: true },
-  );
+  )
 
   const controller = {
     enable() {
-      watcher.resume();
+      watcher.resume()
     },
     disable() {
-      watcher.pause();
+      watcher.pause()
     },
-  };
+  }
 
   onUnmounted(() => {
-    timer.value && clearTimeout(timer.value);
-  });
+    timer.value && clearTimeout(timer.value)
+  })
 
-  return [value, controller] as [typeof value, typeof controller];
+  return [value, controller] as [typeof value, typeof controller]
 }

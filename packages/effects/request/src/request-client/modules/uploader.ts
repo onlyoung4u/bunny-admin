@@ -1,11 +1,11 @@
-import type { RequestClient } from '../request-client';
-import type { RequestClientConfig } from '../types';
+import type { RequestClient } from '../request-client'
+import type { RequestClientConfig } from '../types'
 
 class FileUploader {
-  private client: RequestClient;
+  private client: RequestClient
 
   constructor(client: RequestClient) {
-    this.client = client;
+    this.client = client
   }
 
   public async upload<T = any>(
@@ -13,11 +13,11 @@ class FileUploader {
     data: Record<string, any> & { file: Blob | File },
     config?: RequestClientConfig,
   ): Promise<T> {
-    const formData = new FormData();
+    const formData = new FormData()
 
     Object.entries(data).forEach(([key, value]) => {
-      formData.append(key, value);
-    });
+      formData.append(key, value)
+    })
 
     const finalConfig: RequestClientConfig = {
       ...config,
@@ -25,10 +25,10 @@ class FileUploader {
         'Content-Type': 'multipart/form-data',
         ...config?.headers,
       },
-    };
+    }
 
-    return this.client.post(url, formData, finalConfig);
+    return this.client.post(url, formData, finalConfig)
   }
 }
 
-export { FileUploader };
+export { FileUploader }

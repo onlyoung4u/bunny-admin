@@ -1,25 +1,25 @@
 <script setup lang="ts">
-import type { TabOption } from '@vben/types';
+import type { TabOption } from '@vben/types'
 
-import { computed } from 'vue';
+import { computed } from 'vue'
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@vben-core/shadcn-ui';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@vben-core/shadcn-ui'
 
 interface Props {
-  tabs: TabOption[];
+  tabs: TabOption[]
 }
 
 defineOptions({
   name: 'AnalysisChartsTabs',
-});
+})
 
 const props = withDefaults(defineProps<Props>(), {
   tabs: () => [],
-});
+})
 
 const defaultValue = computed(() => {
-  return props.tabs?.[0]?.value;
-});
+  return props.tabs?.[0]?.value
+})
 </script>
 
 <template>

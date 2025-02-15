@@ -39,7 +39,7 @@ Importing a package in `package.json`:
 Importing a package in the code:
 
 ```ts
-import { isString } from '@vben/utils';
+import { isString } from '@vben/utils'
 ```
 
 ## Aliases

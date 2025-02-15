@@ -1,4 +1,4 @@
-import createCommand from 'eslint-plugin-command/config';
+import createCommand from 'eslint-plugin-command/config'
 
 export async function command() {
   return [
@@ -6,5 +6,5 @@ export async function command() {
       // @ts-expect-error - no types
       ...createCommand(),
     },
-  ];
+  ]
 }

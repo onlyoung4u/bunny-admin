@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { message } from 'ant-design-vue';
+import { message } from 'ant-design-vue'
 
-import { useVbenForm } from '#/adapter/form';
+import { useVbenForm } from '#/adapter/form'
 
 const [Form] = useVbenForm({
   // 提交函数
@@ -46,7 +46,7 @@ const [Form] = useVbenForm({
       component: 'Input',
       dependencies: {
         if(values) {
-          return !!values.field1Switch;
+          return !!values.field1Switch
         },
         // 只有指定的字段改变时，才会触发
         triggerFields: ['field1Switch'],
@@ -60,7 +60,7 @@ const [Form] = useVbenForm({
       component: 'Input',
       dependencies: {
         show(values) {
-          return !!values.field2Switch;
+          return !!values.field2Switch
         },
         triggerFields: ['field2Switch'],
       },
@@ -71,7 +71,7 @@ const [Form] = useVbenForm({
       component: 'Input',
       dependencies: {
         disabled(values) {
-          return !!values.field3Switch;
+          return !!values.field3Switch
         },
         triggerFields: ['field3Switch'],
       },
@@ -82,7 +82,7 @@ const [Form] = useVbenForm({
       component: 'Input',
       dependencies: {
         required(values) {
-          return !!values.field4Switch;
+          return !!values.field4Switch
         },
         triggerFields: ['field4Switch'],
       },
@@ -94,9 +94,9 @@ const [Form] = useVbenForm({
       dependencies: {
         rules(values) {
           if (values.field1 === '123') {
-            return 'required';
+            return 'required'
           }
-          return null;
+          return null
         },
         triggerFields: ['field1'],
       },
@@ -141,9 +141,9 @@ const [Form] = useVbenForm({
                   value: '3',
                 },
               ],
-            };
+            }
           }
-          return {};
+          return {}
         },
         triggerFields: ['field2'],
       },
@@ -154,12 +154,12 @@ const [Form] = useVbenForm({
   ],
   // 大屏一行显示3个，中屏一行显示2个，小屏一行显示1个
   wrapperClass: 'grid-cols-1 md:grid-cols-2',
-});
+})
 
 function onSubmit(values: Record<string, any>) {
   message.success({
     content: `form values: ${JSON.stringify(values)}`,
-  });
+  })
 }
 </script>
 

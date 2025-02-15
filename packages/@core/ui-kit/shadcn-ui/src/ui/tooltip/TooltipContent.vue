@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import type { TooltipContentEmits, TooltipContentProps } from 'radix-vue';
+import type { TooltipContentEmits, TooltipContentProps } from 'radix-vue'
 
-import { computed } from 'vue';
+import { computed } from 'vue'
 
-import { cn } from '@vben-core/shared/utils';
+import { cn } from '@vben-core/shared/utils'
 
-import { TooltipContent, TooltipPortal, useForwardPropsEmits } from 'radix-vue';
+import { TooltipContent, TooltipPortal, useForwardPropsEmits } from 'radix-vue'
 
 defineOptions({
   inheritAttrs: false,
-});
+})
 
 const props = withDefaults(
   defineProps<TooltipContentProps & { class?: any }>(),
@@ -18,17 +18,17 @@ const props = withDefaults(
     side: 'right',
     sideOffset: 5,
   },
-);
+)
 
-const emits = defineEmits<TooltipContentEmits>();
+const emits = defineEmits<TooltipContentEmits>()
 
 const delegatedProps = computed(() => {
-  const { class: _, ...delegated } = props;
+  const { class: _, ...delegated } = props
 
-  return delegated;
-});
+  return delegated
+})
 
-const forwarded = useForwardPropsEmits(delegatedProps, emits);
+const forwarded = useForwardPropsEmits(delegatedProps, emits)
 </script>
 
 <template>

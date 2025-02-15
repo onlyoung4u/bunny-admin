@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import { cn } from '@vben-core/shared/utils';
+import { cn } from '@vben-core/shared/utils'
 
-import { ChevronRight } from 'lucide-vue-next';
+import { ChevronRight } from 'lucide-vue-next'
 
 const props = defineProps<{
-  class?: any;
-}>();
+  class?: any
+}>()
 </script>
 
 <template>

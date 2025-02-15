@@ -5,9 +5,9 @@ type LayoutType =
   | 'header-sidebar-nav'
   | 'mixed-nav'
   | 'sidebar-mixed-nav'
-  | 'sidebar-nav';
+  | 'sidebar-nav'
 
-type ThemeModeType = 'auto' | 'dark' | 'light';
+type ThemeModeType = 'auto' | 'dark' | 'light'
 
 /**
  * 偏好设置按钮位置
@@ -15,7 +15,7 @@ type ThemeModeType = 'auto' | 'dark' | 'light';
  * header 顶栏
  * auto 自动
  */
-type PreferencesButtonPositionType = 'auto' | 'fixed' | 'header';
+type PreferencesButtonPositionType = 'auto' | 'fixed' | 'header'
 
 type BuiltinThemeType =
   | 'custom'
@@ -35,40 +35,40 @@ type BuiltinThemeType =
   | 'violet'
   | 'yellow'
   | 'zinc'
-  | (Record<never, never> & string);
+  | (Record<never, never> & string)
 
-type ContentCompactType = 'compact' | 'wide';
+type ContentCompactType = 'compact' | 'wide'
 
-type LayoutHeaderModeType = 'auto' | 'auto-scroll' | 'fixed' | 'static';
-type LayoutHeaderMenuAlignType = 'center' | 'end' | 'start';
+type LayoutHeaderModeType = 'auto' | 'auto-scroll' | 'fixed' | 'static'
+type LayoutHeaderMenuAlignType = 'center' | 'end' | 'start'
 
 /**
  * 登录过期模式
  * modal 弹窗模式
  * page 页面模式
  */
-type LoginExpiredModeType = 'modal' | 'page';
+type LoginExpiredModeType = 'modal' | 'page'
 
 /**
  * 面包屑样式
  * background 背景
  * normal 默认
  */
-type BreadcrumbStyleType = 'background' | 'normal';
+type BreadcrumbStyleType = 'background' | 'normal'
 
 /**
  * 权限模式
  * backend 后端权限模式
  * frontend 前端权限模式
  */
-type AccessModeType = 'backend' | 'frontend';
+type AccessModeType = 'backend' | 'frontend'
 
 /**
  * 导航风格
  * plain 朴素
  * rounded 圆润
  */
-type NavigationStyleType = 'plain' | 'rounded';
+type NavigationStyleType = 'plain' | 'rounded'
 
 /**
  * 标签栏风格
@@ -77,12 +77,12 @@ type NavigationStyleType = 'plain' | 'rounded';
  * chrome 谷歌
  * plain 朴素
  */
-type TabsStyleType = 'brisk' | 'card' | 'chrome' | 'plain';
+type TabsStyleType = 'brisk' | 'card' | 'chrome' | 'plain'
 
 /**
  * 页面切换动画
  */
-type PageTransitionType = 'fade' | 'fade-down' | 'fade-slide' | 'fade-up';
+type PageTransitionType = 'fade' | 'fade-down' | 'fade-slide' | 'fade-up'
 
 /**
  * 页面切换动画
@@ -90,7 +90,7 @@ type PageTransitionType = 'fade' | 'fade-down' | 'fade-slide' | 'fade-up';
  * panel-left 居左布局
  * panel-right 居右布局
  */
-type AuthPageLayoutType = 'panel-center' | 'panel-left' | 'panel-right';
+type AuthPageLayoutType = 'panel-center' | 'panel-left' | 'panel-right'
 
 export type {
   AccessModeType,
@@ -107,4 +107,4 @@ export type {
   PreferencesButtonPositionType,
   TabsStyleType,
   ThemeModeType,
-};
+}

@@ -1,47 +1,47 @@
 <script setup lang="ts">
-import type { CSSProperties } from 'vue';
+import type { CSSProperties } from 'vue'
 
-import { computed, ref, useTemplateRef } from 'vue';
+import { computed, ref, useTemplateRef } from 'vue'
 
-import { Check, ChevronsRight } from '@vben/icons';
+import { Check, ChevronsRight } from '@vben/icons'
 
-import { Slot } from '@vben-core/shadcn-ui';
+import { Slot } from '@vben-core/shadcn-ui'
 
 const props = defineProps<{
-  actionStyle: CSSProperties;
-  isPassing: boolean;
-  toLeft: boolean;
-}>();
+  actionStyle: CSSProperties
+  isPassing: boolean
+  toLeft: boolean
+}>()
 
-const actionRef = useTemplateRef<HTMLDivElement>('actionRef');
+const actionRef = useTemplateRef<HTMLDivElement>('actionRef')
 
-const left = ref('0');
+const left = ref('0')
 
 const style = computed(() => {
-  const { actionStyle } = props;
+  const { actionStyle } = props
   return {
     ...actionStyle,
     left: left.value,
-  };
-});
+  }
+})
 
 const isDragging = computed(() => {
-  const currentLeft = Number.parseInt(left.value as string);
+  const currentLeft = Number.parseInt(left.value as string)
 
-  return currentLeft > 10 && !props.isPassing;
-});
+  return currentLeft > 10 && !props.isPassing
+})
 
 defineExpose({
   getEl: () => {
-    return actionRef.value;
+    return actionRef.value
   },
   getStyle: () => {
-    return actionRef?.value?.style;
+    return actionRef?.value?.style
   },
   setLeft: (val: string) => {
-    left.value = val;
+    left.value = val
   },
-});
+})
 </script>
 
 <template>

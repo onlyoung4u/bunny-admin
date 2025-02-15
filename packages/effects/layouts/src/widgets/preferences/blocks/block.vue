@@ -1,15 +1,15 @@
 <script setup lang="ts">
 interface Props {
-  title?: string;
+  title?: string
 }
 
 defineOptions({
   name: 'PreferenceBlock',
-});
+})
 
 withDefaults(defineProps<Props>(), {
   title: '',
-});
+})
 </script>
 
 <template>

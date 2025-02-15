@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { message } from 'ant-design-vue';
+import { message } from 'ant-design-vue'
 
-import { useVbenForm } from '#/adapter/form';
+import { useVbenForm } from '#/adapter/form'
 
 const [QueryForm] = useVbenForm({
   // 默认展开
@@ -81,11 +81,11 @@ const [QueryForm] = useVbenForm({
     content: '查询',
   },
   wrapperClass: 'grid-cols-1 md:grid-cols-2',
-});
+})
 function onSubmit(values: Record<string, any>) {
   message.success({
     content: `form values: ${JSON.stringify(values)}`,
-  });
+  })
 }
 </script>
 

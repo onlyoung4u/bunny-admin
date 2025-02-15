@@ -130,9 +130,9 @@ interface HttpResponse<T = any> {
    * 0 表示成功 其他表示失败
    * 0 means success, others means fail
    */
-  code: number;
-  data: T;
-  message: string;
+  code: number
+  data: T
+  message: string
 }
 ```
 
@@ -141,7 +141,7 @@ interface HttpResponse<T = any> {
 - 其次你需要在先将本地代理地址改为你的真实后端地址，你可以在应用下的 `vite.config.mts` 内配置：
 
 ```ts
-import { defineConfig } from '@vben/vite-config';
+import { defineConfig } from '@vben/vite-config'
 
 export default defineConfig(async () => {
   return {
@@ -158,8 +158,8 @@ export default defineConfig(async () => {
         },
       },
     },
-  };
-});
+  }
+})
 ```
 
 ### 登录接口
@@ -175,12 +175,12 @@ export default defineConfig(async () => {
  * 登录
  */
 export async function loginApi(data: AuthApi.LoginParams) {
-  return requestClient.post<AuthApi.LoginResult>('/auth/login', data);
+  return requestClient.post<AuthApi.LoginResult>('/auth/login', data)
 }
 
 /** 只需要保证登录接口返回值有 `accessToken` 字段即可 */
 export interface LoginResult {
-  accessToken: string;
+  accessToken: string
 }
 ```
 
@@ -190,13 +190,13 @@ export interface LoginResult {
 
 ```ts
 export async function getUserInfoApi() {
-  return requestClient.get<UserInfo>('/user/info');
+  return requestClient.get<UserInfo>('/user/info')
 }
 
 /** 只需要保证登录接口返回值有以下字段即可，多的字段可以自行使用 */
 export interface UserInfo {
-  roles: string[];
-  nickname: string;
+  roles: string[]
+  nickname: string
 }
 ```
 
@@ -206,7 +206,7 @@ export interface UserInfo {
 
 ```ts
 export async function getAccessCodesApi() {
-  return requestClient.get<string[]>('/auth/codes');
+  return requestClient.get<string[]>('/auth/codes')
 }
 ```
 
@@ -215,6 +215,6 @@ export async function getAccessCodesApi() {
 ```ts {2}
 export async function getAccessCodesApi() {
   // 这里返回一个空数组即可
-  return [];
+  return []
 }
 ```

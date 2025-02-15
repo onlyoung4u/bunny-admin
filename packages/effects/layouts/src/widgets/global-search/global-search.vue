@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { MenuRecordRaw } from '@vben/types';
+import type { MenuRecordRaw } from '@vben/types'
 
-import { nextTick, onMounted, onUnmounted, ref, watch } from 'vue';
+import { nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 
 import {
   ArrowDown,
@@ -9,19 +9,19 @@ import {
   CornerDownLeft,
   MdiKeyboardEsc,
   Search,
-} from '@vben/icons';
-import { $t } from '@vben/locales';
-import { isWindowsOs } from '@vben/utils';
+} from '@vben/icons'
+import { $t } from '@vben/locales'
+import { isWindowsOs } from '@vben/utils'
 
-import { useVbenModal } from '@vben-core/popup-ui';
+import { useVbenModal } from '@vben-core/popup-ui'
 
-import { useMagicKeys, whenever } from '@vueuse/core';
+import { useMagicKeys, whenever } from '@vueuse/core'
 
-import SearchPanel from './search-panel.vue';
+import SearchPanel from './search-panel.vue'
 
 defineOptions({
   name: 'GlobalSearch',
-});
+})
 
 const props = withDefaults(
   defineProps<{ enableShortcutKey?: boolean; menus: MenuRecordRaw[] }>(),
@@ -29,69 +29,69 @@ const props = withDefaults(
     enableShortcutKey: true,
     menus: () => [],
   },
-);
+)
 
-const keyword = ref('');
-const searchInputRef = ref<HTMLInputElement>();
+const keyword = ref('')
+const searchInputRef = ref<HTMLInputElement>()
 
 const [Modal, modalApi] = useVbenModal({
   onCancel() {
-    modalApi.close();
+    modalApi.close()
   },
   onOpenChange(isOpen: boolean) {
     if (!isOpen) {
-      keyword.value = '';
+      keyword.value = ''
     }
   },
-});
-const open = modalApi.useStore((state) => state.isOpen);
+})
+const open = modalApi.useStore((state) => state.isOpen)
 
 function handleClose() {
-  modalApi.close();
-  keyword.value = '';
+  modalApi.close()
+  keyword.value = ''
 }
 
-const keys = useMagicKeys();
-const cmd = isWindowsOs() ? keys['ctrl+k'] : keys['cmd+k'];
+const keys = useMagicKeys()
+const cmd = isWindowsOs() ? keys['ctrl+k'] : keys['cmd+k']
 whenever(cmd!, () => {
   if (props.enableShortcutKey) {
-    modalApi.open();
+    modalApi.open()
   }
-});
+})
 
 whenever(open, () => {
   nextTick(() => {
-    searchInputRef.value?.focus();
-  });
-});
+    searchInputRef.value?.focus()
+  })
+})
 
 const preventDefaultBrowserSearchHotKey = (event: KeyboardEvent) => {
   if (event.key?.toLowerCase() === 'k' && (event.metaKey || event.ctrlKey)) {
-    event.preventDefault();
+    event.preventDefault()
   }
-};
+}
 
 const toggleKeydownListener = () => {
   if (props.enableShortcutKey) {
-    window.addEventListener('keydown', preventDefaultBrowserSearchHotKey);
+    window.addEventListener('keydown', preventDefaultBrowserSearchHotKey)
   } else {
-    window.removeEventListener('keydown', preventDefaultBrowserSearchHotKey);
+    window.removeEventListener('keydown', preventDefaultBrowserSearchHotKey)
   }
-};
+}
 
 const toggleOpen = () => {
-  open.value ? modalApi.close() : modalApi.open();
-};
+  open.value ? modalApi.close() : modalApi.open()
+}
 
-watch(() => props.enableShortcutKey, toggleKeydownListener);
+watch(() => props.enableShortcutKey, toggleKeydownListener)
 
 onMounted(() => {
-  toggleKeydownListener();
+  toggleKeydownListener()
 
   onUnmounted(() => {
-    window.removeEventListener('keydown', preventDefaultBrowserSearchHotKey);
-  });
-});
+    window.removeEventListener('keydown', preventDefaultBrowserSearchHotKey)
+  })
+})
 </script>
 
 <template>

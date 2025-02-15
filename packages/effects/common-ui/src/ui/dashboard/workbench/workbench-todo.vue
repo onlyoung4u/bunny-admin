@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { WorkbenchTodoItem } from '../typing';
+import type { WorkbenchTodoItem } from '../typing'
 
 import {
   Card,
@@ -7,20 +7,20 @@ import {
   CardHeader,
   CardTitle,
   VbenCheckbox,
-} from '@vben-core/shadcn-ui';
+} from '@vben-core/shadcn-ui'
 
 interface Props {
-  items: WorkbenchTodoItem[];
-  title: string;
+  items: WorkbenchTodoItem[]
+  title: string
 }
 
 defineOptions({
   name: 'WorkbenchTodo',
-});
+})
 
 withDefaults(defineProps<Props>(), {
   items: () => [],
-});
+})
 </script>
 
 <template>

@@ -1,20 +1,20 @@
 <script setup lang="ts">
-import type { Component } from 'vue';
+import type { Component } from 'vue'
 
-import type { ThemeModeType } from '@vben/types';
+import type { ThemeModeType } from '@vben/types'
 
-import { MoonStar, Sun, SunMoon } from '@vben/icons';
-import { $t } from '@vben/locales';
+import { MoonStar, Sun, SunMoon } from '@vben/icons'
+import { $t } from '@vben/locales'
 
-import SwitchItem from '../switch-item.vue';
+import SwitchItem from '../switch-item.vue'
 
 defineOptions({
   name: 'PreferenceTheme',
-});
+})
 
-const modelValue = defineModel<string>({ default: 'auto' });
-const themeSemiDarkSidebar = defineModel<boolean>('themeSemiDarkSidebar');
-const themeSemiDarkHeader = defineModel<boolean>('themeSemiDarkHeader');
+const modelValue = defineModel<string>({ default: 'auto' })
+const themeSemiDarkSidebar = defineModel<boolean>('themeSemiDarkSidebar')
+const themeSemiDarkHeader = defineModel<boolean>('themeSemiDarkHeader')
 
 const THEME_PRESET: Array<{ icon: Component; name: ThemeModeType }> = [
   {
@@ -29,22 +29,22 @@ const THEME_PRESET: Array<{ icon: Component; name: ThemeModeType }> = [
     icon: SunMoon,
     name: 'auto',
   },
-];
+]
 
 function activeClass(theme: string): string[] {
-  return theme === modelValue.value ? ['outline-box-active'] : [];
+  return theme === modelValue.value ? ['outline-box-active'] : []
 }
 
 function nameView(name: string) {
   switch (name) {
     case 'auto': {
-      return $t('preferences.followSystem');
+      return $t('preferences.followSystem')
     }
     case 'dark': {
-      return $t('preferences.theme.dark');
+      return $t('preferences.theme.dark')
     }
     case 'light': {
-      return $t('preferences.theme.light');
+      return $t('preferences.theme.light')
     }
   }
 }

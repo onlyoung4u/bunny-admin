@@ -6,28 +6,28 @@
 
 ```ts
 // vite.config.mts
-import { defineConfig } from '@vben/vite-config';
+import { defineConfig } from '@vben/vite-config'
 
 export default defineConfig(async () => {
   return {
     application: {},
     // vite配置，参考vite官方文档进行覆盖
     vite: {},
-  };
-});
+  }
+})
 ```
 
 ## 包
 
 ```ts
 // vite.config.mts
-import { defineConfig } from '@vben/vite-config';
+import { defineConfig } from '@vben/vite-config'
 
 export default defineConfig(async () => {
   return {
     library: {},
     // vite配置，参考vite官方文档进行覆盖
     vite: {},
-  };
-});
+  }
+})
 ```

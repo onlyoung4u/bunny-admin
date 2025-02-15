@@ -1,14 +1,14 @@
 <script lang="ts" setup>
-import type { LabelProps } from 'radix-vue';
+import type { LabelProps } from 'radix-vue'
 
-import { cn } from '@vben-core/shared/utils';
+import { cn } from '@vben-core/shared/utils'
 
-import { Label } from '../label';
-import { useFormField } from './useFormField';
+import { Label } from '../label'
+import { useFormField } from './useFormField'
 
-const props = defineProps<LabelProps & { class?: any }>();
+const props = defineProps<LabelProps & { class?: any }>()
 
-const { formItemId } = useFormField();
+const { formItemId } = useFormField()
 </script>
 
 <template>

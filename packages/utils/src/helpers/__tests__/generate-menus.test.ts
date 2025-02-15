@@ -1,10 +1,10 @@
-import type { Router, RouteRecordRaw } from 'vue-router';
+import type { Router, RouteRecordRaw } from 'vue-router'
 
-import { createRouter, createWebHistory } from 'vue-router';
+import { createRouter, createWebHistory } from 'vue-router'
 
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it, vi } from 'vitest'
 
-import { generateMenus } from '../generate-menus';
+import { generateMenus } from '../generate-menus'
 
 // Nested route setup to test child inclusion and hideChildrenInMenu functionality
 
@@ -28,7 +28,7 @@ describe('generateMenus', () => {
         },
       ],
     },
-  ] as RouteRecordRaw[];
+  ] as RouteRecordRaw[]
 
   // 模拟 Vue 路由器实例
   const mockRouter = {
@@ -37,7 +37,7 @@ describe('generateMenus', () => {
       { name: 'about', path: '/about' },
       { name: 'team', path: '/about/team' },
     ]),
-  };
+  }
 
   it('the correct menu list should be generated according to the route', async () => {
     const expectedMenus = [
@@ -67,11 +67,11 @@ describe('generateMenus', () => {
         show: true,
         children: [],
       },
-    ];
+    ]
 
-    const menus = await generateMenus(mockRoutes, mockRouter as any);
-    expect(menus).toEqual(expectedMenus);
-  });
+    const menus = await generateMenus(mockRoutes, mockRouter as any)
+    expect(menus).toEqual(expectedMenus)
+  })
 
   it('includes additional meta properties in menu items', async () => {
     const mockRoutesWithMeta = [
@@ -80,9 +80,9 @@ describe('generateMenus', () => {
         name: 'profile',
         path: '/profile',
       },
-    ] as RouteRecordRaw[];
+    ] as RouteRecordRaw[]
 
-    const menus = await generateMenus(mockRoutesWithMeta, mockRouter as any);
+    const menus = await generateMenus(mockRoutesWithMeta, mockRouter as any)
     expect(menus).toEqual([
       {
         badge: undefined,
@@ -97,8 +97,8 @@ describe('generateMenus', () => {
         show: true,
         children: [],
       },
-    ]);
-  });
+    ])
+  })
 
   it('handles dynamic route parameters correctly', async () => {
     const mockRoutesWithParams = [
@@ -107,9 +107,9 @@ describe('generateMenus', () => {
         name: 'userDetails',
         path: '/users/:userId',
       },
-    ] as RouteRecordRaw[];
+    ] as RouteRecordRaw[]
 
-    const menus = await generateMenus(mockRoutesWithParams, mockRouter as any);
+    const menus = await generateMenus(mockRoutesWithParams, mockRouter as any)
     expect(menus).toEqual([
       {
         badge: undefined,
@@ -124,8 +124,8 @@ describe('generateMenus', () => {
         show: true,
         children: [],
       },
-    ]);
-  });
+    ])
+  })
 
   it('processes routes with redirects correctly', async () => {
     const mockRoutesWithRedirect = [
@@ -139,12 +139,9 @@ describe('generateMenus', () => {
         name: 'newPath',
         path: '/new-path',
       },
-    ] as RouteRecordRaw[];
+    ] as RouteRecordRaw[]
 
-    const menus = await generateMenus(
-      mockRoutesWithRedirect,
-      mockRouter as any,
-    );
+    const menus = await generateMenus(mockRoutesWithRedirect, mockRouter as any)
     expect(menus).toEqual([
       // Assuming your generateMenus function excludes redirect routes from the menu
       {
@@ -173,8 +170,8 @@ describe('generateMenus', () => {
         show: true,
         children: [],
       },
-    ]);
-  });
+    ])
+  })
 
   const routes: any = [
     {
@@ -187,15 +184,15 @@ describe('generateMenus', () => {
       name: 'about',
       path: '/about',
     },
-  ];
+  ]
 
   const router: Router = createRouter({
     history: createWebHistory(),
     routes,
-  });
+  })
 
   it('should generate menu list with correct order', async () => {
-    const menus = await generateMenus(routes, router);
+    const menus = await generateMenus(routes, router)
     const expectedMenus = [
       {
         badge: undefined,
@@ -223,14 +220,14 @@ describe('generateMenus', () => {
         show: true,
         children: [],
       },
-    ];
+    ]
 
-    expect(menus).toEqual(expectedMenus);
-  });
+    expect(menus).toEqual(expectedMenus)
+  })
 
   it('should handle empty routes', async () => {
-    const emptyRoutes: any[] = [];
-    const menus = await generateMenus(emptyRoutes, router);
-    expect(menus).toEqual([]);
-  });
-});
+    const emptyRoutes: any[] = []
+    const menus = await generateMenus(emptyRoutes, router)
+    expect(menus).toEqual([])
+  })
+})

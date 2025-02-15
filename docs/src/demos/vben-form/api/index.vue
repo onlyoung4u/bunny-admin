@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { Button, message, Space } from 'ant-design-vue';
+import { Button, message, Space } from 'ant-design-vue'
 
-import { useVbenForm } from '#/adapter/form';
+import { useVbenForm } from '#/adapter/form'
 
 const [BaseForm, formApi] = useVbenForm({
   // 所有表单项共用，可单独在表单内覆盖
@@ -53,12 +53,12 @@ const [BaseForm, formApi] = useVbenForm({
     },
   ],
   wrapperClass: 'grid-cols-1 md:grid-cols-2',
-});
+})
 
 function onSubmit(values: Record<string, any>) {
   message.success({
     content: `form values: ${JSON.stringify(values)}`,
-  });
+  })
 }
 
 function handleClick(
@@ -83,8 +83,8 @@ function handleClick(
   switch (action) {
     case 'batchAddSchema': {
       formApi.setState((prev) => {
-        const currentSchema = prev?.schema ?? [];
-        const newSchema = [];
+        const currentSchema = prev?.schema ?? []
+        const newSchema = []
         for (let i = 0; i < 2; i++) {
           newSchema.push({
             component: 'Input',
@@ -93,84 +93,84 @@ function handleClick(
             },
             fieldName: `field${i}${Date.now()}`,
             label: `field+`,
-          });
+          })
         }
         return {
           schema: [...currentSchema, ...newSchema],
-        };
-      });
-      break;
+        }
+      })
+      break
     }
 
     case 'batchDeleteSchema': {
       formApi.setState((prev) => {
-        const currentSchema = prev?.schema ?? [];
+        const currentSchema = prev?.schema ?? []
         return {
           schema: currentSchema.slice(0, -2),
-        };
-      });
-      break;
+        }
+      })
+      break
     }
     case 'disabled': {
-      formApi.setState({ commonConfig: { disabled: true } });
-      break;
+      formApi.setState({ commonConfig: { disabled: true } })
+      break
     }
     case 'hiddenAction': {
-      formApi.setState({ showDefaultActions: false });
-      break;
+      formApi.setState({ showDefaultActions: false })
+      break
     }
     case 'hiddenResetButton': {
-      formApi.setState({ resetButtonOptions: { show: false } });
-      break;
+      formApi.setState({ resetButtonOptions: { show: false } })
+      break
     }
     case 'hiddenSubmitButton': {
-      formApi.setState({ submitButtonOptions: { show: false } });
-      break;
+      formApi.setState({ submitButtonOptions: { show: false } })
+      break
     }
     case 'labelWidth': {
       formApi.setState({
         commonConfig: {
           labelWidth: 150,
         },
-      });
-      break;
+      })
+      break
     }
     case 'resetDisabled': {
-      formApi.setState({ commonConfig: { disabled: false } });
-      break;
+      formApi.setState({ commonConfig: { disabled: false } })
+      break
     }
     case 'resetLabelWidth': {
       formApi.setState({
         commonConfig: {
           labelWidth: 100,
         },
-      });
-      break;
+      })
+      break
     }
     case 'showAction': {
-      formApi.setState({ showDefaultActions: true });
-      break;
+      formApi.setState({ showDefaultActions: true })
+      break
     }
     case 'showResetButton': {
-      formApi.setState({ resetButtonOptions: { show: true } });
-      break;
+      formApi.setState({ resetButtonOptions: { show: true } })
+      break
     }
     case 'showSubmitButton': {
-      formApi.setState({ submitButtonOptions: { show: true } });
-      break;
+      formApi.setState({ submitButtonOptions: { show: true } })
+      break
     }
     case 'updateActionAlign': {
       formApi.setState({
         // 可以自行调整class
         actionWrapperClass: 'text-center',
-      });
-      break;
+      })
+      break
     }
     case 'updateResetButton': {
       formApi.setState({
         resetButtonOptions: { disabled: true },
-      });
-      break;
+      })
+      break
     }
     case 'updateSchema': {
       formApi.updateSchema([
@@ -193,15 +193,15 @@ function handleClick(
           },
           fieldName: 'fieldOptions',
         },
-      ]);
-      message.success('字段 `fieldOptions` 下拉选项更新成功。');
-      break;
+      ])
+      message.success('字段 `fieldOptions` 下拉选项更新成功。')
+      break
     }
     case 'updateSubmitButton': {
       formApi.setState({
         submitButtonOptions: { loading: true },
-      });
-      break;
+      })
+      break
     }
   }
 }

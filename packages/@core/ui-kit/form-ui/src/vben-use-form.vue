@@ -1,70 +1,70 @@
 <script setup lang="ts">
-import type { ExtendedFormApi, VbenFormProps } from './types';
+import type { ExtendedFormApi, VbenFormProps } from './types'
 
 // import { toRaw, watch } from 'vue';
-import { nextTick, onMounted, watch } from 'vue';
+import { nextTick, onMounted, watch } from 'vue'
 // import { isFunction } from '@vben-core/shared/utils';
 
-import { useForwardPriorityValues } from '@vben-core/composables';
-import { cloneDeep } from '@vben-core/shared/utils';
+import { useForwardPriorityValues } from '@vben-core/composables'
+import { cloneDeep } from '@vben-core/shared/utils'
 
-import { useDebounceFn } from '@vueuse/core';
+import { useDebounceFn } from '@vueuse/core'
 
-import FormActions from './components/form-actions.vue';
+import FormActions from './components/form-actions.vue'
 import {
   COMPONENT_BIND_EVENT_MAP,
   COMPONENT_MAP,
   DEFAULT_FORM_COMMON_CONFIG,
-} from './config';
-import { Form } from './form-render';
-import { provideFormProps, useFormInitial } from './use-form-context';
+} from './config'
+import { Form } from './form-render'
+import { provideFormProps, useFormInitial } from './use-form-context'
 // 通过 extends 会导致热更新卡死，所以重复写了一遍
 interface Props extends VbenFormProps {
-  formApi: ExtendedFormApi;
+  formApi: ExtendedFormApi
 }
 
-const props = defineProps<Props>();
+const props = defineProps<Props>()
 
-const state = props.formApi?.useStore?.();
+const state = props.formApi?.useStore?.()
 
-const forward = useForwardPriorityValues(props, state);
+const forward = useForwardPriorityValues(props, state)
 
-const { delegatedSlots, form } = useFormInitial(forward);
+const { delegatedSlots, form } = useFormInitial(forward)
 
-provideFormProps([forward, form]);
+provideFormProps([forward, form])
 
-props.formApi?.mount?.(form);
+props.formApi?.mount?.(form)
 
 const handleUpdateCollapsed = (value: boolean) => {
-  props.formApi?.setState({ collapsed: !!value });
-};
+  props.formApi?.setState({ collapsed: !!value })
+}
 
 function handleKeyDownEnter(event: KeyboardEvent) {
   if (!state.value.submitOnEnter || !forward.value.formApi?.isMounted) {
-    return;
+    return
   }
   // 如果是 textarea 不阻止默认行为，否则会导致无法换行。
   // 跳过 textarea 的回车提交处理
   if (event.target instanceof HTMLTextAreaElement) {
-    return;
+    return
   }
-  event.preventDefault();
+  event.preventDefault()
 
-  forward.value.formApi.validateAndSubmitForm();
+  forward.value.formApi.validateAndSubmitForm()
 }
 
 const handleValuesChangeDebounced = useDebounceFn(async () => {
   forward.value.handleValuesChange?.(
     cloneDeep(await forward.value.formApi.getValues()),
-  );
-  state.value.submitOnChange && forward.value.formApi?.validateAndSubmitForm();
-}, 300);
+  )
+  state.value.submitOnChange && forward.value.formApi?.validateAndSubmitForm()
+}, 300)
 
 onMounted(async () => {
   // 只在挂载后开始监听，form.values会有一个初始化的过程
-  await nextTick();
-  watch(() => form.values, handleValuesChangeDebounced, { deep: true });
-});
+  await nextTick()
+  watch(() => form.values, handleValuesChangeDebounced, { deep: true })
+})
 </script>
 
 <template>

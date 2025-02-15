@@ -1,4 +1,4 @@
-import tailwindcssConfig from '@vben/tailwind-config';
+import tailwindcssConfig from '@vben/tailwind-config'
 
 export default {
   ...tailwindcssConfig,
@@ -8,4 +8,4 @@ export default {
     'src/demos/**/*.{js,mts,ts,vue}',
     'src/**/*.md',
   ],
-};
+}

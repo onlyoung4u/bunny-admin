@@ -1,10 +1,10 @@
 export interface VisibleDomRect {
-  bottom: number;
-  height: number;
-  left: number;
-  right: number;
-  top: number;
-  width: number;
+  bottom: number
+  height: number
+  left: number
+  right: number
+  top: number
+  width: number
 }
 
 /**
@@ -22,24 +22,24 @@ export function getElementVisibleRect(
       right: 0,
       top: 0,
       width: 0,
-    };
+    }
   }
-  const rect = element.getBoundingClientRect();
+  const rect = element.getBoundingClientRect()
   const viewHeight = Math.max(
     document.documentElement.clientHeight,
     window.innerHeight,
-  );
+  )
 
-  const top = Math.max(rect.top, 0);
-  const bottom = Math.min(rect.bottom, viewHeight);
+  const top = Math.max(rect.top, 0)
+  const bottom = Math.min(rect.bottom, viewHeight)
 
   const viewWidth = Math.max(
     document.documentElement.clientWidth,
     window.innerWidth,
-  );
+  )
 
-  const left = Math.max(rect.left, 0);
-  const right = Math.min(rect.right, viewWidth);
+  const left = Math.max(rect.left, 0)
+  const right = Math.min(rect.right, viewWidth)
 
   return {
     bottom,
@@ -48,48 +48,48 @@ export function getElementVisibleRect(
     right,
     top,
     width: Math.max(0, right - left),
-  };
+  }
 }
 
 export function getScrollbarWidth() {
-  const scrollDiv = document.createElement('div');
+  const scrollDiv = document.createElement('div')
 
-  scrollDiv.style.visibility = 'hidden';
-  scrollDiv.style.overflow = 'scroll';
-  scrollDiv.style.position = 'absolute';
-  scrollDiv.style.top = '-9999px';
+  scrollDiv.style.visibility = 'hidden'
+  scrollDiv.style.overflow = 'scroll'
+  scrollDiv.style.position = 'absolute'
+  scrollDiv.style.top = '-9999px'
 
-  document.body.append(scrollDiv);
+  document.body.append(scrollDiv)
 
-  const innerDiv = document.createElement('div');
-  scrollDiv.append(innerDiv);
+  const innerDiv = document.createElement('div')
+  scrollDiv.append(innerDiv)
 
-  const scrollbarWidth = scrollDiv.offsetWidth - innerDiv.offsetWidth;
+  const scrollbarWidth = scrollDiv.offsetWidth - innerDiv.offsetWidth
 
-  scrollDiv.remove();
-  return scrollbarWidth;
+  scrollDiv.remove()
+  return scrollbarWidth
 }
 
 export function needsScrollbar() {
-  const doc = document.documentElement;
-  const body = document.body;
+  const doc = document.documentElement
+  const body = document.body
 
   // 检查 body 的 overflow-y 样式
-  const overflowY = window.getComputedStyle(body).overflowY;
+  const overflowY = window.getComputedStyle(body).overflowY
 
   // 如果明确设置了需要滚动条的样式
   if (overflowY === 'scroll' || overflowY === 'auto') {
-    return doc.scrollHeight > window.innerHeight;
+    return doc.scrollHeight > window.innerHeight
   }
 
   // 在其他情况下，根据 scrollHeight 和 innerHeight 比较判断
-  return doc.scrollHeight > window.innerHeight;
+  return doc.scrollHeight > window.innerHeight
 }
 
 export function triggerWindowResize(): void {
   // 创建一个新的 resize 事件
-  const resizeEvent = new Event('resize');
+  const resizeEvent = new Event('resize')
 
   // 触发 window 的 resize 事件
-  window.dispatchEvent(resizeEvent);
+  window.dispatchEvent(resizeEvent)
 }

@@ -1,11 +1,11 @@
 import type {
   VbenFormSchema as FormSchema,
   VbenFormProps,
-} from '@vben/common-ui';
+} from '@vben/common-ui'
 
-import type { ComponentType } from './component';
+import type { ComponentType } from './component'
 
-import { setupVbenForm, useVbenForm as useForm, z } from '@vben/common-ui';
+import { setupVbenForm, useVbenForm as useForm, z } from '@vben/common-ui'
 
 setupVbenForm<ComponentType>({
   config: {
@@ -23,22 +23,22 @@ setupVbenForm<ComponentType>({
   defineRules: {
     required: (value, _params, ctx) => {
       if (value === undefined || value === null || value.length === 0) {
-        return `请输入${ctx.label}`;
+        return `请输入${ctx.label}`
       }
-      return true;
+      return true
     },
     selectRequired: (value, _params, ctx) => {
       if (value === undefined || value === null) {
-        return `请选择${ctx.label}`;
+        return `请选择${ctx.label}`
       }
-      return true;
+      return true
     },
   },
-});
+})
 
-const useVbenForm = useForm<ComponentType>;
+const useVbenForm = useForm<ComponentType>
 
-export { useVbenForm, z };
+export { useVbenForm, z }
 
-export type VbenFormSchema = FormSchema<ComponentType>;
-export type { VbenFormProps };
+export type VbenFormSchema = FormSchema<ComponentType>
+export type { VbenFormProps }

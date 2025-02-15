@@ -1,19 +1,19 @@
 <script lang="ts" setup>
-import type { VxeGridProps } from '#/adapter/vxe-table';
+import type { VxeGridProps } from '#/adapter/vxe-table'
 
-import { Button, message } from 'ant-design-vue';
+import { Button, message } from 'ant-design-vue'
 
-import { useVbenVxeGrid } from '#/adapter/vxe-table';
+import { useVbenVxeGrid } from '#/adapter/vxe-table'
 
-import { getExampleTableApi } from '../mock-api';
+import { getExampleTableApi } from '../mock-api'
 
 interface RowType {
-  category: string;
-  color: string;
-  id: string;
-  price: string;
-  productName: string;
-  releaseDate: string;
+  category: string
+  color: string
+  id: string
+  price: string
+  productName: string
+  releaseDate: string
 }
 
 const gridOptions: VxeGridProps<RowType> = {
@@ -41,38 +41,38 @@ const gridOptions: VxeGridProps<RowType> = {
         return await getExampleTableApi({
           page: page.currentPage,
           pageSize: page.pageSize,
-        });
+        })
       },
     },
   },
   showOverflow: true,
-};
+}
 
-const [Grid, gridApi] = useVbenVxeGrid({ gridOptions });
+const [Grid, gridApi] = useVbenVxeGrid({ gridOptions })
 
 function hasEditStatus(row: RowType) {
-  return gridApi.grid?.isEditByRow(row);
+  return gridApi.grid?.isEditByRow(row)
 }
 
 function editRowEvent(row: RowType) {
-  gridApi.grid?.setEditRow(row);
+  gridApi.grid?.setEditRow(row)
 }
 
 async function saveRowEvent(row: RowType) {
-  await gridApi.grid?.clearEdit();
+  await gridApi.grid?.clearEdit()
 
-  gridApi.setLoading(true);
+  gridApi.setLoading(true)
   setTimeout(() => {
-    gridApi.setLoading(false);
+    gridApi.setLoading(false)
     message.success({
       content: `保存成功！category=${row.category}`,
-    });
-  }, 600);
+    })
+  }, 600)
 }
 
 const cancelRowEvent = (_row: RowType) => {
-  gridApi.grid?.clearEdit();
-};
+  gridApi.grid?.clearEdit()
+}
 </script>
 
 <template>

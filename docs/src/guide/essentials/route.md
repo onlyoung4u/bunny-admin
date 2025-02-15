@@ -35,14 +35,14 @@ outline: deep
 ```ts
 // 有需要可以自行打开注释，并创建文件夹
 // const externalRouteFiles = import.meta.glob('./external/**/*.ts', { eager: true }); // [!code --]
-const staticRouteFiles = import.meta.glob('./static/**/*.ts', { eager: true }); // [!code ++]
+const staticRouteFiles = import.meta.glob('./static/**/*.ts', { eager: true }) // [!code ++]
 /** 动态路由 */
-const dynamicRoutes: RouteRecordRaw[] = mergeRouteModules(dynamicRouteFiles);
+const dynamicRoutes: RouteRecordRaw[] = mergeRouteModules(dynamicRouteFiles)
 
 /** 外部路由列表，访问这些页面可以不需要Layout，可能用于内嵌在别的系统 */
 // const externalRoutes: RouteRecordRaw[] = mergeRouteModules(externalRouteFiles) // [!code --]
-const externalRoutes: RouteRecordRaw[] = []; // [!code --]
-const externalRoutes: RouteRecordRaw[] = mergeRouteModules(externalRouteFiles); // [!code ++]
+const externalRoutes: RouteRecordRaw[] = [] // [!code --]
+const externalRoutes: RouteRecordRaw[] = mergeRouteModules(externalRouteFiles) // [!code ++]
 ```
 
 ### 动态路由
@@ -58,11 +58,11 @@ const externalRoutes: RouteRecordRaw[] = mergeRouteModules(externalRouteFiles); 
 ::: details 二级路由示例代码
 
 ```ts
-import type { RouteRecordRaw } from 'vue-router';
+import type { RouteRecordRaw } from 'vue-router'
 
-import { VBEN_LOGO_URL } from '@vben/constants';
+import { VBEN_LOGO_URL } from '@vben/constants'
 
-import { $t } from '#/locales';
+import { $t } from '#/locales'
 
 const routes: RouteRecordRaw[] = [
   {
@@ -90,9 +90,9 @@ const routes: RouteRecordRaw[] = [
       },
     ],
   },
-];
+]
 
-export default routes;
+export default routes
 ```
 
 :::
@@ -108,9 +108,9 @@ export default routes;
 ::: details 多级路由示例代码
 
 ```ts
-import type { RouteRecordRaw } from 'vue-router';
+import type { RouteRecordRaw } from 'vue-router'
 
-import { $t } from '#/locales';
+import { $t } from '#/locales'
 
 const routes: RouteRecordRaw[] = [
   {
@@ -213,9 +213,9 @@ const routes: RouteRecordRaw[] = [
       },
     ],
   },
-];
+]
 
-export default routes;
+export default routes
 ```
 
 :::
@@ -229,11 +229,11 @@ export default routes;
 在对应的路由文件中添加一个路由对象，如下：
 
 ```ts
-import type { RouteRecordRaw } from 'vue-router';
+import type { RouteRecordRaw } from 'vue-router'
 
-import { VBEN_LOGO_URL } from '@vben/constants';
+import { VBEN_LOGO_URL } from '@vben/constants'
 
-import { $t } from '#/locales';
+import { $t } from '#/locales'
 
 const routes: RouteRecordRaw[] = [
   {
@@ -256,9 +256,9 @@ const routes: RouteRecordRaw[] = [
       },
     ],
   },
-];
+]
 
-export default routes;
+export default routes
 ```
 
 ### 添加页面组件
@@ -291,7 +291,7 @@ const routes = [
       title: $t('page.home.index'),
     },
   },
-];
+]
 ```
 
 ::: details 路由Meta配置类型定义
@@ -301,34 +301,34 @@ interface RouteMeta {
   /**
    * 激活图标（菜单）
    */
-  activeIcon?: string;
+  activeIcon?: string
   /**
    * 当前激活的菜单，有时候不想激活现有菜单，需要激活父级菜单时使用
    */
-  activePath?: string;
+  activePath?: string
   /**
    * 是否固定标签页
    * @default false
    */
-  affixTab?: boolean;
+  affixTab?: boolean
   /**
    * 固定标签页的顺序
    * @default 0
    */
-  affixTabOrder?: number;
+  affixTabOrder?: number
   /**
    * 需要特定的角色标识才可以访问
    * @default []
    */
-  authority?: string[];
+  authority?: string[]
   /**
    * 徽标
    */
-  badge?: string;
+  badge?: string
   /**
    * 徽标类型
    */
-  badgeType?: 'dot' | 'normal';
+  badgeType?: 'dot' | 'normal'
   /**
    * 徽标颜色
    */
@@ -338,81 +338,81 @@ interface RouteMeta {
     | 'primary'
     | 'success'
     | 'warning'
-    | string;
+    | string
   /**
    * 当前路由的子级在菜单中不展现
    * @default false
    */
-  hideChildrenInMenu?: boolean;
+  hideChildrenInMenu?: boolean
   /**
    * 当前路由在面包屑中不展现
    * @default false
    */
-  hideInBreadcrumb?: boolean;
+  hideInBreadcrumb?: boolean
   /**
    * 当前路由在菜单中不展现
    * @default false
    */
-  hideInMenu?: boolean;
+  hideInMenu?: boolean
   /**
    * 当前路由在标签页不展现
    * @default false
    */
-  hideInTab?: boolean;
+  hideInTab?: boolean
   /**
    * 图标（菜单/tab）
    */
-  icon?: string;
+  icon?: string
   /**
    * iframe 地址
    */
-  iframeSrc?: string;
+  iframeSrc?: string
   /**
    * 忽略权限，直接可以访问
    * @default false
    */
-  ignoreAccess?: boolean;
+  ignoreAccess?: boolean
   /**
    * 开启KeepAlive缓存
    */
-  keepAlive?: boolean;
+  keepAlive?: boolean
   /**
    * 外链-跳转路径
    */
-  link?: string;
+  link?: string
   /**
    * 路由是否已经加载过
    */
-  loaded?: boolean;
+  loaded?: boolean
   /**
    * 标签页最大打开数量
    * @default false
    */
-  maxNumOfOpenTab?: number;
+  maxNumOfOpenTab?: number
   /**
    * 菜单可以看到，但是访问会被重定向到403
    */
-  menuVisibleWithForbidden?: boolean;
+  menuVisibleWithForbidden?: boolean
   /**
    * 当前路由不使用基础布局（仅在顶级生效）
    */
-  noBasicLayout?: boolean;
+  noBasicLayout?: boolean
   /**
    * 在新窗口打开
    */
-  openInNewWindow?: boolean;
+  openInNewWindow?: boolean
   /**
    * 用于路由->菜单排序
    */
-  order?: number;
+  order?: number
   /**
    * 菜单所携带的参数
    */
-  query?: Recordable;
+  query?: Recordable
   /**
    * 标题名称
    */
-  title: string;
+  title: string
 }
 ```
 
@@ -594,11 +594,11 @@ _注意:_ 排序仅针对一级菜单有效，二级菜单的排序需要在对�
 
 ```vue
 <script setup lang="ts">
-import { useRefresh } from '@vben/hooks';
+import { useRefresh } from '@vben/hooks'
 
-const { refresh } = useRefresh();
+const { refresh } = useRefresh()
 
 // 刷新当前路由
-refresh();
+refresh()
 </script>
 ```

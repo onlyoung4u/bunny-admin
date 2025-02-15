@@ -22,7 +22,7 @@ The framework has built-in two types of access control methods:
 Adjust `preferences.ts` in the corresponding application directory to ensure `accessMode='frontend'`.
 
 ```ts
-import { defineOverridesPreferences } from '@vben/preferences';
+import { defineOverridesPreferences } from '@vben/preferences'
 
 export const overridesPreferences = defineOverridesPreferences({
   // overrides
@@ -30,7 +30,7 @@ export const overridesPreferences = defineOverridesPreferences({
     // Default value, optional
     accessMode: 'frontend',
   },
-});
+})
 ```
 
 - Configure route permissions
@@ -52,7 +52,7 @@ You can look under `src/store/auth` in the application to find the following cod
 ```ts
 // Set the login user information, ensuring that userInfo.roles is an array and contains permissions from the route table
 // For example: userInfo.roles=['super', 'admin']
-authStore.setUserInfo(userInfo);
+authStore.setUserInfo(userInfo)
 ```
 
 At this point, the configuration is complete. You need to ensure that the roles returned by the interface after login match the permissions in the route table; otherwise, access will not be possible.
@@ -82,14 +82,14 @@ Sometimes, we need the menu to be visible but access to it forbidden. This can b
 Adjust `preferences.ts` in the corresponding application directory to ensure `accessMode='backend'`.
 
 ```ts
-import { defineOverridesPreferences } from '@vben/preferences';
+import { defineOverridesPreferences } from '@vben/preferences'
 
 export const overridesPreferences = defineOverridesPreferences({
   // overrides
   app: {
     accessMode: 'backend',
   },
-});
+})
 ```
 
 - Ensure the structure of the menu data returned by the interface is correct
@@ -101,9 +101,9 @@ async function generateAccess(options: GenerateMenuAndRoutesOptions) {
   return await generateAccessible(preferences.app.accessMode, {
     fetchMenuListAsync: async () => {
       // This interface is for the menu data returned by the backend
-      return await getAllMenus();
+      return await getAllMenus()
     },
-  });
+  })
 }
 ```
 
@@ -144,7 +144,7 @@ const dashboardMenus = [
       },
     ],
   },
-];
+]
 ```
 
 :::
@@ -163,11 +163,11 @@ The permission code is the code returned by the interface. The logic to determin
 const [fetchUserInfoResult, accessCodes] = await Promise.all([
   fetchUserInfo(),
   getAccessCodes(),
-]);
+])
 
-userInfo = fetchUserInfoResult;
-authStore.setUserInfo(userInfo);
-accessStore.setAccessCodes(accessCodes);
+userInfo = fetchUserInfoResult
+authStore.setUserInfo(userInfo)
+accessStore.setAccessCodes(accessCodes)
 ```
 
 Locate the `getAccessCodes` corresponding interface, which can be adjusted according to business logic.
@@ -180,9 +180,9 @@ With the permission codes, you can use the `AccessControl` component and API pro
 
 ```vue
 <script lang="ts" setup>
-import { AccessControl, useAccess } from '@vben/access';
+import { AccessControl, useAccess } from '@vben/access'
 
-const { accessMode, hasAccessByCodes } = useAccess();
+const { accessMode, hasAccessByCodes } = useAccess()
 </script>
 
 <template>
@@ -208,9 +208,9 @@ const { accessMode, hasAccessByCodes } = useAccess();
 
 ```vue
 <script lang="ts" setup>
-import { AccessControl, useAccess } from '@vben/access';
+import { AccessControl, useAccess } from '@vben/access'
 
-const { hasAccessByCodes } = useAccess();
+const { hasAccessByCodes } = useAccess()
 </script>
 
 <template>
@@ -258,7 +258,7 @@ The method of determining roles does not require permission codes returned by th
 
 ```vue
 <script lang="ts" setup>
-import { AccessControl } from '@vben/access';
+import { AccessControl } from '@vben/access'
 </script>
 
 <template>
@@ -281,9 +281,9 @@ import { AccessControl } from '@vben/access';
 
 ```vue
 <script lang="ts" setup>
-import { useAccess } from '@vben/access';
+import { useAccess } from '@vben/access'
 
-const { hasAccessByRoles } = useAccess();
+const { hasAccessByRoles } = useAccess()
 </script>
 
 <template>

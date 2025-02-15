@@ -28,12 +28,12 @@ outline: deep
 import type {
   VbenFormSchema as FormSchema,
   VbenFormProps,
-} from '@vben/common-ui';
+} from '@vben/common-ui'
 
-import type { ComponentType } from './component';
+import type { ComponentType } from './component'
 
-import { setupVbenForm, useVbenForm as useForm, z } from '@vben/common-ui';
-import { $t } from '@vben/locales';
+import { setupVbenForm, useVbenForm as useForm, z } from '@vben/common-ui'
+import { $t } from '@vben/locales'
 
 setupVbenForm<ComponentType>({
   config: {
@@ -51,25 +51,25 @@ setupVbenForm<ComponentType>({
     // 输入项目必填国际化适配
     required: (value, _params, ctx) => {
       if (value === undefined || value === null || value.length === 0) {
-        return $t('ui.formRules.required', [ctx.label]);
+        return $t('ui.formRules.required', [ctx.label])
       }
-      return true;
+      return true
     },
     // 选择项目必填国际化适配
     selectRequired: (value, _params, ctx) => {
       if (value === undefined || value === null) {
-        return $t('ui.formRules.selectRequired', [ctx.label]);
+        return $t('ui.formRules.selectRequired', [ctx.label])
       }
-      return true;
+      return true
     },
   },
-});
+})
 
-const useVbenForm = useForm<ComponentType>;
+const useVbenForm = useForm<ComponentType>
 
-export { useVbenForm, z };
-export type VbenFormSchema = FormSchema<ComponentType>;
-export type { VbenFormProps };
+export { useVbenForm, z }
+export type VbenFormSchema = FormSchema<ComponentType>
+export type { VbenFormProps }
 ```
 
 :::
@@ -260,14 +260,14 @@ _注意_ 需要指定 `dependencies` 的 `triggerFields` 属性，设置由谁�
 
 ```vue
 <script setup lang="ts">
-import { useVbenForm } from '#/adapter/form';
+import { useVbenForm } from '#/adapter/form'
 
 // Form 为弹窗组件
 // formApi 为弹窗的方法
 const [Form, formApi] = useVbenForm({
   // 属性
   // 事件
-});
+})
 </script>
 
 <template>
@@ -335,21 +335,21 @@ useVbenForm 返回的第二个参数，是一个对象，包含了一些表单�
 ```ts
 export interface ActionButtonOptions {
   /** 样式 */
-  class?: ClassType;
+  class?: ClassType
   /** 是否禁用 */
-  disabled?: boolean;
+  disabled?: boolean
   /** 是否加载中 */
-  loading?: boolean;
+  loading?: boolean
   /** 按钮大小 */
-  size?: ButtonVariantSize;
+  size?: ButtonVariantSize
   /** 按钮类型 */
-  variant?: ButtonVariants;
+  variant?: ButtonVariants
   /** 是否显示 */
-  show?: boolean;
+  show?: boolean
   /** 按钮文本 */
-  content?: string;
+  content?: string
   /** 任意属性 */
-  [key: string]: any;
+  [key: string]: any
 }
 ```
 
@@ -362,65 +362,65 @@ export interface FormCommonConfig {
   /**
    * 所有表单项的props
    */
-  componentProps?: ComponentProps;
+  componentProps?: ComponentProps
   /**
    * 是否紧凑模式(移除表单底部为显示校验错误信息所预留的空间)。
    * 在有设置校验规则的场景下，建议不要将其设置为true
    * 默认为false。但用作表格的搜索表单时，默认为true
    * @default false
    */
-  compact?: boolean;
+  compact?: boolean
   /**
    * 所有表单项的控件样式
    */
-  controlClass?: string;
+  controlClass?: string
   /**
    * 在表单项的Label后显示一个冒号
    */
-  colon?: boolean;
+  colon?: boolean
   /**
    * 所有表单项的禁用状态
    * @default false
    */
-  disabled?: boolean;
+  disabled?: boolean
   /**
    * 所有表单项的控件样式
    * @default {}
    */
-  formFieldProps?: Partial<typeof Field>;
+  formFieldProps?: Partial<typeof Field>
   /**
    * 所有表单项的栅格布局
    * @default ""
    */
-  formItemClass?: string;
+  formItemClass?: string
   /**
    * 隐藏所有表单项label
    * @default false
    */
-  hideLabel?: boolean;
+  hideLabel?: boolean
   /**
    * 是否隐藏必填标记
    * @default false
    */
-  hideRequiredMark?: boolean;
+  hideRequiredMark?: boolean
   /**
    * 所有表单项的label样式
    * @default ""
    */
-  labelClass?: string;
+  labelClass?: string
   /**
    * 所有表单项的label宽度
    */
-  labelWidth?: number;
+  labelWidth?: number
   /**
    * 所有表单项的model属性名。使用自定义组件时可通过此配置指定组件的model属性名。已经在modelPropNameMap中注册的组件不受此配置影响
    * @default "modelValue"
    */
-  modelPropName?: string;
+  modelPropName?: string
   /**
    * 所有表单项的wrapper样式
    */
-  wrapperClass?: string;
+  wrapperClass?: string
 }
 ```
 
@@ -433,27 +433,27 @@ export interface FormSchema<
   T extends BaseFormComponentType = BaseFormComponentType,
 > extends FormCommonConfig {
   /** 组件 */
-  component: Component | T;
+  component: Component | T
   /** 组件参数 */
-  componentProps?: ComponentProps;
+  componentProps?: ComponentProps
   /** 默认值 */
-  defaultValue?: any;
+  defaultValue?: any
   /** 依赖 */
-  dependencies?: FormItemDependencies;
+  dependencies?: FormItemDependencies
   /** 描述 */
-  description?: string;
+  description?: string
   /** 字段名，也作为自定义插槽的名称 */
-  fieldName: string;
+  fieldName: string
   /** 帮助信息 */
-  help?: string;
+  help?: string
   /** 表单项 */
-  label?: string;
+  label?: string
   /** 自定义组件内部渲染  */
-  renderComponentContent?: RenderComponentContentType;
+  renderComponentContent?: RenderComponentContentType
   /** 字段规则 */
-  rules?: FormSchemaRuleType;
+  rules?: FormSchemaRuleType
   /** 后缀 */
-  suffix?: CustomRenderType;
+  suffix?: CustomRenderType
 }
 ```
 
@@ -495,12 +495,12 @@ rules的值可以是字符串（预定义的校验规则名称），也可以是
 ```ts
 // 表示字段必填，默认会根据适配器的required进行国际化
 {
-  rules: 'required';
+  rules: 'required'
 }
 
 // 表示字段必填，默认会根据适配器的required进行国际化，用于下拉选择之类
 {
-  rules: 'selectRequired';
+  rules: 'selectRequired'
 }
 ```
 

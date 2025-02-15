@@ -3,15 +3,15 @@ import type {
   ContextMenuContentProps,
   ContextMenuRootEmits,
   ContextMenuRootProps,
-} from 'radix-vue';
+} from 'radix-vue'
 
-import type { ClassType } from '@vben-core/typings';
+import type { ClassType } from '@vben-core/typings'
 
-import type { IContextMenuItem } from './interface';
+import type { IContextMenuItem } from './interface'
 
-import { computed } from 'vue';
+import { computed } from 'vue'
 
-import { useForwardPropsEmits } from 'radix-vue';
+import { useForwardPropsEmits } from 'radix-vue'
 
 import {
   ContextMenu,
@@ -20,20 +20,20 @@ import {
   ContextMenuSeparator,
   ContextMenuShortcut,
   ContextMenuTrigger,
-} from '../../ui/context-menu';
+} from '../../ui/context-menu'
 
 const props = defineProps<
   ContextMenuRootProps & {
-    class?: ClassType;
-    contentClass?: ClassType;
-    contentProps?: ContextMenuContentProps;
-    handlerData?: Record<string, any>;
-    itemClass?: ClassType;
-    menus: (data: any) => IContextMenuItem[];
+    class?: ClassType
+    contentClass?: ClassType
+    contentProps?: ContextMenuContentProps
+    handlerData?: Record<string, any>
+    itemClass?: ClassType
+    menus: (data: any) => IContextMenuItem[]
   }
->();
+>()
 
-const emits = defineEmits<ContextMenuRootEmits>();
+const emits = defineEmits<ContextMenuRootEmits>()
 
 const delegatedProps = computed(() => {
   const {
@@ -42,22 +42,22 @@ const delegatedProps = computed(() => {
     contentProps: _cProps,
     itemClass: _iCls,
     ...delegated
-  } = props;
+  } = props
 
-  return delegated;
-});
+  return delegated
+})
 
-const forwarded = useForwardPropsEmits(delegatedProps, emits);
+const forwarded = useForwardPropsEmits(delegatedProps, emits)
 
 const menusView = computed(() => {
-  return props.menus?.(props.handlerData);
-});
+  return props.menus?.(props.handlerData)
+})
 
 function handleClick(menu: IContextMenuItem) {
   if (menu.disabled) {
-    return;
+    return
   }
-  menu?.handler?.(props.handlerData);
+  menu?.handler?.(props.handlerData)
 }
 </script>
 

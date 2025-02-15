@@ -1,14 +1,14 @@
 <script lang="ts" setup>
-import type { DrawerProps, ExtendedDrawerApi } from './drawer';
+import type { DrawerProps, ExtendedDrawerApi } from './drawer'
 
-import { computed, provide, ref, useId, watch } from 'vue';
+import { computed, provide, ref, useId, watch } from 'vue'
 
 import {
   useIsMobile,
   usePriorityValues,
   useSimpleLocale,
-} from '@vben-core/composables';
-import { X } from '@vben-core/icons';
+} from '@vben-core/composables'
+import { X } from '@vben-core/icons'
 import {
   Separator,
   Sheet,
@@ -23,13 +23,13 @@ import {
   VbenIconButton,
   VbenLoading,
   VisuallyHidden,
-} from '@vben-core/shadcn-ui';
-import { ELEMENT_ID_MAIN_CONTENT } from '@vben-core/shared/constants';
-import { globalShareState } from '@vben-core/shared/global-state';
-import { cn } from '@vben-core/shared/utils';
+} from '@vben-core/shadcn-ui'
+import { ELEMENT_ID_MAIN_CONTENT } from '@vben-core/shared/constants'
+import { globalShareState } from '@vben-core/shared/global-state'
+import { cn } from '@vben-core/shared/utils'
 
 interface Props extends DrawerProps {
-  drawerApi?: ExtendedDrawerApi;
+  drawerApi?: ExtendedDrawerApi
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -37,18 +37,18 @@ const props = withDefaults(defineProps<Props>(), {
   closeIconPlacement: 'right',
   drawerApi: undefined,
   zIndex: 1000,
-});
+})
 
-const components = globalShareState.getComponents();
+const components = globalShareState.getComponents()
 
-const id = useId();
-provide('DISMISSABLE_DRAWER_ID', id);
+const id = useId()
+provide('DISMISSABLE_DRAWER_ID', id)
 
-const wrapperRef = ref<HTMLElement>();
-const { $t } = useSimpleLocale();
-const { isMobile } = useIsMobile();
+const wrapperRef = ref<HTMLElement>()
+const { $t } = useSimpleLocale()
+const { isMobile } = useIsMobile()
 
-const state = props.drawerApi?.useStore?.();
+const state = props.drawerApi?.useStore?.()
 
 const {
   appendToMain,
@@ -75,7 +75,7 @@ const {
   title,
   titleTooltip,
   zIndex,
-} = usePriorityValues(props, state);
+} = usePriorityValues(props, state)
 
 watch(
   () => showLoading.value,
@@ -84,44 +84,44 @@ watch(
       wrapperRef.value.scrollTo({
         // behavior: 'smooth',
         top: 0,
-      });
+      })
     }
   },
-);
+)
 
 function interactOutside(e: Event) {
   if (!closeOnClickModal.value) {
-    e.preventDefault();
+    e.preventDefault()
   }
 }
 function escapeKeyDown(e: KeyboardEvent) {
   if (!closeOnPressEscape.value) {
-    e.preventDefault();
+    e.preventDefault()
   }
 }
 // pointer-down-outside
 function pointerDownOutside(e: Event) {
-  const target = e.target as HTMLElement;
-  const dismissableDrawer = target?.dataset.dismissableDrawer;
+  const target = e.target as HTMLElement
+  const dismissableDrawer = target?.dataset.dismissableDrawer
   if (!closeOnClickModal.value || dismissableDrawer !== id) {
-    e.preventDefault();
+    e.preventDefault()
   }
 }
 
 function handerOpenAutoFocus(e: Event) {
   if (!openAutoFocus.value) {
-    e?.preventDefault();
+    e?.preventDefault()
   }
 }
 
 function handleFocusOutside(e: Event) {
-  e.preventDefault();
-  e.stopPropagation();
+  e.preventDefault()
+  e.stopPropagation()
 }
 
 const getAppendTo = computed(() => {
-  return appendToMain.value ? `#${ELEMENT_ID_MAIN_CONTENT}` : undefined;
-});
+  return appendToMain.value ? `#${ELEMENT_ID_MAIN_CONTENT}` : undefined
+})
 </script>
 <template>
   <Sheet

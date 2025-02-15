@@ -1,41 +1,41 @@
 <script setup lang="ts">
-import { computed, reactive, ref } from 'vue';
+import { computed, reactive, ref } from 'vue'
 
-import { LockKeyhole } from '@vben/icons';
-import { $t, useI18n } from '@vben/locales';
-import { storeToRefs, useLockStore } from '@vben/stores';
+import { LockKeyhole } from '@vben/icons'
+import { $t, useI18n } from '@vben/locales'
+import { storeToRefs, useLockStore } from '@vben/stores'
 
-import { useScrollLock } from '@vben-core/composables';
-import { useVbenForm, z } from '@vben-core/form-ui';
-import { VbenAvatar, VbenButton } from '@vben-core/shadcn-ui';
+import { useScrollLock } from '@vben-core/composables'
+import { useVbenForm, z } from '@vben-core/form-ui'
+import { VbenAvatar, VbenButton } from '@vben-core/shadcn-ui'
 
-import { useDateFormat, useNow } from '@vueuse/core';
+import { useDateFormat, useNow } from '@vueuse/core'
 
 interface Props {
-  avatar?: string;
+  avatar?: string
 }
 
 defineOptions({
   name: 'LockScreen',
-});
+})
 
 withDefaults(defineProps<Props>(), {
   avatar: '',
-});
+})
 
-defineEmits<{ toLogin: [] }>();
+defineEmits<{ toLogin: [] }>()
 
-const { locale } = useI18n();
-const lockStore = useLockStore();
+const { locale } = useI18n()
+const lockStore = useLockStore()
 
-const now = useNow();
-const meridiem = useDateFormat(now, 'A');
-const hour = useDateFormat(now, 'HH');
-const minute = useDateFormat(now, 'mm');
-const date = useDateFormat(now, 'YYYY-MM-DD dddd', { locales: locale.value });
+const now = useNow()
+const meridiem = useDateFormat(now, 'A')
+const hour = useDateFormat(now, 'HH')
+const minute = useDateFormat(now, 'mm')
+const date = useDateFormat(now, 'YYYY-MM-DD dddd', { locales: locale.value })
 
-const showUnlockForm = ref(false);
-const { lockScreenPassword } = storeToRefs(lockStore);
+const showUnlockForm = ref(false)
+const { lockScreenPassword } = storeToRefs(lockStore)
 
 const [Form, { form, validate }] = useVbenForm(
   reactive({
@@ -56,28 +56,28 @@ const [Form, { form, validate }] = useVbenForm(
     ]),
     showDefaultActions: false,
   }),
-);
+)
 
 const validPass = computed(
   () => lockScreenPassword?.value === form?.values?.password,
-);
+)
 
 async function handleSubmit() {
-  const { valid } = await validate();
+  const { valid } = await validate()
   if (valid) {
     if (validPass.value) {
-      lockStore.unlockScreen();
+      lockStore.unlockScreen()
     } else {
-      form.setFieldError('password', $t('authentication.passwordErrorTip'));
+      form.setFieldError('password', $t('authentication.passwordErrorTip'))
     }
   }
 }
 
 function toggleUnlockForm() {
-  showUnlockForm.value = !showUnlockForm.value;
+  showUnlockForm.value = !showUnlockForm.value
 }
 
-useScrollLock();
+useScrollLock()
 </script>
 
 <template>

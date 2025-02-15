@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import type { PopoverContentEmits, PopoverContentProps } from 'radix-vue';
+import type { PopoverContentEmits, PopoverContentProps } from 'radix-vue'
 
-import { computed } from 'vue';
+import { computed } from 'vue'
 
-import { cn } from '@vben-core/shared/utils';
+import { cn } from '@vben-core/shared/utils'
 
-import { PopoverContent, PopoverPortal, useForwardPropsEmits } from 'radix-vue';
+import { PopoverContent, PopoverPortal, useForwardPropsEmits } from 'radix-vue'
 
 defineOptions({
   inheritAttrs: false,
-});
+})
 
 const props = withDefaults(
   defineProps<PopoverContentProps & { class?: any }>(),
@@ -17,16 +17,16 @@ const props = withDefaults(
     align: 'center',
     sideOffset: 4,
   },
-);
-const emits = defineEmits<PopoverContentEmits>();
+)
+const emits = defineEmits<PopoverContentEmits>()
 
 const delegatedProps = computed(() => {
-  const { class: _, ...delegated } = props;
+  const { class: _, ...delegated } = props
 
-  return delegated;
-});
+  return delegated
+})
 
-const forwarded = useForwardPropsEmits(delegatedProps, emits);
+const forwarded = useForwardPropsEmits(delegatedProps, emits)
 </script>
 
 <template>

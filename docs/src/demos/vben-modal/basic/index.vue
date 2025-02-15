@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { useVbenModal, VbenButton } from '@vben/common-ui';
+import { useVbenModal, VbenButton } from '@vben/common-ui'
 
-const [Modal, modalApi] = useVbenModal();
+const [Modal, modalApi] = useVbenModal()
 </script>
 <template>
   <div>

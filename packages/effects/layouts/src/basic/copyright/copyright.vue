@@ -1,15 +1,15 @@
 <script lang="ts" setup>
 interface Props {
-  companyName: string;
-  companySiteLink?: string;
-  date: string;
-  icp?: string;
-  icpLink?: string;
+  companyName: string
+  companySiteLink?: string
+  date: string
+  icp?: string
+  icpLink?: string
 }
 
 defineOptions({
   name: 'Copyright',
-});
+})
 
 withDefaults(defineProps<Props>(), {
   companyName: 'Vben Admin',
@@ -17,7 +17,7 @@ withDefaults(defineProps<Props>(), {
   date: '2024',
   icp: '',
   icpLink: '',
-});
+})
 </script>
 
 <template>

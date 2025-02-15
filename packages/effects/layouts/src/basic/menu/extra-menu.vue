@@ -1,29 +1,29 @@
 <script lang="ts" setup>
-import type { MenuRecordRaw } from '@vben/types';
+import type { MenuRecordRaw } from '@vben/types'
 
-import type { MenuProps } from '@vben-core/menu-ui';
+import type { MenuProps } from '@vben-core/menu-ui'
 
-import { useRoute } from 'vue-router';
+import { useRoute } from 'vue-router'
 
-import { Menu } from '@vben-core/menu-ui';
+import { Menu } from '@vben-core/menu-ui'
 
-import { useNavigation } from './use-navigation';
+import { useNavigation } from './use-navigation'
 
 interface Props extends MenuProps {
-  collapse?: boolean;
-  menus: MenuRecordRaw[];
+  collapse?: boolean
+  menus: MenuRecordRaw[]
 }
 
 withDefaults(defineProps<Props>(), {
   accordion: true,
   menus: () => [],
-});
+})
 
-const route = useRoute();
-const { navigation } = useNavigation();
+const route = useRoute()
+const { navigation } = useNavigation()
 
 async function handleSelect(key: string) {
-  await navigation(key);
+  await navigation(key)
 }
 </script>
 

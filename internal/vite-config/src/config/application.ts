@@ -1,28 +1,28 @@
-import type { CSSOptions, UserConfig } from 'vite';
+import type { CSSOptions, UserConfig } from 'vite'
 
-import type { DefineApplicationOptions } from '../typing';
+import type { DefineApplicationOptions } from '../typing'
 
-import path, { relative } from 'node:path';
+import path, { relative } from 'node:path'
 
-import { findMonorepoRoot } from '@vben/node-utils';
+import { findMonorepoRoot } from '@vben/node-utils'
 
-import { NodePackageImporter } from 'sass';
-import { defineConfig, loadEnv, mergeConfig } from 'vite';
+import { NodePackageImporter } from 'sass'
+import { defineConfig, loadEnv, mergeConfig } from 'vite'
 
-import { defaultImportmapOptions, getDefaultPwaOptions } from '../options';
-import { loadApplicationPlugins } from '../plugins';
-import { loadAndConvertEnv } from '../utils/env';
-import { getCommonConfig } from './common';
+import { defaultImportmapOptions, getDefaultPwaOptions } from '../options'
+import { loadApplicationPlugins } from '../plugins'
+import { loadAndConvertEnv } from '../utils/env'
+import { getCommonConfig } from './common'
 
 function defineApplicationConfig(userConfigPromise?: DefineApplicationOptions) {
   return defineConfig(async (config) => {
-    const options = await userConfigPromise?.(config);
-    const { appTitle, base, port, ...envConfig } = await loadAndConvertEnv();
-    const { command, mode } = config;
-    const { application = {}, vite = {} } = options || {};
-    const root = process.cwd();
-    const isBuild = command === 'build';
-    const env = loadEnv(mode, root);
+    const options = await userConfigPromise?.(config)
+    const { appTitle, base, port, ...envConfig } = await loadAndConvertEnv()
+    const { command, mode } = config
+    const { application = {}, vite = {} } = options || {}
+    const root = process.cwd()
+    const isBuild = command === 'build'
+    const env = loadEnv(mode, root)
 
     const plugins = await loadApplicationPlugins({
       archiver: true,
@@ -51,9 +51,9 @@ function defineApplicationConfig(userConfigPromise?: DefineApplicationOptions) {
       vxeTableLazyImport: true,
       ...envConfig,
       ...application,
-    });
+    })
 
-    const { injectGlobalScss = true } = application;
+    const { injectGlobalScss = true } = application
 
     const applicationConfig: UserConfig = {
       base,
@@ -90,36 +90,36 @@ function defineApplicationConfig(userConfigPromise?: DefineApplicationOptions) {
           ],
         },
       },
-    };
+    }
 
     const mergedCommonConfig = mergeConfig(
       await getCommonConfig(),
       applicationConfig,
-    );
-    return mergeConfig(mergedCommonConfig, vite);
-  });
+    )
+    return mergeConfig(mergedCommonConfig, vite)
+  })
 }
 
 function createCssOptions(injectGlobalScss = true): CSSOptions {
-  const root = findMonorepoRoot();
+  const root = findMonorepoRoot()
   return {
     preprocessorOptions: injectGlobalScss
       ? {
           scss: {
             additionalData: (content: string, filepath: string) => {
-              const relativePath = relative(root, filepath);
+              const relativePath = relative(root, filepath)
               // apps下的包注入全局样式
               if (relativePath.startsWith(`apps${path.sep}`)) {
-                return `@use "@vben/styles/global" as *;\n${content}`;
+                return `@use "@vben/styles/global" as *;\n${content}`
               }
-              return content;
+              return content
             },
             api: 'modern',
             importers: [new NodePackageImporter()],
           },
         }
       : {},
-  };
+  }
 }
 
-export { defineApplicationConfig };
+export { defineApplicationConfig }

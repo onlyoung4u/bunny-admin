@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import type { PointSelectionCaptchaCardProps } from '../types';
+import type { PointSelectionCaptchaCardProps } from '../types'
 
-import { computed } from 'vue';
+import { computed } from 'vue'
 
-import { $t } from '@vben/locales';
+import { $t } from '@vben/locales'
 
 import {
   Card,
@@ -11,7 +11,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@vben-core/shadcn-ui';
+} from '@vben-core/shadcn-ui'
 
 const props = withDefaults(defineProps<PointSelectionCaptchaCardProps>(), {
   height: '220px',
@@ -19,34 +19,34 @@ const props = withDefaults(defineProps<PointSelectionCaptchaCardProps>(), {
   paddingY: '16px',
   title: '',
   width: '300px',
-});
+})
 
 const emit = defineEmits<{
-  click: [MouseEvent];
-}>();
+  click: [MouseEvent]
+}>()
 
 const parseValue = (value: number | string) => {
   if (typeof value === 'number') {
-    return value;
+    return value
   }
-  const parsed = Number.parseFloat(value);
-  return Number.isNaN(parsed) ? 0 : parsed;
-};
+  const parsed = Number.parseFloat(value)
+  return Number.isNaN(parsed) ? 0 : parsed
+}
 
 const rootStyles = computed(() => ({
   padding: `${parseValue(props.paddingY)}px ${parseValue(props.paddingX)}px`,
   width: `${parseValue(props.width) + parseValue(props.paddingX) * 2}px`,
-}));
+}))
 
 const captchaStyles = computed(() => {
   return {
     height: `${parseValue(props.height)}px`,
     width: `${parseValue(props.width)}px`,
-  };
-});
+  }
+})
 
 function handleClick(e: MouseEvent) {
-  emit('click', e);
+  emit('click', e)
 }
 </script>
 <template>

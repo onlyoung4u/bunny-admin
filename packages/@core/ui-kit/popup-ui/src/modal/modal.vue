@@ -1,14 +1,14 @@
 <script lang="ts" setup>
-import type { ExtendedModalApi, ModalProps } from './modal';
+import type { ExtendedModalApi, ModalProps } from './modal'
 
-import { computed, nextTick, provide, ref, useId, watch } from 'vue';
+import { computed, nextTick, provide, ref, useId, watch } from 'vue'
 
 import {
   useIsMobile,
   usePriorityValues,
   useSimpleLocale,
-} from '@vben-core/composables';
-import { Expand, Shrink } from '@vben-core/icons';
+} from '@vben-core/composables'
+import { Expand, Shrink } from '@vben-core/icons'
 import {
   Dialog,
   DialogContent,
@@ -21,37 +21,37 @@ import {
   VbenIconButton,
   VbenLoading,
   VisuallyHidden,
-} from '@vben-core/shadcn-ui';
-import { ELEMENT_ID_MAIN_CONTENT } from '@vben-core/shared/constants';
-import { globalShareState } from '@vben-core/shared/global-state';
-import { cn } from '@vben-core/shared/utils';
+} from '@vben-core/shadcn-ui'
+import { ELEMENT_ID_MAIN_CONTENT } from '@vben-core/shared/constants'
+import { globalShareState } from '@vben-core/shared/global-state'
+import { cn } from '@vben-core/shared/utils'
 
-import { useModalDraggable } from './use-modal-draggable';
+import { useModalDraggable } from './use-modal-draggable'
 
 interface Props extends ModalProps {
-  modalApi?: ExtendedModalApi;
+  modalApi?: ExtendedModalApi
 }
 
 const props = withDefaults(defineProps<Props>(), {
   appendToMain: false,
   modalApi: undefined,
-});
+})
 
-const components = globalShareState.getComponents();
+const components = globalShareState.getComponents()
 
-const contentRef = ref();
-const wrapperRef = ref<HTMLElement>();
-const dialogRef = ref();
-const headerRef = ref();
-const footerRef = ref();
+const contentRef = ref()
+const wrapperRef = ref<HTMLElement>()
+const dialogRef = ref()
+const headerRef = ref()
+const footerRef = ref()
 
-const id = useId();
+const id = useId()
 
-provide('DISMISSABLE_MODAL_ID', id);
+provide('DISMISSABLE_MODAL_ID', id)
 
-const { $t } = useSimpleLocale();
-const { isMobile } = useIsMobile();
-const state = props.modalApi?.useStore?.();
+const { $t } = useSimpleLocale()
+const { isMobile } = useIsMobile()
+const state = props.modalApi?.useStore?.()
 
 const {
   appendToMain,
@@ -84,36 +84,36 @@ const {
   title,
   titleTooltip,
   zIndex,
-} = usePriorityValues(props, state);
+} = usePriorityValues(props, state)
 
 const shouldFullscreen = computed(
   () => (fullscreen.value && header.value) || isMobile.value,
-);
+)
 
 const shouldDraggable = computed(
   () => draggable.value && !shouldFullscreen.value && header.value,
-);
+)
 
 const { dragging, transform } = useModalDraggable(
   dialogRef,
   headerRef,
   shouldDraggable,
-);
+)
 
 watch(
   () => state?.value?.isOpen,
   async (v) => {
     if (v) {
-      await nextTick();
-      if (!contentRef.value) return;
-      const innerContentRef = contentRef.value.getContentRef();
-      dialogRef.value = innerContentRef.$el;
+      await nextTick()
+      if (!contentRef.value) return
+      const innerContentRef = contentRef.value.getContentRef()
+      dialogRef.value = innerContentRef.$el
       // reopen modal reassign value
-      const { offsetX, offsetY } = transform;
-      dialogRef.value.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+      const { offsetX, offsetY } = transform
+      dialogRef.value.style.transform = `translate(${offsetX}px, ${offsetY}px)`
     }
   },
-);
+)
 
 watch(
   () => [showLoading.value, submitting.value],
@@ -122,58 +122,58 @@ watch(
       wrapperRef.value.scrollTo({
         // behavior: 'smooth',
         top: 0,
-      });
+      })
     }
   },
-);
+)
 
 function handleFullscreen() {
   props.modalApi?.setState((prev) => {
     // if (prev.fullscreen) {
     //   resetPosition();
     // }
-    return { ...prev, fullscreen: !fullscreen.value };
-  });
+    return { ...prev, fullscreen: !fullscreen.value }
+  })
 }
 function interactOutside(e: Event) {
   if (!closeOnClickModal.value || submitting.value) {
-    e.preventDefault();
-    e.stopPropagation();
+    e.preventDefault()
+    e.stopPropagation()
   }
 }
 function escapeKeyDown(e: KeyboardEvent) {
   if (!closeOnPressEscape.value || submitting.value) {
-    e.preventDefault();
+    e.preventDefault()
   }
 }
 
 function handerOpenAutoFocus(e: Event) {
   if (!openAutoFocus.value) {
-    e?.preventDefault();
+    e?.preventDefault()
   }
 }
 
 // pointer-down-outside
 function pointerDownOutside(e: Event) {
-  const target = e.target as HTMLElement;
-  const isDismissableModal = target?.dataset.dismissableModal;
+  const target = e.target as HTMLElement
+  const isDismissableModal = target?.dataset.dismissableModal
   if (
     !closeOnClickModal.value ||
     isDismissableModal !== id ||
     submitting.value
   ) {
-    e.preventDefault();
-    e.stopPropagation();
+    e.preventDefault()
+    e.stopPropagation()
   }
 }
 
 function handleFocusOutside(e: Event) {
-  e.preventDefault();
-  e.stopPropagation();
+  e.preventDefault()
+  e.stopPropagation()
 }
 const getAppendTo = computed(() => {
-  return appendToMain.value ? `#${ELEMENT_ID_MAIN_CONTENT}` : undefined;
-});
+  return appendToMain.value ? `#${ELEMENT_ID_MAIN_CONTENT}` : undefined
+})
 </script>
 <template>
   <Dialog

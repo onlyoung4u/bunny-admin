@@ -1,22 +1,22 @@
-import type { Recordable } from '@vben/types';
+import type { Recordable } from '@vben/types'
 
-import { requestClient } from '#/api/request';
+import { requestClient } from '#/api/request'
 
 export namespace AuthApi {
   /** 登录接口参数 */
   export interface LoginParams {
-    password?: string;
-    username?: string;
+    password?: string
+    username?: string
   }
 
   /** 登录接口返回值 */
   export interface LoginResult {
-    token: string;
+    token: string
   }
 
   export interface RefreshTokenResult {
-    data: string;
-    status: number;
+    data: string
+    status: number
   }
 }
 
@@ -24,7 +24,7 @@ export namespace AuthApi {
  * 登录
  */
 export async function loginApi(data: AuthApi.LoginParams) {
-  return requestClient.post<AuthApi.LoginResult>('/login', data);
+  return requestClient.post<AuthApi.LoginResult>('/login', data)
 }
 
 /**
@@ -40,19 +40,19 @@ export async function loginApi(data: AuthApi.LoginParams) {
  * 退出登录
  */
 export async function logoutApi() {
-  return requestClient.post('/logout');
+  return requestClient.post('/logout')
 }
 
 /**
  * 修改密码
  */
 export async function resetPasswordApi(data: Recordable<string>) {
-  return requestClient.post('/reset-password', data);
+  return requestClient.post('/reset-password', data)
 }
 
 /**
  * 获取用户权限码
  */
 export async function getAccessCodesApi() {
-  return requestClient.get<string[]>('/permissions');
+  return requestClient.get<string[]>('/permissions')
 }

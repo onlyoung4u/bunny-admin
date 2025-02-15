@@ -1,54 +1,54 @@
 <script setup lang="ts">
-import type { AuthenticationProps } from './types';
+import type { AuthenticationProps } from './types'
 
-import { computed, watch } from 'vue';
+import { computed, watch } from 'vue'
 
-import { useVbenModal } from '@vben-core/popup-ui';
-import { Slot, VbenAvatar } from '@vben-core/shadcn-ui';
+import { useVbenModal } from '@vben-core/popup-ui'
+import { Slot, VbenAvatar } from '@vben-core/shadcn-ui'
 
 interface Props extends AuthenticationProps {
-  avatar?: string;
-  zIndex?: number;
+  avatar?: string
+  zIndex?: number
 }
 
 defineOptions({
   name: 'LoginExpiredModal',
-});
+})
 
 const props = withDefaults(defineProps<Props>(), {
   avatar: '',
   zIndex: 0,
-});
+})
 
-const open = defineModel<boolean>('open');
+const open = defineModel<boolean>('open')
 
-const [Modal, modalApi] = useVbenModal();
+const [Modal, modalApi] = useVbenModal()
 
 watch(
   () => open.value,
   (val) => {
-    modalApi.setState({ isOpen: val });
+    modalApi.setState({ isOpen: val })
   },
-);
+)
 
 const getZIndex = computed(() => {
-  return props.zIndex || calcZIndex();
-});
+  return props.zIndex || calcZIndex()
+})
 
 /**
  * 获取最大的zIndex值
  */
 function calcZIndex() {
-  let maxZ = 0;
-  const elements = document.querySelectorAll('*');
-  [...elements].forEach((element) => {
-    const style = window.getComputedStyle(element);
-    const zIndex = style.getPropertyValue('z-index');
+  let maxZ = 0
+  const elements = document.querySelectorAll('*')
+  ;[...elements].forEach((element) => {
+    const style = window.getComputedStyle(element)
+    const zIndex = style.getPropertyValue('z-index')
     if (zIndex && !Number.isNaN(Number.parseInt(zIndex))) {
-      maxZ = Math.max(maxZ, Number.parseInt(zIndex));
+      maxZ = Math.max(maxZ, Number.parseInt(zIndex))
     }
-  });
-  return maxZ + 1;
+  })
+  return maxZ + 1
 }
 </script>
 

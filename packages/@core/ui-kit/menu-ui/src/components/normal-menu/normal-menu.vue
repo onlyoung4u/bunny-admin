@@ -1,35 +1,35 @@
 <script setup lang="ts">
-import type { MenuRecordRaw } from '@vben-core/typings';
+import type { MenuRecordRaw } from '@vben-core/typings'
 
-import type { NormalMenuProps } from './normal-menu';
+import type { NormalMenuProps } from './normal-menu'
 
-import { useNamespace } from '@vben-core/composables';
-import { VbenIcon } from '@vben-core/shadcn-ui';
+import { useNamespace } from '@vben-core/composables'
+import { VbenIcon } from '@vben-core/shadcn-ui'
 
 interface Props extends NormalMenuProps {}
 
 defineOptions({
   name: 'NormalMenu',
-});
+})
 
 const props = withDefaults(defineProps<Props>(), {
   activePath: '',
   collapse: false,
   menus: () => [],
   theme: 'dark',
-});
+})
 
 const emit = defineEmits<{
-  enter: [MenuRecordRaw];
-  select: [MenuRecordRaw];
-}>();
+  enter: [MenuRecordRaw]
+  select: [MenuRecordRaw]
+}>()
 
-const { b, e, is } = useNamespace('normal-menu');
+const { b, e, is } = useNamespace('normal-menu')
 
 function menuIcon(menu: MenuRecordRaw) {
   return props.activePath === menu.path
     ? menu.activeIcon || menu.icon
-    : menu.icon;
+    : menu.icon
 }
 </script>
 

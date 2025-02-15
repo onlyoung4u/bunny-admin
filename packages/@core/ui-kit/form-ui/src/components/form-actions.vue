@@ -1,34 +1,34 @@
 <script setup lang="ts">
-import { computed, toRaw, unref, watch } from 'vue';
+import { computed, toRaw, unref, watch } from 'vue'
 
-import { useSimpleLocale } from '@vben-core/composables';
-import { VbenExpandableArrow } from '@vben-core/shadcn-ui';
-import { cn, isFunction, triggerWindowResize } from '@vben-core/shared/utils';
+import { useSimpleLocale } from '@vben-core/composables'
+import { VbenExpandableArrow } from '@vben-core/shadcn-ui'
+import { cn, isFunction, triggerWindowResize } from '@vben-core/shared/utils'
 
-import { COMPONENT_MAP } from '../config';
-import { injectFormProps } from '../use-form-context';
+import { COMPONENT_MAP } from '../config'
+import { injectFormProps } from '../use-form-context'
 
-const { $t } = useSimpleLocale();
+const { $t } = useSimpleLocale()
 
-const [rootProps, form] = injectFormProps();
+const [rootProps, form] = injectFormProps()
 
-const collapsed = defineModel({ default: false });
+const collapsed = defineModel({ default: false })
 
 const resetButtonOptions = computed(() => {
   return {
     content: `${$t.value('reset')}`,
     show: true,
     ...unref(rootProps).resetButtonOptions,
-  };
-});
+  }
+})
 
 const submitButtonOptions = computed(() => {
   return {
     content: `${$t.value('submit')}`,
     show: true,
     ...unref(rootProps).submitButtonOptions,
-  };
-});
+  }
+})
 
 // const isQueryForm = computed(() => {
 //   return !!unref(rootProps).showCollapseButton;
@@ -39,52 +39,52 @@ const queryFormStyle = computed(() => {
     return {
       'grid-column': `-2 / -1`,
       marginLeft: 'auto',
-    };
+    }
   }
 
-  return {};
-});
+  return {}
+})
 
 async function handleSubmit(e: Event) {
-  e?.preventDefault();
-  e?.stopPropagation();
-  const { valid } = await form.validate();
+  e?.preventDefault()
+  e?.stopPropagation()
+  const { valid } = await form.validate()
   if (!valid) {
-    return;
+    return
   }
 
-  const values = toRaw(await unref(rootProps).formApi?.getValues());
-  await unref(rootProps).handleSubmit?.(values);
+  const values = toRaw(await unref(rootProps).formApi?.getValues())
+  await unref(rootProps).handleSubmit?.(values)
 }
 
 async function handleReset(e: Event) {
-  e?.preventDefault();
-  e?.stopPropagation();
-  const props = unref(rootProps);
+  e?.preventDefault()
+  e?.stopPropagation()
+  const props = unref(rootProps)
 
-  const values = toRaw(props.formApi?.getValues());
+  const values = toRaw(props.formApi?.getValues())
 
   if (isFunction(props.handleReset)) {
-    await props.handleReset?.(values);
+    await props.handleReset?.(values)
   } else {
-    form.resetForm();
+    form.resetForm()
   }
 }
 
 watch(
   () => collapsed.value,
   () => {
-    const props = unref(rootProps);
+    const props = unref(rootProps)
     if (props.collapseTriggerResize) {
-      triggerWindowResize();
+      triggerWindowResize()
     }
   },
-);
+)
 
 defineExpose({
   handleReset,
   handleSubmit,
-});
+})
 </script>
 <template>
   <div

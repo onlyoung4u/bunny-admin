@@ -27,12 +27,12 @@ export const backtopProps = {
     default: 200,
     type: Number,
   },
-} as const;
+} as const
 
 export interface BacktopProps {
-  bottom?: number;
-  isGroup?: boolean;
-  right?: number;
-  target?: string;
-  visibilityHeight?: number;
+  bottom?: number
+  isGroup?: boolean
+  right?: number
+  target?: string
+  visibilityHeight?: number
 }

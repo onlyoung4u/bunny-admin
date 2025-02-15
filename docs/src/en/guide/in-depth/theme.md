@@ -256,7 +256,7 @@ You only need to override the CSS variables you want to change in your project. 
 You only need to customize the primary color in the `preferences.ts` file under the application directory:
 
 ```ts
-import { defineOverridesPreferences } from '@vben/preferences';
+import { defineOverridesPreferences } from '@vben/preferences'
 
 export const overridesPreferences = defineOverridesPreferences({
   // overrides
@@ -270,7 +270,7 @@ export const overridesPreferences = defineOverridesPreferences({
     // Warning color
     colorWarning: 'hsl(42 84% 61%)',
   },
-});
+})
 ```
 
 ## Built-in Themes
@@ -278,14 +278,14 @@ export const overridesPreferences = defineOverridesPreferences({
 The framework includes a variety of built-in themes, which you can configure in the `preferences.ts` file:
 
 ```ts
-import { defineOverridesPreferences } from '@vben/preferences';
+import { defineOverridesPreferences } from '@vben/preferences'
 
 export const overridesPreferences = defineOverridesPreferences({
   // overrides
   theme: {
     builtinType: 'default',
   },
-});
+})
 ```
 
 ### Built-in Theme List
@@ -313,7 +313,7 @@ type BuiltinThemeType =
   | 'violet'
   | 'yellow'
   | 'zinc'
-  | (Record<never, never> & string);
+  | (Record<never, never> & string)
 ```
 
 :::
@@ -1142,14 +1142,14 @@ To add a new theme, simply follow these steps:
 - Add a new theme configuration in the application's `src/preferences.ts`.
 
 ```ts
-import { defineOverridesPreferences } from '@vben/preferences';
+import { defineOverridesPreferences } from '@vben/preferences'
 
 export const overridesPreferences = defineOverridesPreferences({
   // overrides
   theme: {
     builtinType: 'my-theme',
   },
-});
+})
 ```
 
 - Add the theme's CSS variables to your CSS file.
@@ -1208,14 +1208,14 @@ export const overridesPreferences = defineOverridesPreferences({
 The framework includes a variety of built-in themes, which you can configure in `preferences.ts`. The dark theme also uses CSS variables for configuration:
 
 ```ts
-import { defineOverridesPreferences } from '@vben/preferences';
+import { defineOverridesPreferences } from '@vben/preferences'
 
 export const overridesPreferences = defineOverridesPreferences({
   // overrides
   theme: {
     mode: 'dark',
   },
-});
+})
 ```
 
 ## Customizing Sidebar Color
@@ -1267,14 +1267,14 @@ The header color is configured through the `--header` variable.
 Typically used in special scenarios, you can set the application to color weakness mode. This can be configured in `preferences.ts`:
 
 ```ts
-import { defineOverridesPreferences } from '@vben/preferences';
+import { defineOverridesPreferences } from '@vben/preferences'
 
 export const overridesPreferences = defineOverridesPreferences({
   // overrides
   app: {
     colorWeakMode: true,
   },
-});
+})
 ```
 
 ## Gray Mode
@@ -1282,12 +1282,12 @@ export const overridesPreferences = defineOverridesPreferences({
 Typically used in special scenarios, this mode grays out the webpage. You can configure it in `preferences.ts`:
 
 ```ts
-import { defineOverridesPreferences } from '@vben/preferences';
+import { defineOverridesPreferences } from '@vben/preferences'
 
 export const overridesPreferences = defineOverridesPreferences({
   // overrides
   app: {
     colorGrayMode: true,
   },
-});
+})
 ```

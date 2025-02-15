@@ -1,28 +1,28 @@
-import type { Component } from 'vue';
-import type { RouteRecordRaw } from 'vue-router';
+import type { Component } from 'vue'
+import type { RouteRecordRaw } from 'vue-router'
 
 /**
  * 扩展路由原始对象
  */
 type ExRouteRecordRaw = RouteRecordRaw & {
-  parent?: string;
-  parents?: string[];
-  path?: any;
-};
+  parent?: string
+  parents?: string[]
+  path?: any
+}
 
 interface MenuRecordBadgeRaw {
   /**
    * 徽标
    */
-  badge?: string;
+  badge?: string
   /**
    * 徽标类型
    */
-  badgeType?: 'dot' | 'normal';
+  badgeType?: 'dot' | 'normal'
   /**
    * 徽标颜色
    */
-  badgeVariants?: 'destructive' | 'primary' | string;
+  badgeVariants?: 'destructive' | 'primary' | string
 }
 
 /**
@@ -32,45 +32,45 @@ interface MenuRecordRaw extends MenuRecordBadgeRaw {
   /**
    * 激活时的图标名
    */
-  activeIcon?: string;
+  activeIcon?: string
   /**
    * 子菜单
    */
-  children?: MenuRecordRaw[];
+  children?: MenuRecordRaw[]
   /**
    * 是否禁用菜单
    * @default false
    */
-  disabled?: boolean;
+  disabled?: boolean
   /**
    * 图标名
    */
-  icon?: Component | string;
+  icon?: Component | string
   /**
    * 菜单名
    */
-  name: string;
+  name: string
   /**
    * 排序号
    */
-  order?: number;
+  order?: number
   /**
    * 父级路径
    */
-  parent?: string;
+  parent?: string
   /**
    * 所有父级路径
    */
-  parents?: string[];
+  parents?: string[]
   /**
    * 菜单路径，唯一，可当作key
    */
-  path: string;
+  path: string
   /**
    * 是否显示菜单
    * @default true
    */
-  show?: boolean;
+  show?: boolean
 }
 
-export type { ExRouteRecordRaw, MenuRecordBadgeRaw, MenuRecordRaw };
+export type { ExRouteRecordRaw, MenuRecordBadgeRaw, MenuRecordRaw }

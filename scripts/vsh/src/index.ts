@@ -1,41 +1,41 @@
-import { colors, consola } from '@vben/node-utils';
+import { colors, consola } from '@vben/node-utils'
 
-import { cac } from 'cac';
+import { cac } from 'cac'
 
-import { defineCheckCircularCommand } from './check-circular';
-import { defineDepcheckCommand } from './check-dep';
-import { defineCodeWorkspaceCommand } from './code-workspace';
-import { defineLintCommand } from './lint';
-import { definePubLintCommand } from './publint';
+import { defineCheckCircularCommand } from './check-circular'
+import { defineDepcheckCommand } from './check-dep'
+import { defineCodeWorkspaceCommand } from './code-workspace'
+import { defineLintCommand } from './lint'
+import { definePubLintCommand } from './publint'
 
 try {
-  const vsh = cac('vsh');
+  const vsh = cac('vsh')
 
   // vsh lint
-  defineLintCommand(vsh);
+  defineLintCommand(vsh)
 
   // vsh publint
-  definePubLintCommand(vsh);
+  definePubLintCommand(vsh)
 
   // vsh code-workspace
-  defineCodeWorkspaceCommand(vsh);
+  defineCodeWorkspaceCommand(vsh)
 
   // vsh check-circular
-  defineCheckCircularCommand(vsh);
+  defineCheckCircularCommand(vsh)
 
   // vsh check-dep
-  defineDepcheckCommand(vsh);
+  defineDepcheckCommand(vsh)
 
   // Invalid command
   vsh.on('command:*', () => {
-    consola.error(colors.red('Invalid command!'));
-    process.exit(1);
-  });
+    consola.error(colors.red('Invalid command!'))
+    process.exit(1)
+  })
 
-  vsh.usage('vsh');
-  vsh.help();
-  vsh.parse();
+  vsh.usage('vsh')
+  vsh.help()
+  vsh.parse()
 } catch (error) {
-  consola.error(error);
-  process.exit(1);
+  consola.error(error)
+  process.exit(1)
 }

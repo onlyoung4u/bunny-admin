@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import type { VNode } from 'vue';
+import type { VNode } from 'vue'
 
-import { computed, ref, watch, watchEffect } from 'vue';
+import { computed, ref, watch, watchEffect } from 'vue'
 
-import { usePagination } from '@vben/hooks';
-import { EmptyIcon, Grip, listIcons } from '@vben/icons';
-import { $t } from '@vben/locales';
+import { usePagination } from '@vben/hooks'
+import { EmptyIcon, Grip, listIcons } from '@vben/icons'
+import { $t } from '@vben/locales'
 
 import {
   Button,
@@ -21,31 +21,31 @@ import {
   VbenIcon,
   VbenIconButton,
   VbenPopover,
-} from '@vben-core/shadcn-ui';
+} from '@vben-core/shadcn-ui'
 
-import { refDebounced, watchDebounced } from '@vueuse/core';
+import { refDebounced, watchDebounced } from '@vueuse/core'
 
-import { fetchIconsData } from './icons';
+import { fetchIconsData } from './icons'
 
 interface Props {
-  pageSize?: number;
+  pageSize?: number
   /** 图标集的名字 */
-  prefix?: string;
+  prefix?: string
   /** 是否自动请求API以获得图标集的数据.提供prefix时有效 */
-  autoFetchApi?: boolean;
+  autoFetchApi?: boolean
   /**
    * 图标列表
    */
-  icons?: string[];
+  icons?: string[]
   /** Input组件 */
-  inputComponent?: VNode;
+  inputComponent?: VNode
   /** 图标插槽名，预览图标将被渲染到此插槽中 */
-  iconSlot?: string;
+  iconSlot?: string
   /** input组件的值属性名称 */
-  modelValueProp?: string;
+  modelValueProp?: string
   /** 图标样式 */
-  iconClass?: string;
-  type?: 'icon' | 'input';
+  iconClass?: string
+  type?: 'icon' | 'input'
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -58,30 +58,30 @@ const props = withDefaults(defineProps<Props>(), {
   modelValueProp: 'modelValue',
   inputComponent: undefined,
   type: 'input',
-});
+})
 
 const emit = defineEmits<{
-  change: [string];
-}>();
+  change: [string]
+}>()
 
-const modelValue = defineModel({ default: '', type: String });
+const modelValue = defineModel({ default: '', type: String })
 
-const visible = ref(false);
-const currentSelect = ref('');
-const currentPage = ref(1);
-const keyword = ref('');
-const keywordDebounce = refDebounced(keyword, 300);
-const innerIcons = ref<string[]>([]);
+const visible = ref(false)
+const currentSelect = ref('')
+const currentPage = ref(1)
+const keyword = ref('')
+const keywordDebounce = refDebounced(keyword, 300)
+const innerIcons = ref<string[]>([])
 
 watchDebounced(
   () => props.prefix,
   async (prefix) => {
     if (prefix && prefix !== 'svg' && props.autoFetchApi) {
-      innerIcons.value = await fetchIconsData(prefix);
+      innerIcons.value = await fetchIconsData(prefix)
     }
   },
   { immediate: true, debounce: 500, maxWait: 1000 },
-);
+)
 
 const currentList = computed(() => {
   try {
@@ -91,69 +91,69 @@ const currentList = computed(() => {
         props.autoFetchApi &&
         props.icons.length === 0
       ) {
-        return innerIcons.value;
+        return innerIcons.value
       }
-      const icons = listIcons('', props.prefix);
+      const icons = listIcons('', props.prefix)
       if (icons.length === 0) {
-        console.warn(`No icons found for prefix: ${props.prefix}`);
+        console.warn(`No icons found for prefix: ${props.prefix}`)
       }
-      return icons;
+      return icons
     } else {
-      return props.icons;
+      return props.icons
     }
   } catch (error) {
-    console.error('Failed to load icons:', error);
-    return [];
+    console.error('Failed to load icons:', error)
+    return []
   }
-});
+})
 
 const showList = computed(() => {
   return currentList.value.filter((item) =>
     item.includes(keywordDebounce.value),
-  );
-});
+  )
+})
 
 const { paginationList, total, setCurrentPage } = usePagination(
   showList,
   props.pageSize,
-);
+)
 
 watchEffect(() => {
-  currentSelect.value = modelValue.value;
-});
+  currentSelect.value = modelValue.value
+})
 
 watch(
   () => currentSelect.value,
   (v) => {
-    emit('change', v);
+    emit('change', v)
   },
-);
+)
 
 const handleClick = (icon: string) => {
-  currentSelect.value = icon;
-  modelValue.value = icon;
-  close();
-};
+  currentSelect.value = icon
+  modelValue.value = icon
+  close()
+}
 
 const handlePageChange = (page: number) => {
-  currentPage.value = page;
-  setCurrentPage(page);
-};
+  currentPage.value = page
+  setCurrentPage(page)
+}
 
 function toggleOpenState() {
-  visible.value = !visible.value;
+  visible.value = !visible.value
 }
 
 function open() {
-  visible.value = true;
+  visible.value = true
 }
 
 function close() {
-  visible.value = false;
+  visible.value = false
 }
 
 function onKeywordChange(v: string) {
-  keyword.value = v;
+  keyword.value = v
 }
 
 const searchInputProps = computed(() => {
@@ -162,10 +162,10 @@ const searchInputProps = computed(() => {
     [props.modelValueProp]: keyword.value,
     [`onUpdate:${props.modelValueProp}`]: onKeywordChange,
     class: 'mx-2',
-  };
-});
+  }
+})
 
-defineExpose({ toggleOpenState, open, close });
+defineExpose({ toggleOpenState, open, close })
 </script>
 <template>
   <VbenPopover

@@ -1,35 +1,31 @@
 <script setup lang="ts">
-import type { ScrollAreaRootProps } from 'radix-vue';
+import type { ScrollAreaRootProps } from 'radix-vue'
 
-import { computed } from 'vue';
+import { computed } from 'vue'
 
-import { cn } from '@vben-core/shared/utils';
+import { cn } from '@vben-core/shared/utils'
 
-import {
-  ScrollAreaCorner,
-  ScrollAreaRoot,
-  ScrollAreaViewport,
-} from 'radix-vue';
+import { ScrollAreaCorner, ScrollAreaRoot, ScrollAreaViewport } from 'radix-vue'
 
-import ScrollBar from './ScrollBar.vue';
+import ScrollBar from './ScrollBar.vue'
 
 const props = withDefaults(
   defineProps<
     ScrollAreaRootProps & {
-      class?: any;
-      onScroll?: (event: Event) => void;
-      viewportProps?: { onScroll: (event: Event) => void };
+      class?: any
+      onScroll?: (event: Event) => void
+      viewportProps?: { onScroll: (event: Event) => void }
     }
   >(),
   {
     onScroll: () => {},
   },
-);
+)
 
 const delegatedProps = computed(() => {
-  const { class: _, ...delegated } = props;
-  return delegated;
-});
+  const { class: _, ...delegated } = props
+  return delegated
+})
 </script>
 
 <template>

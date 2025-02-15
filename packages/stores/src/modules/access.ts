@@ -1,40 +1,40 @@
-import type { RouteRecordRaw } from 'vue-router';
+import type { RouteRecordRaw } from 'vue-router'
 
-import type { MenuRecordRaw } from '@vben-core/typings';
+import type { MenuRecordRaw } from '@vben-core/typings'
 
-import { acceptHMRUpdate, defineStore } from 'pinia';
+import { acceptHMRUpdate, defineStore } from 'pinia'
 
-type AccessToken = null | string;
+type AccessToken = null | string
 
 interface AccessState {
   /**
    * 权限码
    */
-  accessCodes: string[];
+  accessCodes: string[]
   /**
    * 可访问的菜单列表
    */
-  accessMenus: MenuRecordRaw[];
+  accessMenus: MenuRecordRaw[]
   /**
    * 可访问的路由列表
    */
-  accessRoutes: RouteRecordRaw[];
+  accessRoutes: RouteRecordRaw[]
   /**
    * 登录 accessToken
    */
-  accessToken: AccessToken;
+  accessToken: AccessToken
   /**
    * 是否已经检查过权限
    */
-  isAccessChecked: boolean;
+  isAccessChecked: boolean
   /**
    * 登录是否过期
    */
-  loginExpired: boolean;
+  loginExpired: boolean
   /**
    * 登录 accessToken
    */
-  refreshToken: AccessToken;
+  refreshToken: AccessToken
 }
 
 /**
@@ -49,38 +49,38 @@ export const useAccessStore = defineStore('core-access', {
       ): MenuRecordRaw | undefined {
         for (const menu of menus) {
           if (menu.path === path) {
-            return menu;
+            return menu
           }
           if (menu.children) {
-            const matched = findMenu(menu.children, path);
+            const matched = findMenu(menu.children, path)
             if (matched) {
-              return matched;
+              return matched
             }
           }
         }
       }
-      return findMenu(this.accessMenus, path);
+      return findMenu(this.accessMenus, path)
     },
     setAccessCodes(codes: string[]) {
-      this.accessCodes = codes;
+      this.accessCodes = codes
     },
     setAccessMenus(menus: MenuRecordRaw[]) {
-      this.accessMenus = menus;
+      this.accessMenus = menus
     },
     setAccessRoutes(routes: RouteRecordRaw[]) {
-      this.accessRoutes = routes;
+      this.accessRoutes = routes
     },
     setAccessToken(token: AccessToken) {
-      this.accessToken = token;
+      this.accessToken = token
     },
     setIsAccessChecked(isAccessChecked: boolean) {
-      this.isAccessChecked = isAccessChecked;
+      this.isAccessChecked = isAccessChecked
     },
     setLoginExpired(loginExpired: boolean) {
-      this.loginExpired = loginExpired;
+      this.loginExpired = loginExpired
     },
     setRefreshToken(token: AccessToken) {
-      this.refreshToken = token;
+      this.refreshToken = token
     },
   },
   persist: {
@@ -96,10 +96,10 @@ export const useAccessStore = defineStore('core-access', {
     loginExpired: false,
     refreshToken: null,
   }),
-});
+})
 
 // 解决热更新问题
-const hot = import.meta.hot;
+const hot = import.meta.hot
 if (hot) {
-  hot.accept(acceptHMRUpdate(useAccessStore, hot));
+  hot.accept(acceptHMRUpdate(useAccessStore, hot))
 }

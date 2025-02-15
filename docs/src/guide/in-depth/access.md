@@ -22,7 +22,7 @@ outline: deep
 调整对应应用目录下的`preferences.ts`，确保`accessMode='frontend'`。
 
 ```ts
-import { defineOverridesPreferences } from '@vben/preferences';
+import { defineOverridesPreferences } from '@vben/preferences'
 
 export const overridesPreferences = defineOverridesPreferences({
   // overrides
@@ -30,7 +30,7 @@ export const overridesPreferences = defineOverridesPreferences({
     // 默认值，可不填
     accessMode: 'frontend',
   },
-});
+})
 ```
 
 - 配置路由权限
@@ -52,7 +52,7 @@ export const overridesPreferences = defineOverridesPreferences({
 ```ts
 // 设置登录用户信息，需要确保 userInfo.roles 是一个数组，且包含路由表中的权限
 // 例如：userInfo.roles=['super', 'admin']
-authStore.setUserInfo(userInfo);
+authStore.setUserInfo(userInfo)
 ```
 
 到这里，就已经配置完成，你需要确保登录后，接口返回的角色和路由表的权限匹配，否则无法访问。
@@ -82,14 +82,14 @@ authStore.setUserInfo(userInfo);
 调整对应应用目录下的`preferences.ts`，确保`accessMode='backend'`。
 
 ```ts
-import { defineOverridesPreferences } from '@vben/preferences';
+import { defineOverridesPreferences } from '@vben/preferences'
 
 export const overridesPreferences = defineOverridesPreferences({
   // overrides
   app: {
     accessMode: 'backend',
   },
-});
+})
 ```
 
 - 确保接口返回的菜单数据结构正确
@@ -101,9 +101,9 @@ async function generateAccess(options: GenerateMenuAndRoutesOptions) {
   return await generateAccessible(preferences.app.accessMode, {
     fetchMenuListAsync: async () => {
       // 这个接口为后端返回的菜单数据
-      return await getAllMenus();
+      return await getAllMenus()
     },
-  });
+  })
 }
 ```
 
@@ -144,7 +144,7 @@ const dashboardMenus = [
       },
     ],
   },
-];
+]
 ```
 
 :::
@@ -163,11 +163,11 @@ const dashboardMenus = [
 const [fetchUserInfoResult, accessCodes] = await Promise.all([
   fetchUserInfo(),
   getAccessCodes(),
-]);
+])
 
-userInfo = fetchUserInfoResult;
-authStore.setUserInfo(userInfo);
-accessStore.setAccessCodes(accessCodes);
+userInfo = fetchUserInfoResult
+authStore.setUserInfo(userInfo)
+accessStore.setAccessCodes(accessCodes)
 ```
 
 找到 `getAccessCodes` 对应的接口，可根据业务逻辑进行调整。
@@ -180,9 +180,9 @@ accessStore.setAccessCodes(accessCodes);
 
 ```vue
 <script lang="ts" setup>
-import { AccessControl, useAccess } from '@vben/access';
+import { AccessControl, useAccess } from '@vben/access'
 
-const { accessMode, hasAccessByCodes } = useAccess();
+const { accessMode, hasAccessByCodes } = useAccess()
 </script>
 
 <template>
@@ -206,9 +206,9 @@ const { accessMode, hasAccessByCodes } = useAccess();
 
 ```vue
 <script lang="ts" setup>
-import { AccessControl, useAccess } from '@vben/access';
+import { AccessControl, useAccess } from '@vben/access'
 
-const { hasAccessByCodes } = useAccess();
+const { hasAccessByCodes } = useAccess()
 </script>
 
 <template>
@@ -256,7 +256,7 @@ const { hasAccessByCodes } = useAccess();
 
 ```vue
 <script lang="ts" setup>
-import { AccessControl } from '@vben/access';
+import { AccessControl } from '@vben/access'
 </script>
 
 <template>
@@ -279,9 +279,9 @@ import { AccessControl } from '@vben/access';
 
 ```vue
 <script lang="ts" setup>
-import { useAccess } from '@vben/access';
+import { useAccess } from '@vben/access'
 
-const { hasAccessByRoles } = useAccess();
+const { hasAccessByRoles } = useAccess()
 </script>
 
 <template>

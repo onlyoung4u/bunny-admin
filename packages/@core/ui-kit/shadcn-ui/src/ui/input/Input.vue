@@ -1,22 +1,22 @@
 <script setup lang="ts">
-import { cn } from '@vben-core/shared/utils';
+import { cn } from '@vben-core/shared/utils'
 
-import { useVModel } from '@vueuse/core';
+import { useVModel } from '@vueuse/core'
 
 const props = defineProps<{
-  class?: any;
-  defaultValue?: number | string;
-  modelValue?: number | string;
-}>();
+  class?: any
+  defaultValue?: number | string
+  modelValue?: number | string
+}>()
 
 const emits = defineEmits<{
-  (e: 'update:modelValue', payload: number | string): void;
-}>();
+  (e: 'update:modelValue', payload: number | string): void
+}>()
 
 const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: props.defaultValue,
   passive: true,
-});
+})
 </script>
 
 <template>

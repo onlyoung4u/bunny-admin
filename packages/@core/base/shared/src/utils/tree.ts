@@ -1,6 +1,6 @@
 interface TreeConfigOptions {
   // 子属性的名称，默认为'children'
-  childProps: string;
+  childProps: string
 }
 
 /**
@@ -15,29 +15,29 @@ function traverseTreeValues<T, V>(
   getValue: (node: T) => V,
   options?: TreeConfigOptions,
 ): V[] {
-  const result: V[] = [];
+  const result: V[] = []
   const { childProps } = options || {
     childProps: 'children',
-  };
+  }
 
   const dfs = (treeNode: T) => {
-    const value = getValue(treeNode);
-    result.push(value);
-    const children = (treeNode as Record<string, any>)?.[childProps];
+    const value = getValue(treeNode)
+    result.push(value)
+    const children = (treeNode as Record<string, any>)?.[childProps]
     if (!children) {
-      return;
+      return
     }
     if (children.length > 0) {
       for (const child of children) {
-        dfs(child);
+        dfs(child)
       }
     }
-  };
+  }
 
   for (const treeNode of tree) {
-    dfs(treeNode);
+    dfs(treeNode)
   }
-  return result.filter(Boolean);
+  return result.filter(Boolean)
 }
 
 /**
@@ -54,21 +54,21 @@ function filterTree<T extends Record<string, any>>(
 ): T[] {
   const { childProps } = options || {
     childProps: 'children',
-  };
+  }
 
   const _filterTree = (nodes: T[]): T[] => {
     return nodes.filter((node: Record<string, any>) => {
       if (filter(node as T)) {
         if (node[childProps]) {
-          node[childProps] = _filterTree(node[childProps]);
+          node[childProps] = _filterTree(node[childProps])
         }
-        return true;
+        return true
       }
-      return false;
-    });
-  };
+      return false
+    })
+  }
 
-  return _filterTree(tree);
+  return _filterTree(tree)
 }
 
 /**
@@ -84,14 +84,14 @@ function mapTree<T, V extends Record<string, any>>(
 ): V[] {
   const { childProps } = options || {
     childProps: 'children',
-  };
+  }
   return tree.map((node) => {
-    const mapperNode: Record<string, any> = mapper(node);
+    const mapperNode: Record<string, any> = mapper(node)
     if (mapperNode[childProps]) {
-      mapperNode[childProps] = mapTree(mapperNode[childProps], mapper, options);
+      mapperNode[childProps] = mapTree(mapperNode[childProps], mapper, options)
     }
-    return mapperNode as V;
-  });
+    return mapperNode as V
+  })
 }
 
-export { filterTree, mapTree, traverseTreeValues };
+export { filterTree, mapTree, traverseTreeValues }

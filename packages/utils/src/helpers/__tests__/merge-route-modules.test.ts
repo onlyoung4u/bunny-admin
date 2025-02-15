@@ -1,10 +1,10 @@
-import type { RouteRecordRaw } from 'vue-router';
+import type { RouteRecordRaw } from 'vue-router'
 
-import type { RouteModuleType } from '../merge-route-modules';
+import type { RouteModuleType } from '../merge-route-modules'
 
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'vitest'
 
-import { mergeRouteModules } from '../merge-route-modules';
+import { mergeRouteModules } from '../merge-route-modules'
 
 describe('mergeRouteModules', () => {
   it('should merge route modules correctly', () => {
@@ -27,7 +27,7 @@ describe('mergeRouteModules', () => {
           },
         ],
       },
-    };
+    }
 
     const expectedRoutes: RouteRecordRaw[] = [
       {
@@ -40,29 +40,29 @@ describe('mergeRouteModules', () => {
         name: 'Home',
         path: '/',
       },
-    ];
+    ]
 
-    const mergedRoutes = mergeRouteModules(routeModules);
-    expect(mergedRoutes).toEqual(expectedRoutes);
-  });
+    const mergedRoutes = mergeRouteModules(routeModules)
+    expect(mergedRoutes).toEqual(expectedRoutes)
+  })
 
   it('should handle empty modules', () => {
-    const routeModules: Record<string, RouteModuleType> = {};
-    const expectedRoutes: RouteRecordRaw[] = [];
+    const routeModules: Record<string, RouteModuleType> = {}
+    const expectedRoutes: RouteRecordRaw[] = []
 
-    const mergedRoutes = mergeRouteModules(routeModules);
-    expect(mergedRoutes).toEqual(expectedRoutes);
-  });
+    const mergedRoutes = mergeRouteModules(routeModules)
+    expect(mergedRoutes).toEqual(expectedRoutes)
+  })
 
   it('should handle modules with no default export', () => {
     const routeModules: Record<string, RouteModuleType> = {
       './dynamic-routes/empty.ts': {
         default: [],
       },
-    };
-    const expectedRoutes: RouteRecordRaw[] = [];
+    }
+    const expectedRoutes: RouteRecordRaw[] = []
 
-    const mergedRoutes = mergeRouteModules(routeModules);
-    expect(mergedRoutes).toEqual(expectedRoutes);
-  });
-});
+    const mergedRoutes = mergeRouteModules(routeModules)
+    expect(mergedRoutes).toEqual(expectedRoutes)
+  })
+})

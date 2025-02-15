@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { AnalysisOverviewItem } from '../typing';
+import type { AnalysisOverviewItem } from '../typing'
 
 import {
   Card,
@@ -9,19 +9,19 @@ import {
   CardTitle,
   VbenCountToAnimator,
   VbenIcon,
-} from '@vben-core/shadcn-ui';
+} from '@vben-core/shadcn-ui'
 
 interface Props {
-  items: AnalysisOverviewItem[];
+  items: AnalysisOverviewItem[]
 }
 
 defineOptions({
   name: 'AnalysisOverview',
-});
+})
 
 withDefaults(defineProps<Props>(), {
   items: () => [],
-});
+})
 </script>
 
 <template>

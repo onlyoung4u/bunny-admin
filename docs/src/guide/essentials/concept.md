@@ -39,7 +39,7 @@
 在代码中引入包：
 
 ```ts
-import { isString } from '@vben/utils';
+import { isString } from '@vben/utils'
 ```
 
 ## 别名

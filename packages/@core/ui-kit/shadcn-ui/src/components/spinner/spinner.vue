@@ -1,60 +1,60 @@
 <script lang="ts" setup>
-import { ref, watch } from 'vue';
+import { ref, watch } from 'vue'
 
-import { cn } from '@vben-core/shared/utils';
+import { cn } from '@vben-core/shared/utils'
 
 interface Props {
-  class?: string;
+  class?: string
   /**
    * @zh_CN 最小加载时间
    * @en_US Minimum loading time
    */
-  minLoadingTime?: number;
+  minLoadingTime?: number
   /**
    * @zh_CN loading状态开启
    */
-  spinning?: boolean;
+  spinning?: boolean
 }
 
 defineOptions({
   name: 'VbenSpinner',
-});
+})
 
 const props = withDefaults(defineProps<Props>(), {
   minLoadingTime: 50,
-});
+})
 // const startTime = ref(0);
-const showSpinner = ref(false);
-const renderSpinner = ref(true);
-const timer = ref<ReturnType<typeof setTimeout>>();
+const showSpinner = ref(false)
+const renderSpinner = ref(true)
+const timer = ref<ReturnType<typeof setTimeout>>()
 
 watch(
   () => props.spinning,
   (show) => {
     if (!show) {
-      showSpinner.value = false;
-      clearTimeout(timer.value);
-      return;
+      showSpinner.value = false
+      clearTimeout(timer.value)
+      return
     }
 
     // startTime.value = performance.now();
     timer.value = setTimeout(() => {
       // const loadingTime = performance.now() - startTime.value;
 
-      showSpinner.value = true;
+      showSpinner.value = true
       if (showSpinner.value) {
-        renderSpinner.value = true;
+        renderSpinner.value = true
       }
-    }, props.minLoadingTime);
+    }, props.minLoadingTime)
   },
   {
     immediate: true,
   },
-);
+)
 
 function onTransitionEnd() {
   if (!showSpinner.value) {
-    renderSpinner.value = false;
+    renderSpinner.value = false
   }
 }
 </script>

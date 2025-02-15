@@ -1,4 +1,4 @@
-import { defineBuildConfig } from 'unbuild';
+import { defineBuildConfig } from 'unbuild'
 
 export default defineBuildConfig({
   clean: true,
@@ -24,4 +24,4 @@ export default defineBuildConfig({
       pattern: ['**/*.ts'],
     },
   ],
-});
+})

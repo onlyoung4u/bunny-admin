@@ -1,9 +1,9 @@
-import type { Preferences } from './types';
+import type { Preferences } from './types'
 
-import { generatorColorVariables } from '@vben-core/shared/color';
-import { updateCSSVariables as executeUpdateCSSVariables } from '@vben-core/shared/utils';
+import { generatorColorVariables } from '@vben-core/shared/color'
+import { updateCSSVariables as executeUpdateCSSVariables } from '@vben-core/shared/utils'
 
-import { BUILT_IN_THEME_PRESETS } from './constants';
+import { BUILT_IN_THEME_PRESETS } from './constants'
 
 /**
  * 更新主题的 CSS 变量以及其他 CSS 变量
@@ -11,43 +11,43 @@ import { BUILT_IN_THEME_PRESETS } from './constants';
  */
 function updateCSSVariables(preferences: Preferences) {
   // 当修改到颜色变量时，更新 css 变量
-  const root = document.documentElement;
+  const root = document.documentElement
   if (!root) {
-    return;
+    return
   }
 
-  const theme = preferences?.theme ?? {};
+  const theme = preferences?.theme ?? {}
 
-  const { builtinType, mode, radius } = theme;
+  const { builtinType, mode, radius } = theme
 
   // html 设置 dark 类
   if (Reflect.has(theme, 'mode')) {
-    const dark = isDarkTheme(mode);
-    root.classList.toggle('dark', dark);
+    const dark = isDarkTheme(mode)
+    root.classList.toggle('dark', dark)
   }
 
   // html 设置 data-theme=[builtinType]
   if (Reflect.has(theme, 'builtinType')) {
-    const rootTheme = root.dataset.theme;
+    const rootTheme = root.dataset.theme
     if (rootTheme !== builtinType) {
-      root.dataset.theme = builtinType;
+      root.dataset.theme = builtinType
     }
   }
 
   // 获取当前的内置主题
   const currentBuiltType = [...BUILT_IN_THEME_PRESETS].find(
     (item) => item.type === builtinType,
-  );
+  )
 
-  let builtinTypeColorPrimary: string | undefined = '';
+  let builtinTypeColorPrimary: string | undefined = ''
 
   if (currentBuiltType) {
-    const isDark = isDarkTheme(preferences.theme.mode);
+    const isDark = isDarkTheme(preferences.theme.mode)
     // 设置不同主题的主要颜色
     const color = isDark
       ? currentBuiltType.darkPrimaryColor || currentBuiltType.primaryColor
-      : currentBuiltType.primaryColor;
-    builtinTypeColorPrimary = color || currentBuiltType.color;
+      : currentBuiltType.primaryColor
+    builtinTypeColorPrimary = color || currentBuiltType.color
   }
 
   // 如果内置主题颜色和自定义颜色都不存在，则不更新主题颜色
@@ -59,12 +59,12 @@ function updateCSSVariables(preferences: Preferences) {
     Reflect.has(theme, 'colorWarning')
   ) {
     // preferences.theme.colorPrimary = builtinTypeColorPrimary || colorPrimary;
-    updateMainColorVariables(preferences);
+    updateMainColorVariables(preferences)
   }
 
   // 更新圆角
   if (Reflect.has(theme, 'radius')) {
-    document.documentElement.style.setProperty('--radius', `${radius}rem`);
+    document.documentElement.style.setProperty('--radius', `${radius}rem`)
   }
 }
 
@@ -74,17 +74,17 @@ function updateCSSVariables(preferences: Preferences) {
  */
 function updateMainColorVariables(preference: Preferences) {
   if (!preference.theme) {
-    return;
+    return
   }
   const { colorDestructive, colorPrimary, colorSuccess, colorWarning } =
-    preference.theme;
+    preference.theme
 
   const colorVariables = generatorColorVariables([
     { color: colorPrimary, name: 'primary' },
     { alias: 'warning', color: colorWarning, name: 'yellow' },
     { alias: 'success', color: colorSuccess, name: 'green' },
     { alias: 'destructive', color: colorDestructive, name: 'red' },
-  ]);
+  ])
 
   // 要设置的 CSS 变量映射
   const colorMappings = {
@@ -92,25 +92,25 @@ function updateMainColorVariables(preference: Preferences) {
     '--primary-500': '--primary',
     '--red-500': '--destructive',
     '--yellow-500': '--warning',
-  };
+  }
 
   // 统一处理颜色变量的更新
   Object.entries(colorMappings).forEach(([sourceVar, targetVar]) => {
-    const colorValue = colorVariables[sourceVar];
+    const colorValue = colorVariables[sourceVar]
     if (colorValue) {
-      document.documentElement.style.setProperty(targetVar, colorValue);
+      document.documentElement.style.setProperty(targetVar, colorValue)
     }
-  });
+  })
 
-  executeUpdateCSSVariables(colorVariables);
+  executeUpdateCSSVariables(colorVariables)
 }
 
 function isDarkTheme(theme: string) {
-  let dark = theme === 'dark';
+  let dark = theme === 'dark'
   if (theme === 'auto') {
-    dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    dark = window.matchMedia('(prefers-color-scheme: dark)').matches
   }
-  return dark;
+  return dark
 }
 
-export { isDarkTheme, updateCSSVariables };
+export { isDarkTheme, updateCSSVariables }

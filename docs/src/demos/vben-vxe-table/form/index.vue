@@ -1,20 +1,20 @@
 <script lang="ts" setup>
-import type { VbenFormProps } from '#/adapter/form';
-import type { VxeGridProps } from '#/adapter/vxe-table';
+import type { VbenFormProps } from '#/adapter/form'
+import type { VxeGridProps } from '#/adapter/vxe-table'
 
-import { message } from 'ant-design-vue';
+import { message } from 'ant-design-vue'
 
-import { useVbenVxeGrid } from '#/adapter/vxe-table';
+import { useVbenVxeGrid } from '#/adapter/vxe-table'
 
-import { getExampleTableApi } from '../mock-api';
+import { getExampleTableApi } from '../mock-api'
 
 interface RowType {
-  category: string;
-  color: string;
-  id: string;
-  price: string;
-  productName: string;
-  releaseDate: string;
+  category: string
+  color: string
+  id: string
+  price: string
+  productName: string
+  releaseDate: string
 }
 
 const formOptions: VbenFormProps = {
@@ -80,7 +80,7 @@ const formOptions: VbenFormProps = {
   submitOnChange: false,
   // 按下回车时是否提交表单
   submitOnEnter: false,
-};
+}
 
 const gridOptions: VxeGridProps<RowType> = {
   checkboxConfig: {
@@ -101,12 +101,12 @@ const gridOptions: VxeGridProps<RowType> = {
   proxyConfig: {
     ajax: {
       query: async ({ page }, formValues) => {
-        message.success(`Query params: ${JSON.stringify(formValues)}`);
+        message.success(`Query params: ${JSON.stringify(formValues)}`)
         return await getExampleTableApi({
           page: page.currentPage,
           pageSize: page.pageSize,
           ...formValues,
-        });
+        })
       },
     },
   },
@@ -115,9 +115,9 @@ const gridOptions: VxeGridProps<RowType> = {
     // @ts-ignore 正式环境时有完整的类型声明
     search: true,
   },
-};
+}
 
-const [Grid] = useVbenVxeGrid({ formOptions, gridOptions });
+const [Grid] = useVbenVxeGrid({ formOptions, gridOptions })
 </script>
 
 <template>

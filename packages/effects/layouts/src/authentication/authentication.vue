@@ -1,22 +1,22 @@
 <script setup lang="ts">
-import type { ToolbarType } from './types';
+import type { ToolbarType } from './types'
 
-import { preferences, usePreferences } from '@vben/preferences';
+import { preferences, usePreferences } from '@vben/preferences'
 
-import { Copyright } from '../basic/copyright';
-import AuthenticationFormView from './form.vue';
-import SloganIcon from './icons/slogan.vue';
-import Toolbar from './toolbar.vue';
+import { Copyright } from '../basic/copyright'
+import AuthenticationFormView from './form.vue'
+import SloganIcon from './icons/slogan.vue'
+import Toolbar from './toolbar.vue'
 
 interface Props {
-  appName?: string;
-  logo?: string;
-  pageTitle?: string;
-  pageDescription?: string;
-  sloganImage?: string;
-  toolbar?: boolean;
-  copyright?: boolean;
-  toolbarList?: ToolbarType[];
+  appName?: string
+  logo?: string
+  pageTitle?: string
+  pageDescription?: string
+  sloganImage?: string
+  toolbar?: boolean
+  copyright?: boolean
+  toolbarList?: ToolbarType[]
 }
 
 withDefaults(defineProps<Props>(), {
@@ -28,10 +28,10 @@ withDefaults(defineProps<Props>(), {
   sloganImage: '',
   toolbar: true,
   toolbarList: () => ['color', 'language', 'layout', 'theme'],
-});
+})
 
 const { authPanelCenter, authPanelLeft, authPanelRight, isDark } =
-  usePreferences();
+  usePreferences()
 </script>
 
 <template>

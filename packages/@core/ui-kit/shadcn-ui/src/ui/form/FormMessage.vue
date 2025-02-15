@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import { toValue } from 'vue';
+import { toValue } from 'vue'
 
-import { ErrorMessage } from 'vee-validate';
+import { ErrorMessage } from 'vee-validate'
 
-import { useFormField } from './useFormField';
+import { useFormField } from './useFormField'
 
-const { formMessageId, name } = useFormField();
+const { formMessageId, name } = useFormField()
 </script>
 
 <template>

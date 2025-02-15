@@ -1,12 +1,12 @@
 <script lang="ts" setup>
-import type { HoverCardContentProps } from '@vben-core/shadcn-ui';
+import type { HoverCardContentProps } from '@vben-core/shadcn-ui'
 
-import type { MenuItemRegistered, MenuProvider, SubMenuProps } from '../types';
+import type { MenuItemRegistered, MenuProvider, SubMenuProps } from '../types'
 
-import { computed, onBeforeUnmount, onMounted, reactive, ref } from 'vue';
+import { computed, onBeforeUnmount, onMounted, reactive, ref } from 'vue'
 
-import { useNamespace } from '@vben-core/composables';
-import { VbenHoverCard } from '@vben-core/shadcn-ui';
+import { useNamespace } from '@vben-core/composables'
+import { VbenHoverCard } from '@vben-core/shadcn-ui'
 
 import {
   createSubMenuContext,
@@ -14,33 +14,33 @@ import {
   useMenuContext,
   useMenuStyle,
   useSubMenuContext,
-} from '../hooks';
-import CollapseTransition from './collapse-transition.vue';
-import SubMenuContent from './sub-menu-content.vue';
+} from '../hooks'
+import CollapseTransition from './collapse-transition.vue'
+import SubMenuContent from './sub-menu-content.vue'
 
 interface Props extends SubMenuProps {
-  isSubMenuMore?: boolean;
+  isSubMenuMore?: boolean
 }
 
-defineOptions({ name: 'SubMenu' });
+defineOptions({ name: 'SubMenu' })
 
 const props = withDefaults(defineProps<Props>(), {
   disabled: false,
   isSubMenuMore: false,
-});
+})
 
-const { parentMenu, parentPaths } = useMenu();
-const { b, is } = useNamespace('sub-menu');
-const nsMenu = useNamespace('menu');
-const rootMenu = useMenuContext();
-const subMenu = useSubMenuContext();
-const subMenuStyle = useMenuStyle(subMenu);
+const { parentMenu, parentPaths } = useMenu()
+const { b, is } = useNamespace('sub-menu')
+const nsMenu = useNamespace('menu')
+const rootMenu = useMenuContext()
+const subMenu = useSubMenuContext()
+const subMenuStyle = useMenuStyle(subMenu)
 
-const mouseInChild = ref(false);
+const mouseInChild = ref(false)
 
-const items = ref<MenuProvider['items']>({});
-const subMenus = ref<MenuProvider['subMenus']>({});
-const timer = ref<null | ReturnType<typeof setTimeout>>(null);
+const items = ref<MenuProvider['items']>({})
+const subMenus = ref<MenuProvider['subMenus']>({})
+const timer = ref<null | ReturnType<typeof setTimeout>>(null)
 
 createSubMenuContext({
   addSubMenu,
@@ -48,61 +48,61 @@ createSubMenuContext({
   level: (subMenu?.level ?? 0) + 1,
   mouseInChild,
   removeSubMenu,
-});
+})
 
 const opened = computed(() => {
-  return rootMenu?.openedMenus.includes(props.path);
-});
+  return rootMenu?.openedMenus.includes(props.path)
+})
 const isTopLevelMenuSubmenu = computed(
   () => parentMenu.value?.type.name === 'Menu',
-);
-const mode = computed(() => rootMenu?.props.mode ?? 'vertical');
-const rounded = computed(() => rootMenu?.props.rounded);
-const currentLevel = computed(() => subMenu?.level ?? 0);
+)
+const mode = computed(() => rootMenu?.props.mode ?? 'vertical')
+const rounded = computed(() => rootMenu?.props.rounded)
+const currentLevel = computed(() => subMenu?.level ?? 0)
 const isFirstLevel = computed(() => {
-  return currentLevel.value === 1;
-});
+  return currentLevel.value === 1
+})
 
 const contentProps = computed((): HoverCardContentProps => {
-  const isHorizontal = mode.value === 'horizontal';
-  const side = isHorizontal && isFirstLevel.value ? 'bottom' : 'right';
+  const isHorizontal = mode.value === 'horizontal'
+  const side = isHorizontal && isFirstLevel.value ? 'bottom' : 'right'
   return {
     collisionPadding: { top: 20 },
     side,
     sideOffset: isHorizontal ? 5 : 10,
-  };
-});
+  }
+})
 
 const active = computed(() => {
-  let isActive = false;
+  let isActive = false
 
   Object.values(items.value).forEach((item) => {
     if (item.active) {
-      isActive = true;
+      isActive = true
     }
-  });
+  })
 
   Object.values(subMenus.value).forEach((subItem) => {
     if (subItem.active) {
-      isActive = true;
+      isActive = true
     }
-  });
-  return isActive;
-});
+  })
+  return isActive
+})
 
 function addSubMenu(subMenu: MenuItemRegistered) {
-  subMenus.value[subMenu.path] = subMenu;
+  subMenus.value[subMenu.path] = subMenu
 }
 
 function removeSubMenu(subMenu: MenuItemRegistered) {
-  Reflect.deleteProperty(subMenus.value, subMenu.path);
+  Reflect.deleteProperty(subMenus.value, subMenu.path)
 }
 
 /**
  * 点击submenu展开/关闭
  */
 function handleClick() {
-  const mode = rootMenu?.props.mode;
+  const mode = rootMenu?.props.mode
   if (
     // 当前菜单禁用时，不展开
     props.disabled ||
@@ -110,19 +110,19 @@ function handleClick() {
     // 水平模式下不展开
     mode === 'horizontal'
   ) {
-    return;
+    return
   }
 
   rootMenu?.handleSubMenuClick({
     active: active.value,
     parentPaths: parentPaths.value,
     path: props.path,
-  });
+  })
 }
 
 function handleMouseenter(event: FocusEvent | MouseEvent, showTimeout = 300) {
   if (event.type === 'focus') {
-    return;
+    return
   }
 
   if (
@@ -130,19 +130,19 @@ function handleMouseenter(event: FocusEvent | MouseEvent, showTimeout = 300) {
     props.disabled
   ) {
     if (subMenu) {
-      subMenu.mouseInChild.value = true;
+      subMenu.mouseInChild.value = true
     }
-    return;
+    return
   }
   if (subMenu) {
-    subMenu.mouseInChild.value = true;
+    subMenu.mouseInChild.value = true
   }
 
-  timer.value && window.clearTimeout(timer.value);
+  timer.value && window.clearTimeout(timer.value)
   timer.value = setTimeout(() => {
-    rootMenu?.openMenu(props.path, parentPaths.value);
-  }, showTimeout);
-  parentMenu.value?.vnode.el?.dispatchEvent(new MouseEvent('mouseenter'));
+    rootMenu?.openMenu(props.path, parentPaths.value)
+  }, showTimeout)
+  parentMenu.value?.vnode.el?.dispatchEvent(new MouseEvent('mouseenter'))
 }
 
 function handleMouseleave(deepDispatch = false) {
@@ -151,43 +151,43 @@ function handleMouseleave(deepDispatch = false) {
     rootMenu?.props.mode === 'vertical' &&
     subMenu
   ) {
-    subMenu.mouseInChild.value = false;
-    return;
+    subMenu.mouseInChild.value = false
+    return
   }
 
-  timer.value && window.clearTimeout(timer.value);
+  timer.value && window.clearTimeout(timer.value)
 
   if (subMenu) {
-    subMenu.mouseInChild.value = false;
+    subMenu.mouseInChild.value = false
   }
   timer.value = setTimeout(() => {
-    !mouseInChild.value && rootMenu?.closeMenu(props.path, parentPaths.value);
-  }, 300);
+    !mouseInChild.value && rootMenu?.closeMenu(props.path, parentPaths.value)
+  }, 300)
 
   if (deepDispatch) {
-    subMenu?.handleMouseleave?.(true);
+    subMenu?.handleMouseleave?.(true)
   }
 }
 
 const menuIcon = computed(() =>
   active.value ? props.activeIcon || props.icon : props.icon,
-);
+)
 
 const item = reactive({
   active,
   parentPaths,
   path: props.path,
-});
+})
 
 onMounted(() => {
-  subMenu?.addSubMenu?.(item);
-  rootMenu?.addSubMenu?.(item);
-});
+  subMenu?.addSubMenu?.(item)
+  rootMenu?.addSubMenu?.(item)
+})
 
 onBeforeUnmount(() => {
-  subMenu?.removeSubMenu?.(item);
-  rootMenu?.removeSubMenu?.(item);
-});
+  subMenu?.removeSubMenu?.(item)
+  rootMenu?.removeSubMenu?.(item)
+})
 </script>
 <template>
   <li

@@ -3,20 +3,20 @@ import type {
   LayoutHeaderMenuAlignType,
   LayoutHeaderModeType,
   SelectOption,
-} from '@vben/types';
+} from '@vben/types'
 
-import { $t } from '@vben/locales';
+import { $t } from '@vben/locales'
 
-import SelectItem from '../select-item.vue';
-import SwitchItem from '../switch-item.vue';
-import ToggleItem from '../toggle-item.vue';
+import SelectItem from '../select-item.vue'
+import SwitchItem from '../switch-item.vue'
+import ToggleItem from '../toggle-item.vue'
 
-defineProps<{ disabled: boolean }>();
+defineProps<{ disabled: boolean }>()
 
-const headerEnable = defineModel<boolean>('headerEnable');
-const headerMode = defineModel<LayoutHeaderModeType>('headerMode');
+const headerEnable = defineModel<boolean>('headerEnable')
+const headerMode = defineModel<LayoutHeaderModeType>('headerMode')
 const headerMenuAlign =
-  defineModel<LayoutHeaderMenuAlignType>('headerMenuAlign');
+  defineModel<LayoutHeaderMenuAlignType>('headerMenuAlign')
 
 const localeItems: SelectOption[] = [
   {
@@ -35,7 +35,7 @@ const localeItems: SelectOption[] = [
     label: $t('preferences.header.modeAutoScroll'),
     value: 'auto-scroll',
   },
-];
+]
 
 const headerMenuAlignItems: SelectOption[] = [
   {
@@ -50,7 +50,7 @@ const headerMenuAlignItems: SelectOption[] = [
     label: $t('preferences.header.menuAlignEnd'),
     value: 'end',
   },
-];
+]
 </script>
 
 <template>

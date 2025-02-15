@@ -1,23 +1,23 @@
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { ref } from 'vue'
 
-import { useVbenDrawer } from '@vben/common-ui';
+import { useVbenDrawer } from '@vben/common-ui'
 
-const data = ref();
+const data = ref()
 
 const [Drawer, drawerApi] = useVbenDrawer({
   onCancel() {
-    drawerApi.close();
+    drawerApi.close()
   },
   onConfirm() {
-    console.info('onConfirm');
+    console.info('onConfirm')
   },
   onOpenChange(isOpen: boolean) {
     if (isOpen) {
-      data.value = drawerApi.getData<Record<string, any>>();
+      data.value = drawerApi.getData<Record<string, any>>()
     }
   },
-});
+})
 </script>
 <template>
   <Drawer title="数据共享示例">

@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import type { Component } from 'vue';
+import type { Component } from 'vue'
 
-import type { AnyFunction } from '@vben/types';
+import type { AnyFunction } from '@vben/types'
 
-import { computed, useTemplateRef, watch } from 'vue';
+import { computed, useTemplateRef, watch } from 'vue'
 
-import { useHoverToggle } from '@vben/hooks';
-import { LockKeyhole, LogOut } from '@vben/icons';
-import { $t } from '@vben/locales';
-import { preferences, usePreferences } from '@vben/preferences';
-import { useLockStore } from '@vben/stores';
-import { isWindowsOs } from '@vben/utils';
+import { useHoverToggle } from '@vben/hooks'
+import { LockKeyhole, LogOut } from '@vben/icons'
+import { $t } from '@vben/locales'
+import { preferences, usePreferences } from '@vben/preferences'
+import { useLockStore } from '@vben/stores'
+import { isWindowsOs } from '@vben/utils'
 
-import { useVbenModal } from '@vben-core/popup-ui';
+import { useVbenModal } from '@vben-core/popup-ui'
 import {
   Badge,
   DropdownMenu,
@@ -24,47 +24,47 @@ import {
   DropdownMenuTrigger,
   VbenAvatar,
   VbenIcon,
-} from '@vben-core/shadcn-ui';
+} from '@vben-core/shadcn-ui'
 
-import { useMagicKeys, whenever } from '@vueuse/core';
+import { useMagicKeys, whenever } from '@vueuse/core'
 
-import { LockScreenModal } from '../lock-screen';
+import { LockScreenModal } from '../lock-screen'
 
 interface Props {
   /**
    * 头像
    */
-  avatar?: string;
+  avatar?: string
   /**
    * @zh_CN 描述
    */
-  description?: string;
+  description?: string
   /**
    * 是否启用快捷键
    */
-  enableShortcutKey?: boolean;
+  enableShortcutKey?: boolean
   /**
    * 菜单数组
    */
-  menus?: Array<{ handler: AnyFunction; icon?: Component; text: string }>;
+  menus?: Array<{ handler: AnyFunction; icon?: Component; text: string }>
 
   /**
    * 标签文本
    */
-  tagText?: string;
+  tagText?: string
   /**
    * 文本
    */
-  text?: string;
+  text?: string
   /** 触发方式 */
-  trigger?: 'both' | 'click' | 'hover';
+  trigger?: 'both' | 'click' | 'hover'
   /** hover触发时，延迟响应的时间 */
-  hoverDelay?: number;
+  hoverDelay?: number
 }
 
 defineOptions({
   name: 'UserDropdown',
-});
+})
 
 const props = withDefaults(defineProps<Props>(), {
   avatar: '',
@@ -76,90 +76,90 @@ const props = withDefaults(defineProps<Props>(), {
   text: '',
   trigger: 'click',
   hoverDelay: 500,
-});
+})
 
-const emit = defineEmits<{ logout: [] }>();
+const emit = defineEmits<{ logout: [] }>()
 
 const { globalLockScreenShortcutKey, globalLogoutShortcutKey } =
-  usePreferences();
-const lockStore = useLockStore();
+  usePreferences()
+const lockStore = useLockStore()
 const [LockModal, lockModalApi] = useVbenModal({
   connectedComponent: LockScreenModal,
-});
+})
 const [LogoutModal, logoutModalApi] = useVbenModal({
   onConfirm() {
-    handleSubmitLogout();
+    handleSubmitLogout()
   },
-});
+})
 
-const refTrigger = useTemplateRef('refTrigger');
-const refContent = useTemplateRef('refContent');
+const refTrigger = useTemplateRef('refTrigger')
+const refContent = useTemplateRef('refContent')
 const [openPopover, hoverWatcher] = useHoverToggle(
   [refTrigger, refContent],
   () => props.hoverDelay,
-);
+)
 
 watch(
   () => props.trigger === 'hover' || props.trigger === 'both',
   (val) => {
     if (val) {
-      hoverWatcher.enable();
+      hoverWatcher.enable()
     } else {
-      hoverWatcher.disable();
+      hoverWatcher.disable()
     }
   },
   {
     immediate: true,
   },
-);
+)
 
-const altView = computed(() => (isWindowsOs() ? 'Alt' : '⌥'));
+const altView = computed(() => (isWindowsOs() ? 'Alt' : '⌥'))
 
 const enableLogoutShortcutKey = computed(() => {
-  return props.enableShortcutKey && globalLogoutShortcutKey.value;
-});
+  return props.enableShortcutKey && globalLogoutShortcutKey.value
+})
 
 const enableLockScreenShortcutKey = computed(() => {
-  return props.enableShortcutKey && globalLockScreenShortcutKey.value;
-});
+  return props.enableShortcutKey && globalLockScreenShortcutKey.value
+})
 
 const enableShortcutKey = computed(() => {
-  return props.enableShortcutKey && preferences.shortcutKeys.enable;
-});
+  return props.enableShortcutKey && preferences.shortcutKeys.enable
+})
 
 function handleOpenLock() {
-  lockModalApi.open();
+  lockModalApi.open()
 }
 
 function handleSubmitLock(lockScreenPassword: string) {
-  lockModalApi.close();
-  lockStore.lockScreen(lockScreenPassword);
+  lockModalApi.close()
+  lockStore.lockScreen(lockScreenPassword)
 }
 
 function handleLogout() {
   // emit
-  logoutModalApi.open();
-  openPopover.value = false;
+  logoutModalApi.open()
+  openPopover.value = false
 }
 
 function handleSubmitLogout() {
-  emit('logout');
-  logoutModalApi.close();
+  emit('logout')
+  logoutModalApi.close()
 }
 
 if (enableShortcutKey.value) {
-  const keys = useMagicKeys();
+  const keys = useMagicKeys()
   whenever(keys['Alt+KeyQ']!, () => {
     if (enableLogoutShortcutKey.value) {
-      handleLogout();
+      handleLogout()
     }
-  });
+  })
 
   whenever(keys['Alt+KeyL']!, () => {
     if (enableLockScreenShortcutKey.value) {
-      handleOpenLock();
+      handleOpenLock()
     }
-  });
+  })
 }
 </script>
 

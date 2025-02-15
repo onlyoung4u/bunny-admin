@@ -3,7 +3,7 @@ import type {
   AxiosResponse,
   CreateAxiosDefaults,
   InternalAxiosRequestConfig,
-} from 'axios';
+} from 'axios'
 
 type ExtendOptions = {
   /** 响应数据的返回方式。
@@ -11,48 +11,48 @@ type ExtendOptions = {
    * body: 返回响应数据的BODY部分（只会根据status检查请求是否成功，忽略对code的判断，这种情况下应由调用方检查请求是否成功）。
    * data: 解构响应的BODY数据，只返回其中的data节点数据（会检查status和code是否为成功状态）。
    */
-  responseReturn?: 'body' | 'data' | 'raw';
-};
-type RequestClientConfig<T = any> = AxiosRequestConfig<T> & ExtendOptions;
+  responseReturn?: 'body' | 'data' | 'raw'
+}
+type RequestClientConfig<T = any> = AxiosRequestConfig<T> & ExtendOptions
 
 type RequestResponse<T = any> = AxiosResponse<T> & {
-  config: RequestClientConfig<T>;
-};
+  config: RequestClientConfig<T>
+}
 
 type RequestContentType =
   | 'application/json;charset=utf-8'
   | 'application/octet-stream;charset=utf-8'
   | 'application/x-www-form-urlencoded;charset=utf-8'
-  | 'multipart/form-data;charset=utf-8';
+  | 'multipart/form-data;charset=utf-8'
 
-type RequestClientOptions = CreateAxiosDefaults & ExtendOptions;
+type RequestClientOptions = CreateAxiosDefaults & ExtendOptions
 
 interface RequestInterceptorConfig {
   fulfilled?: (
     config: ExtendOptions & InternalAxiosRequestConfig,
   ) =>
     | (ExtendOptions & InternalAxiosRequestConfig<any>)
-    | Promise<ExtendOptions & InternalAxiosRequestConfig<any>>;
-  rejected?: (error: any) => any;
+    | Promise<ExtendOptions & InternalAxiosRequestConfig<any>>
+  rejected?: (error: any) => any
 }
 
 interface ResponseInterceptorConfig<T = any> {
   fulfilled?: (
     response: RequestResponse<T>,
-  ) => Promise<RequestResponse> | RequestResponse;
-  rejected?: (error: any) => any;
+  ) => Promise<RequestResponse> | RequestResponse
+  rejected?: (error: any) => any
 }
 
-type MakeErrorMessageFn = (message: string, error: any) => void;
+type MakeErrorMessageFn = (message: string, error: any) => void
 
 interface HttpResponse<T = any> {
   /**
    * 0 表示成功 其他表示失败
    * 0 means success, others means fail
    */
-  code: number;
-  data: T;
-  message: string;
+  code: number
+  data: T
+  message: string
 }
 
 export type {
@@ -64,4 +64,4 @@ export type {
   RequestInterceptorConfig,
   RequestResponse,
   ResponseInterceptorConfig,
-};
+}

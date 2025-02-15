@@ -17,4 +17,4 @@ export default {
   '{!(package)*.json,*.code-snippets,.!(browserslist)*rc}': [
     'prettier --cache --write--parser json',
   ],
-};
+}

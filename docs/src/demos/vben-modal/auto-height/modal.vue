@@ -1,30 +1,30 @@
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { ref } from 'vue'
 
-import { useVbenModal, VbenButton } from '@vben/common-ui';
+import { useVbenModal, VbenButton } from '@vben/common-ui'
 
-const list = ref<number[]>([]);
+const list = ref<number[]>([])
 
 const [Modal, modalApi] = useVbenModal({
   onCancel() {
-    modalApi.close();
+    modalApi.close()
   },
   onConfirm() {
-    console.log('onConfirm');
+    console.log('onConfirm')
   },
   onOpenChange(isOpen) {
     if (isOpen) {
-      handleUpdate(10);
+      handleUpdate(10)
     }
   },
-});
+})
 
 function handleUpdate(len: number) {
-  modalApi.setState({ loading: true });
+  modalApi.setState({ loading: true })
   setTimeout(() => {
-    list.value = Array.from({ length: len }, (_v, k) => k + 1);
-    modalApi.setState({ loading: false });
-  }, 2000);
+    list.value = Array.from({ length: len }, (_v, k) => k + 1)
+    modalApi.setState({ loading: false })
+  }, 2000)
 }
 </script>
 <template>

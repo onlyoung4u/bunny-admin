@@ -3,14 +3,14 @@
  * 可用于 vben-form、vben-modal、vben-drawer 等组件使用,
  */
 
-import type { Component, SetupContext } from 'vue';
+import type { Component, SetupContext } from 'vue'
 
-import type { BaseFormComponentType } from '@vben/common-ui';
+import type { BaseFormComponentType } from '@vben/common-ui'
 
-import { h } from 'vue';
+import { h } from 'vue'
 
-import { globalShareState } from '@vben/common-ui';
-import { $t } from '@vben/locales';
+import { globalShareState } from '@vben/common-ui'
+import { $t } from '@vben/locales'
 
 import {
   AutoComplete,
@@ -35,17 +35,17 @@ import {
   TimePicker,
   TreeSelect,
   Upload,
-} from 'ant-design-vue';
+} from 'ant-design-vue'
 
 const withDefaultPlaceholder = <T extends Component>(
   component: T,
   type: 'input' | 'select',
 ) => {
   return (props: any, { attrs, slots }: Omit<SetupContext, 'expose'>) => {
-    const placeholder = props?.placeholder || $t(`ui.placeholder.${type}`);
-    return h(component, { ...props, ...attrs, placeholder }, slots);
-  };
-};
+    const placeholder = props?.placeholder || $t(`ui.placeholder.${type}`)
+    return h(component, { ...props, ...attrs, placeholder }, slots)
+  }
+}
 
 // 这里需要自行根据业务组件库进行适配，需要用到的组件都需要在这里类型说明
 export type ComponentType =
@@ -71,7 +71,7 @@ export type ComponentType =
   | 'TimePicker'
   | 'TreeSelect'
   | 'Upload'
-  | BaseFormComponentType;
+  | BaseFormComponentType
 
 async function initComponentAdapter() {
   const components: Partial<Record<ComponentType, Component>> = {
@@ -85,7 +85,7 @@ async function initComponentAdapter() {
     DatePicker,
     // 自定义默认按钮
     DefaultButton: (props, { attrs, slots }) => {
-      return h(Button, { ...props, attrs, type: 'default' }, slots);
+      return h(Button, { ...props, attrs, type: 'default' }, slots)
     },
     Divider,
     Input: withDefaultPlaceholder(Input, 'input'),
@@ -94,7 +94,7 @@ async function initComponentAdapter() {
     Mentions: withDefaultPlaceholder(Mentions, 'input'),
     // 自定义主要按钮
     PrimaryButton: (props, { attrs, slots }) => {
-      return h(Button, { ...props, attrs, type: 'primary' }, slots);
+      return h(Button, { ...props, attrs, type: 'primary' }, slots)
     },
     Radio,
     RadioGroup,
@@ -107,10 +107,10 @@ async function initComponentAdapter() {
     TimePicker,
     TreeSelect: withDefaultPlaceholder(TreeSelect, 'select'),
     Upload,
-  };
+  }
 
   // 将组件注册到全局共享状态中
-  globalShareState.setComponents(components);
+  globalShareState.setComponents(components)
 
   // 定义全局共享状态中的消息提示
   globalShareState.defineMessage({
@@ -120,9 +120,9 @@ async function initComponentAdapter() {
         description: content,
         message: title,
         placement: 'bottomRight',
-      });
+      })
     },
-  });
+  })
 }
 
-export { initComponentAdapter };
+export { initComponentAdapter }

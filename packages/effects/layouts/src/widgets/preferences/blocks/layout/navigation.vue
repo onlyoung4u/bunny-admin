@@ -1,25 +1,25 @@
 <script setup lang="ts">
-import type { SelectOption } from '@vben/types';
+import type { SelectOption } from '@vben/types'
 
-import { $t } from '@vben/locales';
+import { $t } from '@vben/locales'
 
-import SwitchItem from '../switch-item.vue';
-import ToggleItem from '../toggle-item.vue';
+import SwitchItem from '../switch-item.vue'
+import ToggleItem from '../toggle-item.vue'
 
 defineOptions({
   name: 'PreferenceNavigationConfig',
-});
+})
 
-defineProps<{ disabled?: boolean; disabledNavigationSplit?: boolean }>();
+defineProps<{ disabled?: boolean; disabledNavigationSplit?: boolean }>()
 
-const navigationStyleType = defineModel<string>('navigationStyleType');
-const navigationSplit = defineModel<boolean>('navigationSplit');
-const navigationAccordion = defineModel<boolean>('navigationAccordion');
+const navigationStyleType = defineModel<string>('navigationStyleType')
+const navigationSplit = defineModel<boolean>('navigationSplit')
+const navigationAccordion = defineModel<boolean>('navigationAccordion')
 
 const stylesItems: SelectOption[] = [
   { label: $t('preferences.rounded'), value: 'rounded' },
   { label: $t('preferences.plain'), value: 'plain' },
-];
+]
 </script>
 
 <template>

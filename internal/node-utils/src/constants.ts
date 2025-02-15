@@ -3,4 +3,4 @@ enum UNICODE {
   SUCCESS = '\u2714', // ✔
 }
 
-export { UNICODE };
+export { UNICODE }

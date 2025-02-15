@@ -61,9 +61,9 @@ Another option to avoid style conflicts is to use the `BEM` standard. If you cho
 
 ```vue
 <script lang="ts" setup>
-import { useNamespace } from '@vben/hooks';
+import { useNamespace } from '@vben/hooks'
 
-const { b, e, is } = useNamespace('menu');
+const { b, e, is } = useNamespace('menu')
 </script>
 <template>
   <div :class="[b()]">

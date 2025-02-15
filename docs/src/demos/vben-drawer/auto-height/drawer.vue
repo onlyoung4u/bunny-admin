@@ -1,30 +1,30 @@
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { ref } from 'vue'
 
-import { useVbenDrawer, VbenButton } from '@vben/common-ui';
+import { useVbenDrawer, VbenButton } from '@vben/common-ui'
 
-const list = ref<number[]>([]);
+const list = ref<number[]>([])
 
 const [Drawer, drawerApi] = useVbenDrawer({
   onCancel() {
-    drawerApi.close();
+    drawerApi.close()
   },
   onConfirm() {
-    console.log('onConfirm');
+    console.log('onConfirm')
   },
   onOpenChange(isOpen) {
     if (isOpen) {
-      handleUpdate(10);
+      handleUpdate(10)
     }
   },
-});
+})
 
 function handleUpdate(len: number) {
-  drawerApi.setState({ loading: true });
+  drawerApi.setState({ loading: true })
   setTimeout(() => {
-    list.value = Array.from({ length: len }, (_v, k) => k + 1);
-    drawerApi.setState({ loading: false });
-  }, 2000);
+    list.value = Array.from({ length: len }, (_v, k) => k + 1)
+    drawerApi.setState({ loading: false })
+  }, 2000)
 }
 </script>
 <template>

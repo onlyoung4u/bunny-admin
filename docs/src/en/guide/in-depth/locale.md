@@ -17,7 +17,7 @@ export const overridesPreferences = defineOverridesPreferences({
   app: {
     locale: 'en-US',
   },
-});
+})
 ```
 
 ## Dynamic Language Switching
@@ -28,23 +28,23 @@ Switching languages consists of two parts:
 - Loading the corresponding language pack
 
 ```ts
-import type { SupportedLanguagesType } from '@vben/locales';
-import { loadLocaleMessages } from '@vben/locales';
-import { updatePreferences } from '@vben/preferences';
+import type { SupportedLanguagesType } from '@vben/locales'
+import { loadLocaleMessages } from '@vben/locales'
+import { updatePreferences } from '@vben/preferences'
 
 async function updateLocale(value: string) {
   // 1. Update preferences
-  const locale = value as SupportedLanguagesType;
+  const locale = value as SupportedLanguagesType
   updatePreferences({
     app: {
       locale,
     },
-  });
+  })
   // 2. Load the corresponding language pack
-  await loadLocaleMessages(locale);
+  await loadLocaleMessages(locale)
 }
 
-updateLocale('en-US');
+updateLocale('en-US')
 ```
 
 ## Adding Translation Texts
@@ -88,10 +88,10 @@ With `@vben/locales`, you can easily use translation texts:
 
 ```vue
 <script setup lang="ts">
-import { computed } from 'vue';
-import { $t } from '@vben/locales';
+import { computed } from 'vue'
+import { $t } from '@vben/locales'
 
-const items = computed(() => [{ title: $t('about.desc') }]);
+const items = computed(() => [{ title: $t('about.desc') }])
 </script>
 <template>
   <div>{{ $t('about.desc') }}</div>
@@ -111,9 +111,9 @@ If you need to add a new language pack, follow these steps:
 
   ```ts
   export interface LanguageOption {
-    label: string;
-    value: 'en-US' | 'zh-CN'; // [!code --]
-    value: 'en-US' | 'zh-CN' | 'zh-TW'; // [!code ++]
+    label: string
+    value: 'en-US' | 'zh-CN' // [!code --]
+    value: 'en-US' | 'zh-CN' | 'zh-TW' // [!code ++]
   }
   export const SUPPORT_LANGUAGES: LanguageOption[] = [
     {
@@ -128,14 +128,14 @@ If you need to add a new language pack, follow these steps:
       label: '繁体中文', // [!code ++]
       value: 'zh-TW', // [!code ++]
     },
-  ];
+  ]
   ```
 
 - In `packages/locales/typing.ts`, add a new TypeScript type:
 
   ```ts
-  export type SupportedLanguagesType = 'en-US' | 'zh-CN'; // [!code --]
-  export type SupportedLanguagesType = 'en-US' | 'zh-CN' | 'zh-TW'; // [!code ++]
+  export type SupportedLanguagesType = 'en-US' | 'zh-CN' // [!code --]
+  export type SupportedLanguagesType = 'en-US' | 'zh-CN' | 'zh-TW' // [!code ++]
   ```
 
 At this point, you can use the newly added language pack in the project.
@@ -149,7 +149,7 @@ export const overridesPreferences = defineOverridesPreferences({
   widget: {
     languageToggle: false,
   },
-});
+})
 ```
 
 ## Remote Loading of Language Packs
@@ -168,8 +168,8 @@ async function loadMessages(lang: SupportedLanguagesType) {
     // Modify here to load data via a remote interface
     localesMap[lang](),
     loadThirdPartyMessage(lang),
-  ]);
-  return appLocaleMessages.default;
+  ])
+  return appLocaleMessages.default
 }
 ```
 
@@ -183,25 +183,25 @@ Different applications may use third-party component libraries or plugins with v
  * @param lang
  */
 async function loadDayjsLocale(lang: SupportedLanguagesType) {
-  let locale;
+  let locale
   switch (lang) {
     case 'zh-CN': {
-      locale = await import('dayjs/locale/zh-cn');
-      break;
+      locale = await import('dayjs/locale/zh-cn')
+      break
     }
     case 'en-US': {
-      locale = await import('dayjs/locale/en');
-      break;
+      locale = await import('dayjs/locale/en')
+      break
     }
     // Default to using English
     default: {
-      locale = await import('dayjs/locale/en');
+      locale = await import('dayjs/locale/en')
     }
   }
   if (locale) {
-    dayjs.locale(locale);
+    dayjs.locale(locale)
   } else {
-    console.error(`Failed to load dayjs locale for ${lang}`);
+    console.error(`Failed to load dayjs locale for ${lang}`)
   }
 }
 ```
@@ -222,6 +222,6 @@ Firstly, it is not recommended to remove internationalization, as it is a good d
       missingWarn: !import.meta.env.PROD, // [!code --]
       missingWarn: false, // [!code ++]
       ...options,
-    });
+    })
   }
   ```

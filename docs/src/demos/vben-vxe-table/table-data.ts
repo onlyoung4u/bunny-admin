@@ -1,16 +1,16 @@
 interface TableRowData {
-  address: string;
-  age: number;
-  id: number;
-  name: string;
-  nickname: string;
-  role: string;
+  address: string
+  age: number
+  id: number
+  name: string
+  nickname: string
+  role: string
 }
 
-const roles = ['User', 'Admin', 'Manager', 'Guest'];
+const roles = ['User', 'Admin', 'Manager', 'Guest']
 
 export const MOCK_TABLE_DATA: TableRowData[] = (() => {
-  const data: TableRowData[] = [];
+  const data: TableRowData[] = []
   for (let i = 0; i < 10; i++) {
     data.push({
       address: `New York${i}`,
@@ -19,10 +19,10 @@ export const MOCK_TABLE_DATA: TableRowData[] = (() => {
       name: `Test${i}`,
       nickname: `Test${i}`,
       role: roles[Math.floor(Math.random() * roles.length)] as string,
-    });
+    })
   }
-  return data;
-})();
+  return data
+})()
 
 export const MOCK_TREE_TABLE_DATA = [
   {
@@ -169,7 +169,7 @@ export const MOCK_TREE_TABLE_DATA = [
     size: 1024,
     type: 'js',
   },
-];
+]
 
 export const MOCK_API_DATA = [
   {
@@ -381,4 +381,4 @@ export const MOCK_API_DATA = [
     tags: ['Handmade', 'Unbranded', 'Unbranded'],
     weight: 9.430_690_557_758_114,
   },
-];
+]

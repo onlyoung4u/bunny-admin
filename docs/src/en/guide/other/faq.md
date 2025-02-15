@@ -75,8 +75,8 @@ The reason for this issue could be one of the following. You can check these rea
 - The variable `ctx` was used, which is not exposed in the instance type. The Vue official documentation also advises against using this property as it is intended for internal use only.
 
 ```ts
-import { getCurrentInstance } from 'vue';
-getCurrentInstance().ctx.xxxx;
+import { getCurrentInstance } from 'vue'
+getCurrentInstance().ctx.xxxx
 ```
 
 ## Dependency Installation Issues

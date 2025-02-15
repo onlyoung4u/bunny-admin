@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import type { SelectOption } from '@vben/types';
+import type { SelectOption } from '@vben/types'
 
-import { useSlots } from 'vue';
+import { useSlots } from 'vue'
 
-import { CircleHelp } from '@vben/icons';
+import { CircleHelp } from '@vben/icons'
 
 import {
   NumberField,
@@ -12,18 +12,18 @@ import {
   NumberFieldIncrement,
   NumberFieldInput,
   VbenTooltip,
-} from '@vben-core/shadcn-ui';
+} from '@vben-core/shadcn-ui'
 
 defineOptions({
   name: 'PreferenceSelectItem',
-});
+})
 
 withDefaults(
   defineProps<{
-    disabled?: boolean;
-    items?: SelectOption[];
-    placeholder?: string;
-    tip?: string;
+    disabled?: boolean
+    items?: SelectOption[]
+    placeholder?: string
+    tip?: string
   }>(),
   {
     disabled: false,
@@ -31,11 +31,11 @@ withDefaults(
     tip: '',
     items: () => [],
   },
-);
+)
 
-const inputValue = defineModel<number>();
+const inputValue = defineModel<number>()
 
-const slots = useSlots();
+const slots = useSlots()
 </script>
 
 <template>

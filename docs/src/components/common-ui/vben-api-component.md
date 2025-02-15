@@ -20,9 +20,9 @@ outline: deep
 
 ```vue
 <script lang="ts" setup>
-import { ApiComponent } from '@vben/common-ui';
+import { ApiComponent } from '@vben/common-ui'
 
-import { Cascader } from 'ant-design-vue';
+import { Cascader } from 'ant-design-vue'
 
 const treeData: Record<string, any> = [
   {
@@ -97,16 +97,16 @@ const treeData: Record<string, any> = [
       },
     ],
   },
-];
+]
 /**
  * 模拟请求接口
  */
 function fetchApi(): Promise<Record<string, any>> {
   return new Promise((resolve) => {
     setTimeout(() => {
-      resolve(treeData);
-    }, 1000);
-  });
+      resolve(treeData)
+    }, 1000)
+  })
 }
 </script>
 <template>

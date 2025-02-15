@@ -75,8 +75,8 @@
 - 使用了 ctx 这个变量，ctx 本身未暴露出在实例类型内，Vue官方也是说了不要用这个属性。这个属性只是用于内部使用。
 
 ```ts
-import { getCurrentInstance } from 'vue';
-getCurrentInstance().ctx.xxxx;
+import { getCurrentInstance } from 'vue'
+getCurrentInstance().ctx.xxxx
 ```
 
 ## 依赖安装问题

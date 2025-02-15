@@ -1,19 +1,19 @@
 <script lang="ts" setup>
-import type { VxeGridProps } from '#/adapter/vxe-table';
+import type { VxeGridProps } from '#/adapter/vxe-table'
 
-import { Button } from 'ant-design-vue';
+import { Button } from 'ant-design-vue'
 
-import { useVbenVxeGrid } from '#/adapter/vxe-table';
+import { useVbenVxeGrid } from '#/adapter/vxe-table'
 
-import { MOCK_TREE_TABLE_DATA } from '../table-data';
+import { MOCK_TREE_TABLE_DATA } from '../table-data'
 
 interface RowType {
-  date: string;
-  id: number;
-  name: string;
-  parentId: null | number;
-  size: number;
-  type: string;
+  date: string
+  id: number
+  name: string
+  parentId: null | number
+  size: number
+  type: string
 }
 
 // 数据实例
@@ -53,17 +53,17 @@ const gridOptions: VxeGridProps<RowType> = {
     rowField: 'id',
     transform: true,
   },
-};
+}
 
-const [Grid, gridApi] = useVbenVxeGrid({ gridOptions });
+const [Grid, gridApi] = useVbenVxeGrid({ gridOptions })
 
 const expandAll = () => {
-  gridApi.grid?.setAllTreeExpand(true);
-};
+  gridApi.grid?.setAllTreeExpand(true)
+}
 
 const collapseAll = () => {
-  gridApi.grid?.setAllTreeExpand(false);
-};
+  gridApi.grid?.setAllTreeExpand(false)
+}
 </script>
 
 <template>

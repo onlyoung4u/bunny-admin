@@ -1,32 +1,32 @@
 <script setup lang="ts">
-import type { DialogContentEmits, DialogContentProps } from 'radix-vue';
+import type { DialogContentEmits, DialogContentProps } from 'radix-vue'
 
-import { computed } from 'vue';
+import { computed } from 'vue'
 
-import { cn } from '@vben-core/shared/utils';
+import { cn } from '@vben-core/shared/utils'
 
-import { X } from 'lucide-vue-next';
+import { X } from 'lucide-vue-next'
 import {
   DialogClose,
   DialogContent,
   DialogOverlay,
   DialogPortal,
   useForwardPropsEmits,
-} from 'radix-vue';
+} from 'radix-vue'
 
 const props = withDefaults(
   defineProps<DialogContentProps & { class?: any; zIndex?: number }>(),
   { zIndex: 1000 },
-);
-const emits = defineEmits<DialogContentEmits>();
+)
+const emits = defineEmits<DialogContentEmits>()
 
 const delegatedProps = computed(() => {
-  const { class: _, ...delegated } = props;
+  const { class: _, ...delegated } = props
 
-  return delegated;
-});
+  return delegated
+})
 
-const forwarded = useForwardPropsEmits(delegatedProps, emits);
+const forwarded = useForwardPropsEmits(delegatedProps, emits)
 </script>
 
 <template>
@@ -46,13 +46,13 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
         v-bind="forwarded"
         @pointer-down-outside="
           (event) => {
-            const originalEvent = event.detail.originalEvent;
-            const target = originalEvent.target as HTMLElement;
+            const originalEvent = event.detail.originalEvent
+            const target = originalEvent.target as HTMLElement
             if (
               originalEvent.offsetX > target.clientWidth ||
               originalEvent.offsetY > target.clientHeight
             ) {
-              event.preventDefault();
+              event.preventDefault()
             }
           }
         "

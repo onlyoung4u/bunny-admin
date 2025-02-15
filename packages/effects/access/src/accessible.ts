@@ -2,7 +2,7 @@ import type {
   AccessModeType,
   GenerateMenuAndRoutesOptions,
   RouteRecordRaw,
-} from '@vben/types';
+} from '@vben/types'
 
 import {
   cloneDeep,
@@ -10,19 +10,19 @@ import {
   generateRoutesByBackend,
   generateRoutesByFrontend,
   mapTree,
-} from '@vben/utils';
+} from '@vben/utils'
 
 async function generateAccessible(
   mode: AccessModeType,
   options: GenerateMenuAndRoutesOptions,
 ) {
-  const { router } = options;
+  const { router } = options
 
-  options.routes = cloneDeep(options.routes);
+  options.routes = cloneDeep(options.routes)
   // 生成路由
-  const accessibleRoutes = await generateRoutes(mode, options);
+  const accessibleRoutes = await generateRoutes(mode, options)
 
-  const root = router.getRoutes().find((item) => item.path === '/');
+  const root = router.getRoutes().find((item) => item.path === '/')
 
   // 动态添加到router实例内
   accessibleRoutes.forEach((route) => {
@@ -30,25 +30,25 @@ async function generateAccessible(
       // 为了兼容之前的版本用法，如果包含子路由，则将component移除，以免出现多层BasicLayout
       // 如果你的项目已经跟进了本次修改，移除了所有自定义菜单首级的BasicLayout，可以将这段if代码删除
       if (route.children && route.children.length > 0) {
-        delete route.component;
+        delete route.component
       }
-      root.children?.push(route);
+      root.children?.push(route)
     } else {
-      router.addRoute(route);
+      router.addRoute(route)
     }
-  });
+  })
 
   if (root) {
     if (root.name) {
-      router.removeRoute(root.name);
+      router.removeRoute(root.name)
     }
-    router.addRoute(root);
+    router.addRoute(root)
   }
 
   // 生成菜单
-  const accessibleMenus = await generateMenus(accessibleRoutes, options.router);
+  const accessibleMenus = await generateMenus(accessibleRoutes, options.router)
 
-  return { accessibleMenus, accessibleRoutes };
+  return { accessibleMenus, accessibleRoutes }
 }
 
 /**
@@ -60,21 +60,21 @@ async function generateRoutes(
   mode: AccessModeType,
   options: GenerateMenuAndRoutesOptions,
 ) {
-  const { forbiddenComponent, roles, routes } = options;
+  const { forbiddenComponent, roles, routes } = options
 
-  let resultRoutes: RouteRecordRaw[] = routes;
+  let resultRoutes: RouteRecordRaw[] = routes
   switch (mode) {
     case 'backend': {
-      resultRoutes = await generateRoutesByBackend(options);
-      break;
+      resultRoutes = await generateRoutesByBackend(options)
+      break
     }
     case 'frontend': {
       resultRoutes = await generateRoutesByFrontend(
         routes,
         roles || [],
         forbiddenComponent,
-      );
-      break;
+      )
+      break
     }
   }
 
@@ -85,20 +85,20 @@ async function generateRoutes(
   resultRoutes = mapTree(resultRoutes, (route) => {
     // 如果有redirect或者没有子路由，则直接返回
     if (route.redirect || !route.children || route.children.length === 0) {
-      return route;
+      return route
     }
-    const firstChild = route.children[0];
+    const firstChild = route.children[0]
 
     // 如果子路由不是以/开头，则直接返回,这种情况需要计算全部父级的path才能得出正确的path，这里不做处理
     if (!firstChild?.path || !firstChild.path.startsWith('/')) {
-      return route;
+      return route
     }
 
-    route.redirect = firstChild.path;
-    return route;
-  });
+    route.redirect = firstChild.path
+    return route
+  })
 
-  return resultRoutes;
+  return resultRoutes
 }
 
-export { generateAccessible };
+export { generateAccessible }

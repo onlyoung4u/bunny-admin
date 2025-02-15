@@ -1,21 +1,21 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed } from 'vue'
 
-import PreviewGroup from './preview-group.vue';
+import PreviewGroup from './preview-group.vue'
 
 interface Props {
-  files?: string;
+  files?: string
 }
 
-const props = withDefaults(defineProps<Props>(), { files: '() => []' });
+const props = withDefaults(defineProps<Props>(), { files: '() => []' })
 
 const parsedFiles = computed(() => {
   try {
-    return JSON.parse(decodeURIComponent(props.files ?? ''));
+    return JSON.parse(decodeURIComponent(props.files ?? ''))
   } catch {
-    return [];
+    return []
   }
-});
+})
 </script>
 
 <template>

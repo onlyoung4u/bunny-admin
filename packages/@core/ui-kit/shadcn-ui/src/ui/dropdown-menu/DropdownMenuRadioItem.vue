@@ -2,30 +2,30 @@
 import type {
   DropdownMenuRadioItemEmits,
   DropdownMenuRadioItemProps,
-} from 'radix-vue';
+} from 'radix-vue'
 
-import { computed } from 'vue';
+import { computed } from 'vue'
 
-import { cn } from '@vben-core/shared/utils';
+import { cn } from '@vben-core/shared/utils'
 
-import { Circle } from 'lucide-vue-next';
+import { Circle } from 'lucide-vue-next'
 import {
   DropdownMenuItemIndicator,
   DropdownMenuRadioItem,
   useForwardPropsEmits,
-} from 'radix-vue';
+} from 'radix-vue'
 
-const props = defineProps<DropdownMenuRadioItemProps & { class?: any }>();
+const props = defineProps<DropdownMenuRadioItemProps & { class?: any }>()
 
-const emits = defineEmits<DropdownMenuRadioItemEmits>();
+const emits = defineEmits<DropdownMenuRadioItemEmits>()
 
 const delegatedProps = computed(() => {
-  const { class: _, ...delegated } = props;
+  const { class: _, ...delegated } = props
 
-  return delegated;
-});
+  return delegated
+})
 
-const forwarded = useForwardPropsEmits(delegatedProps, emits);
+const forwarded = useForwardPropsEmits(delegatedProps, emits)
 </script>
 
 <template>

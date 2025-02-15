@@ -137,4 +137,4 @@ export default {
 
     'selector-not-notation': null,
   },
-};
+}

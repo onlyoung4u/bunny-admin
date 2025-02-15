@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import { h } from 'vue';
+import { h } from 'vue'
 
-import { Input, message } from 'ant-design-vue';
+import { Input, message } from 'ant-design-vue'
 
-import { useVbenForm } from '#/adapter/form';
+import { useVbenForm } from '#/adapter/form'
 
 const [Form] = useVbenForm({
   // 所有表单项共用，可单独在表单内覆盖
@@ -50,12 +50,12 @@ const [Form] = useVbenForm({
     },
   ],
   wrapperClass: 'grid-cols-1',
-});
+})
 
 function onSubmit(values: Record<string, any>) {
   message.success({
     content: `form values: ${JSON.stringify(values)}`,
-  });
+  })
 }
 </script>
 

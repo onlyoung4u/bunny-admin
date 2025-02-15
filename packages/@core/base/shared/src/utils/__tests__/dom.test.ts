@@ -1,19 +1,19 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 
-import { getElementVisibleRect } from '../dom';
+import { getElementVisibleRect } from '../dom'
 
 describe('getElementVisibleRect', () => {
   // 设置浏览器视口尺寸的 mock
   beforeEach(() => {
     vi.spyOn(document.documentElement, 'clientHeight', 'get').mockReturnValue(
       800,
-    );
-    vi.spyOn(window, 'innerHeight', 'get').mockReturnValue(800);
+    )
+    vi.spyOn(window, 'innerHeight', 'get').mockReturnValue(800)
     vi.spyOn(document.documentElement, 'clientWidth', 'get').mockReturnValue(
       1000,
-    );
-    vi.spyOn(window, 'innerWidth', 'get').mockReturnValue(1000);
-  });
+    )
+    vi.spyOn(window, 'innerWidth', 'get').mockReturnValue(1000)
+  })
 
   it('should return default rect if element is undefined', () => {
     expect(getElementVisibleRect()).toEqual({
@@ -23,8 +23,8 @@ describe('getElementVisibleRect', () => {
       right: 0,
       top: 0,
       width: 0,
-    });
-  });
+    })
+  })
 
   it('should return default rect if element is null', () => {
     expect(getElementVisibleRect(null)).toEqual({
@@ -34,8 +34,8 @@ describe('getElementVisibleRect', () => {
       right: 0,
       top: 0,
       width: 0,
-    });
-  });
+    })
+  })
 
   it('should return correct visible rect when element is fully visible', () => {
     const element = {
@@ -47,7 +47,7 @@ describe('getElementVisibleRect', () => {
         top: 100,
         width: 400,
       }),
-    } as HTMLElement;
+    } as HTMLElement
 
     expect(getElementVisibleRect(element)).toEqual({
       bottom: 400,
@@ -56,8 +56,8 @@ describe('getElementVisibleRect', () => {
       right: 600,
       top: 100,
       width: 400,
-    });
-  });
+    })
+  })
 
   it('should return correct visible rect when element is partially off-screen at the top', () => {
     const element = {
@@ -69,7 +69,7 @@ describe('getElementVisibleRect', () => {
         top: -50,
         width: 400,
       }),
-    } as HTMLElement;
+    } as HTMLElement
 
     expect(getElementVisibleRect(element)).toEqual({
       bottom: 200,
@@ -78,8 +78,8 @@ describe('getElementVisibleRect', () => {
       right: 500,
       top: 0,
       width: 400,
-    });
-  });
+    })
+  })
 
   it('should return correct visible rect when element is partially off-screen at the right', () => {
     const element = {
@@ -91,7 +91,7 @@ describe('getElementVisibleRect', () => {
         top: 100,
         width: 400,
       }),
-    } as HTMLElement;
+    } as HTMLElement
 
     expect(getElementVisibleRect(element)).toEqual({
       bottom: 400,
@@ -100,8 +100,8 @@ describe('getElementVisibleRect', () => {
       right: 1000,
       top: 100,
       width: 200,
-    });
-  });
+    })
+  })
 
   it('should return all zeros when element is completely off-screen', () => {
     const element = {
@@ -113,7 +113,7 @@ describe('getElementVisibleRect', () => {
         top: 900,
         width: 300,
       }),
-    } as HTMLElement;
+    } as HTMLElement
 
     expect(getElementVisibleRect(element)).toEqual({
       bottom: 800,
@@ -122,6 +122,6 @@ describe('getElementVisibleRect', () => {
       right: 1000,
       top: 900,
       width: 0,
-    });
-  });
-});
+    })
+  })
+})

@@ -1,5 +1,5 @@
-import type { RequestClient } from '../request-client';
-import type { RequestClientConfig } from '../types';
+import type { RequestClient } from '../request-client'
+import type { RequestClientConfig } from '../types'
 
 type DownloadRequestConfig = {
   /**
@@ -7,14 +7,14 @@ type DownloadRequestConfig = {
    * raw: 原始的AxiosResponse，包括headers、status等。
    * body: 只返回响应数据的BODY部分(Blob)
    */
-  responseReturn?: 'body' | 'raw';
-} & Omit<RequestClientConfig, 'responseReturn'>;
+  responseReturn?: 'body' | 'raw'
+} & Omit<RequestClientConfig, 'responseReturn'>
 
 class FileDownloader {
-  private client: RequestClient;
+  private client: RequestClient
 
   constructor(client: RequestClient) {
-    this.client = client;
+    this.client = client
   }
   /**
    * 下载文件
@@ -30,12 +30,12 @@ class FileDownloader {
       responseReturn: 'body',
       ...config,
       responseType: 'blob',
-    };
+    }
 
-    const response = await this.client.get<T>(url, finalConfig);
+    const response = await this.client.get<T>(url, finalConfig)
 
-    return response;
+    return response
   }
 }
 
-export { FileDownloader };
+export { FileDownloader }

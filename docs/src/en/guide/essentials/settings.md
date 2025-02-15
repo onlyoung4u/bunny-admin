@@ -18,7 +18,7 @@ The rules are consistent with [Vite Env Variables and Modes](https://vitejs.dev/
 - Only variables starting with `VITE_` will be embedded into the client-side package. You can access them in the project code like this:
 
   ```ts
-  console.log(import.meta.env.VITE_PROT);
+  console.log(import.meta.env.VITE_PROT)
   ```
 
 - Variables starting with `VITE_GLOB_*` will be added to the `_app.config.js` configuration file during packaging. :::
@@ -71,12 +71,12 @@ When executing `pnpm build` in the root directory of the monorepo, a `dist/_app.
 ```ts
 window._VBEN_ADMIN_PRO_APP_CONF_ = {
   VITE_GLOB_API_URL: 'https://mock-napi.vben.pro/api',
-};
-Object.freeze(window._VBEN_ADMIN_PRO_APP_CONF_);
+}
+Object.freeze(window._VBEN_ADMIN_PRO_APP_CONF_)
 Object.defineProperty(window, '_VBEN_ADMIN_PRO_APP_CONF_', {
   configurable: false,
   writable: false,
-});
+})
 ```
 
 ### Purpose
@@ -88,7 +88,7 @@ Object.defineProperty(window, '_VBEN_ADMIN_PRO_APP_CONF_', {
 To access the variables inside `_app.config.js`, you need to use the `useAppConfig` method provided by `@vben/hooks`.
 
 ```ts
-const { apiURL } = useAppConfig(import.meta.env, import.meta.env.PROD);
+const { apiURL } = useAppConfig(import.meta.env, import.meta.env.PROD)
 ```
 
 ### Adding New
@@ -105,20 +105,20 @@ To add a new dynamically modifiable configuration item, simply follow the steps 
 
   ```ts
   export interface VbenAdminProAppConfigRaw {
-    VITE_GLOB_API_URL: string;
-    VITE_GLOB_OTHER_API_URL: string; // [!code ++]
+    VITE_GLOB_API_URL: string
+    VITE_GLOB_OTHER_API_URL: string // [!code ++]
   }
 
   export interface ApplicationConfig {
-    apiURL: string;
-    otherApiURL: string; // [!code ++]
+    apiURL: string
+    otherApiURL: string // [!code ++]
   }
   ```
 
 At this point, you can use the `useAppConfig` method within the project to access the newly added configuration item.
 
 ```ts
-const { otherApiURL } = useAppConfig(import.meta.env, import.meta.env.PROD);
+const { otherApiURL } = useAppConfig(import.meta.env, import.meta.env.PROD)
 ```
 
 ::: warning Warning
@@ -136,8 +136,8 @@ The project offers a wide range of preference settings for dynamically configuri
 If you cannot find documentation for a setting, you can try configuring it yourself and then click `Copy Preferences` to override the project defaults. The configuration file is located in the application directory under `preferences.ts`, where you can override the framework's default configurations to achieve custom settings.
 
 ```ts
-import { useAppConfig } from '@vben/hooks';
-import { defineOverridesPreferences } from '@vben/preferences';
+import { useAppConfig } from '@vben/hooks'
+import { defineOverridesPreferences } from '@vben/preferences'
 
 /**
  * @description Project configuration file
@@ -145,7 +145,7 @@ import { defineOverridesPreferences } from '@vben/preferences';
  */
 export const overridesPreferences = defineOverridesPreferences({
   // overrides
-});
+})
 ```
 
 ### Framework default configuration
@@ -264,7 +264,7 @@ const defaultPreferences: Preferences = {
     themeToggle: true,
     refresh: true,
   },
-};
+}
 ```
 
 :::
@@ -274,234 +274,234 @@ const defaultPreferences: Preferences = {
 ```ts
 interface AppPreferences {
   /** Permission mode */
-  accessMode: AccessModeType;
+  accessMode: AccessModeType
   /** Layout of the login/registration page */
-  authPageLayout: AuthPageLayoutType;
+  authPageLayout: AuthPageLayoutType
   /** Interval for checking updates */
-  checkUpdatesInterval: number;
+  checkUpdatesInterval: number
   /** Whether to enable gray mode */
-  colorGrayMode: boolean;
+  colorGrayMode: boolean
   /** Whether to enable color weakness mode */
-  colorWeakMode: boolean;
+  colorWeakMode: boolean
   /** Whether to enable compact mode */
-  compact: boolean;
+  compact: boolean
   /** Whether to enable content compact mode */
-  contentCompact: ContentCompactType;
+  contentCompact: ContentCompactType
   // /** Default application avatar */
-  defaultAvatar: string;
+  defaultAvatar: string
   // /** Enable dynamic title */
-  dynamicTitle: boolean;
+  dynamicTitle: boolean
   /** Whether to enable update checks */
-  enableCheckUpdates: boolean;
+  enableCheckUpdates: boolean
   /** Whether to display preferences */
-  enablePreferences: boolean;
+  enablePreferences: boolean
   /**
    * @zh_CN Whether to enable refreshToken
    */
-  enableRefreshToken: boolean;
+  enableRefreshToken: boolean
   /** Whether it's mobile */
-  isMobile: boolean;
+  isMobile: boolean
   /** Layout method */
-  layout: LayoutType;
+  layout: LayoutType
   /** Supported languages */
-  locale: SupportedLanguagesType;
+  locale: SupportedLanguagesType
   /** Login expiration mode */
-  loginExpiredMode: LoginExpiredModeType;
+  loginExpiredMode: LoginExpiredModeType
   /** Application name */
-  name: string;
+  name: string
   /** Position of the preferences button */
-  preferencesButtonPosition: PreferencesButtonPositionType;
+  preferencesButtonPosition: PreferencesButtonPositionType
   /**
    * @zh_CN Whether to enable watermark
    */
-  watermark: boolean;
+  watermark: boolean
 }
 interface BreadcrumbPreferences {
   /** Whether breadcrumbs are enabled */
-  enable: boolean;
+  enable: boolean
   /** Whether to hide breadcrumbs when there is only one */
-  hideOnlyOne: boolean;
+  hideOnlyOne: boolean
   /** Whether the home icon in breadcrumbs is visible */
-  showHome: boolean;
+  showHome: boolean
   /** Whether the icon in breadcrumbs is visible */
-  showIcon: boolean;
+  showIcon: boolean
   /** Breadcrumb style */
-  styleType: BreadcrumbStyleType;
+  styleType: BreadcrumbStyleType
 }
 
 interface CopyrightPreferences {
   /** Copyright company name */
-  companyName: string;
+  companyName: string
   /** Link to the copyright company's site */
-  companySiteLink: string;
+  companySiteLink: string
   /** Copyright date */
-  date: string;
+  date: string
   /** Whether copyright is visible */
-  enable: boolean;
+  enable: boolean
   /** ICP number */
-  icp: string;
+  icp: string
   /** Link to the ICP */
-  icpLink: string;
+  icpLink: string
 }
 
 interface FooterPreferences {
   /** Whether the footer is visible */
-  enable: boolean;
+  enable: boolean
   /** Whether the footer is fixed */
-  fixed: boolean;
+  fixed: boolean
 }
 
 interface HeaderPreferences {
   /** Whether the header is enabled */
-  enable: boolean;
+  enable: boolean
   /** Whether the header is hidden, css-hidden */
-  hidden: boolean;
+  hidden: boolean
   /** Header display mode */
-  mode: LayoutHeaderModeType;
+  mode: LayoutHeaderModeType
 }
 
 interface LogoPreferences {
   /** Whether the logo is visible */
-  enable: boolean;
+  enable: boolean
   /** Logo URL */
-  source: string;
+  source: string
 }
 
 interface NavigationPreferences {
   /** Navigation menu accordion mode */
-  accordion: boolean;
+  accordion: boolean
   /** Whether the navigation menu is split, only effective in layout=mixed-nav */
-  split: boolean;
+  split: boolean
   /** Navigation menu style */
-  styleType: NavigationStyleType;
+  styleType: NavigationStyleType
 }
 interface SidebarPreferences {
   /** Whether the sidebar is collapsed */
-  collapsed: boolean;
+  collapsed: boolean
   /** Whether to show title when sidebar is collapsed */
-  collapsedShowTitle: boolean;
+  collapsedShowTitle: boolean
   /** Whether the sidebar is visible */
-  enable: boolean;
+  enable: boolean
   /** Menu auto-expand state */
-  expandOnHover: boolean;
+  expandOnHover: boolean
   /** Whether the sidebar extension area is collapsed */
-  extraCollapse: boolean;
+  extraCollapse: boolean
   /** Whether the sidebar is hidden - css */
-  hidden: boolean;
+  hidden: boolean
   /** Sidebar width */
-  width: number;
+  width: number
 }
 
 interface ShortcutKeyPreferences {
   /** Whether shortcut keys are enabled globally */
-  enable: boolean;
+  enable: boolean
   /** Whether the global lock screen shortcut is enabled */
-  globalLockScreen: boolean;
+  globalLockScreen: boolean
   /** Whether the global logout shortcut is enabled */
-  globalLogout: boolean;
+  globalLogout: boolean
   /** Whether the global preferences shortcut is enabled */
-  globalPreferences: boolean;
+  globalPreferences: boolean
   /** Whether the global search shortcut is enabled */
-  globalSearch: boolean;
+  globalSearch: boolean
 }
 
 interface TabbarPreferences {
   /** Whether dragging of multiple tabs is enabled */
-  draggable: boolean;
+  draggable: boolean
   /** Whether multiple tabs are enabled */
-  enable: boolean;
+  enable: boolean
   /** Tab height */
-  height: number;
+  height: number
   /** Whether tab caching is enabled */
-  keepAlive: boolean;
+  keepAlive: boolean
   /** Whether tabs are persistent */
-  persist: boolean;
+  persist: boolean
   /** Whether icons in multiple tabs are enabled */
-  showIcon: boolean;
+  showIcon: boolean
   /** Whether to show the maximize button */
-  showMaximize: boolean;
+  showMaximize: boolean
   /** Whether to show the more button */
-  showMore: boolean;
+  showMore: boolean
   /** Tab style */
-  styleType: TabsStyleType;
+  styleType: TabsStyleType
 }
 interface ThemePreferences {
   /** Built-in theme name */
-  builtinType: BuiltinThemeType;
+  builtinType: BuiltinThemeType
   /** Destructive color */
-  colorDestructive: string;
+  colorDestructive: string
   /** Primary color */
-  colorPrimary: string;
+  colorPrimary: string
   /** Success color */
-  colorSuccess: string;
+  colorSuccess: string
   /** Warning color */
-  colorWarning: string;
+  colorWarning: string
   /** Current theme */
-  mode: ThemeModeType;
+  mode: ThemeModeType
   /** Radius */
-  radius: string;
+  radius: string
   /** Whether to enable semi-dark header (only effective when theme='light') */
-  semiDarkHeader: boolean;
+  semiDarkHeader: boolean
   /** Whether to enable semi-dark sidebar (only effective when theme='light') */
-  semiDarkSidebar: boolean;
+  semiDarkSidebar: boolean
 }
 
 interface TransitionPreferences {
   /** Whether page transition animations are enabled */
-  enable: boolean;
+  enable: boolean
   // /** Whether page loading loading is enabled */
-  loading: boolean;
+  loading: boolean
   /** Page transition animation */
-  name: PageTransitionType | string;
+  name: PageTransitionType | string
   /** Whether page loading progress animation is enabled */
-  progress: boolean;
+  progress: boolean
 }
 
 interface WidgetPreferences {
   /** Whether fullscreen widgets are enabled */
-  fullscreen: boolean;
+  fullscreen: boolean
   /** Whether global search widget is enabled */
-  globalSearch: boolean;
+  globalSearch: boolean
   /** Whether language switch widget is enabled */
-  languageToggle: boolean;
+  languageToggle: boolean
   /** Whether lock screen functionality is enabled */
-  lockScreen: boolean;
+  lockScreen: boolean
   /** Whether notification widget is displayed */
-  notification: boolean;
+  notification: boolean
   /** Whether to show the refresh button */
-  refresh: boolean;
+  refresh: boolean
   /** Whether sidebar show/hide widget is displayed */
-  sidebarToggle: boolean;
+  sidebarToggle: boolean
   /** Whether theme switch widget is displayed */
-  themeToggle: boolean;
+  themeToggle: boolean
 }
 interface Preferences {
   /** Global configuration */
-  app: AppPreferences;
+  app: AppPreferences
   /** Header configuration */
-  breadcrumb: BreadcrumbPreferences;
+  breadcrumb: BreadcrumbPreferences
   /** Copyright configuration */
-  copyright: CopyrightPreferences;
+  copyright: CopyrightPreferences
   /** Footer configuration */
-  footer: FooterPreferences;
+  footer: FooterPreferences
   /** Breadcrumb configuration */
-  header: HeaderPreferences;
+  header: HeaderPreferences
   /** Logo configuration */
-  logo: LogoPreferences;
+  logo: LogoPreferences
   /** Navigation configuration */
-  navigation: NavigationPreferences;
+  navigation: NavigationPreferences
   /** Shortcut key configuration */
-  shortcutKeys: ShortcutKeyPreferences;
+  shortcutKeys: ShortcutKeyPreferences
   /** Sidebar configuration */
-  sidebar: SidebarPreferences;
+  sidebar: SidebarPreferences
   /** Tab bar configuration */
-  tabbar: TabbarPreferences;
+  tabbar: TabbarPreferences
   /** Theme configuration */
-  theme: ThemePreferences;
+  theme: ThemePreferences
   /** Animation configuration */
-  transition: TransitionPreferences;
+  transition: TransitionPreferences
   /** Widget configuration */
-  widget: WidgetPreferences;
+  widget: WidgetPreferences
 }
 ```
 

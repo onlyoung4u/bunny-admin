@@ -1,13 +1,13 @@
 <script lang="ts" setup>
-import { ChevronDown } from '@vben-core/icons';
-import { cn } from '@vben-core/shared/utils';
+import { ChevronDown } from '@vben-core/icons'
+import { cn } from '@vben-core/shared/utils'
 
 const props = defineProps<{
-  class?: string;
-}>();
+  class?: string
+}>()
 
 // 控制箭头展开/收起状态
-const collapsed = defineModel({ default: false });
+const collapsed = defineModel({ default: false })
 </script>
 
 <template>

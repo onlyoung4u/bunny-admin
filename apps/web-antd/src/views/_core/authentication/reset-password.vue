@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import type { VbenFormSchema } from '#/adapter/form';
+import type { VbenFormSchema } from '#/adapter/form'
 
-import { computed, reactive } from 'vue';
+import { computed, reactive } from 'vue'
 
-import { useVbenModal } from '@vben/common-ui';
+import { useVbenModal } from '@vben/common-ui'
 
-import { message } from 'ant-design-vue';
+import { message } from 'ant-design-vue'
 
-import { useVbenForm, z } from '#/adapter/form';
-import { resetPasswordApi } from '#/api/core/auth';
+import { useVbenForm, z } from '#/adapter/form'
+import { resetPasswordApi } from '#/api/core/auth'
 
-defineOptions({ name: 'ResetPassword' });
+defineOptions({ name: 'ResetPassword' })
 
 const [Form, { validate, getValues }] = useVbenForm(
   reactive({
@@ -42,7 +42,7 @@ const [Form, { validate, getValues }] = useVbenForm(
         renderComponentContent() {
           return {
             strengthText: () => '使用 8 个或更多字符，混合字母、数字和符号',
-          };
+          }
         },
         rules: z
           .string()
@@ -61,7 +61,7 @@ const [Form, { validate, getValues }] = useVbenForm(
               .min(1, { message: '请再次输入新密码' })
               .refine((value) => value === values.password, {
                 message: '两次输入的密码不一致',
-              });
+              })
           },
           triggerFields: ['password'],
         },
@@ -72,24 +72,24 @@ const [Form, { validate, getValues }] = useVbenForm(
     showDefaultActions: false,
     layout: 'vertical',
   }),
-);
+)
 
 const [Modal, modalApi] = useVbenModal({
   async onConfirm() {
-    const { valid } = await validate();
+    const { valid } = await validate()
     if (valid) {
-      modalApi.lock(true);
+      modalApi.lock(true)
       try {
-        const values = await getValues();
-        await resetPasswordApi(values);
-        message.success('修改密码成功');
-        modalApi.close();
+        const values = await getValues()
+        await resetPasswordApi(values)
+        message.success('修改密码成功')
+        modalApi.close()
       } finally {
-        modalApi.lock(false);
+        modalApi.lock(false)
       }
     }
   },
-});
+})
 </script>
 
 <template>

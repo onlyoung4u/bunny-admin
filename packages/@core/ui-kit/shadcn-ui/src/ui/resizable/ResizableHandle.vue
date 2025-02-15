@@ -2,31 +2,31 @@
 import type {
   SplitterResizeHandleEmits,
   SplitterResizeHandleProps,
-} from 'radix-vue';
+} from 'radix-vue'
 
-import type { HTMLAttributes } from 'vue';
+import type { HTMLAttributes } from 'vue'
 
-import { computed } from 'vue';
+import { computed } from 'vue'
 
-import { GripVertical } from '@vben-core/icons';
-import { cn } from '@vben-core/shared/utils';
+import { GripVertical } from '@vben-core/icons'
+import { cn } from '@vben-core/shared/utils'
 
-import { SplitterResizeHandle, useForwardPropsEmits } from 'radix-vue';
+import { SplitterResizeHandle, useForwardPropsEmits } from 'radix-vue'
 
 const props = defineProps<
   SplitterResizeHandleProps & {
-    class?: HTMLAttributes['class'];
-    withHandle?: boolean;
+    class?: HTMLAttributes['class']
+    withHandle?: boolean
   }
->();
-const emits = defineEmits<SplitterResizeHandleEmits>();
+>()
+const emits = defineEmits<SplitterResizeHandleEmits>()
 
 const delegatedProps = computed(() => {
-  const { class: _, ...delegated } = props;
-  return delegated;
-});
+  const { class: _, ...delegated } = props
+  return delegated
+})
 
-const forwarded = useForwardPropsEmits(delegatedProps, emits);
+const forwarded = useForwardPropsEmits(delegatedProps, emits)
 </script>
 
 <template>

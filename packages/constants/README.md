@@ -15,5 +15,5 @@ pnpm add @vben/constants
 ### 使用
 
 ```ts
-import { DEFAULT_HOME_PATH } from '@vben/constants';
+import { DEFAULT_HOME_PATH } from '@vben/constants'
 ```

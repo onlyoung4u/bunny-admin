@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import { SUPPORT_LANGUAGES } from '@vben/constants';
-import { $t } from '@vben/locales';
+import { SUPPORT_LANGUAGES } from '@vben/constants'
+import { $t } from '@vben/locales'
 
-import SelectItem from '../select-item.vue';
-import SwitchItem from '../switch-item.vue';
+import SelectItem from '../select-item.vue'
+import SwitchItem from '../switch-item.vue'
 
 defineOptions({
   name: 'PreferenceGeneralConfig',
-});
+})
 
-const appLocale = defineModel<string>('appLocale');
-const appDynamicTitle = defineModel<boolean>('appDynamicTitle');
-const appWatermark = defineModel<boolean>('appWatermark');
-const appEnableCheckUpdates = defineModel<boolean>('appEnableCheckUpdates');
+const appLocale = defineModel<string>('appLocale')
+const appDynamicTitle = defineModel<boolean>('appDynamicTitle')
+const appWatermark = defineModel<boolean>('appWatermark')
+const appEnableCheckUpdates = defineModel<boolean>('appEnableCheckUpdates')
 </script>
 
 <template>

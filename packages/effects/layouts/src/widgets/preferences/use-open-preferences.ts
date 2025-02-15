@@ -1,16 +1,16 @@
-import { ref } from 'vue';
+import { ref } from 'vue'
 
-const openPreferences = ref(false);
+const openPreferences = ref(false)
 
 function useOpenPreferences() {
   function handleOpenPreference() {
-    openPreferences.value = true;
+    openPreferences.value = true
   }
 
   return {
     handleOpenPreference,
     openPreferences,
-  };
+  }
 }
 
-export { useOpenPreferences };
+export { useOpenPreferences }

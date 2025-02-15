@@ -1,30 +1,30 @@
 interface PinInputProps {
-  class?: any;
+  class?: any
   /**
    * 验证码长度
    */
-  codeLength?: number;
+  codeLength?: number
   /**
    * 发送验证码按钮文本
    */
-  createText?: (countdown: number) => string;
+  createText?: (countdown: number) => string
   /**
    * 是否禁用
    */
-  disabled?: boolean;
+  disabled?: boolean
   /**
    * 自定义验证码发送逻辑
    * @returns
    */
-  handleSendCode?: () => Promise<void>;
+  handleSendCode?: () => Promise<void>
   /**
    * 发送验证码按钮loading
    */
-  loading?: boolean;
+  loading?: boolean
   /**
    * 最大重试时间
    */
-  maxTime?: number;
+  maxTime?: number
 }
 
-export type { PinInputProps };
+export type { PinInputProps }

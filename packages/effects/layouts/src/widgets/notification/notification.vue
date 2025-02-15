@@ -1,64 +1,64 @@
 <script lang="ts" setup>
-import type { NotificationItem } from './types';
+import type { NotificationItem } from './types'
 
-import { Bell, MailCheck } from '@vben/icons';
-import { $t } from '@vben/locales';
+import { Bell, MailCheck } from '@vben/icons'
+import { $t } from '@vben/locales'
 
 import {
   VbenButton,
   VbenIconButton,
   VbenPopover,
   VbenScrollbar,
-} from '@vben-core/shadcn-ui';
+} from '@vben-core/shadcn-ui'
 
-import { useToggle } from '@vueuse/core';
+import { useToggle } from '@vueuse/core'
 
 interface Props {
   /**
    * 显示圆点
    */
-  dot?: boolean;
+  dot?: boolean
   /**
    * 消息列表
    */
-  notifications?: NotificationItem[];
+  notifications?: NotificationItem[]
 }
 
-defineOptions({ name: 'NotificationPopup' });
+defineOptions({ name: 'NotificationPopup' })
 
 withDefaults(defineProps<Props>(), {
   dot: false,
   notifications: () => [],
-});
+})
 
 const emit = defineEmits<{
-  clear: [];
-  makeAll: [];
-  read: [NotificationItem];
-  viewAll: [];
-}>();
+  clear: []
+  makeAll: []
+  read: [NotificationItem]
+  viewAll: []
+}>()
 
-const [open, toggle] = useToggle();
+const [open, toggle] = useToggle()
 
 function close() {
-  open.value = false;
+  open.value = false
 }
 
 function handleViewAll() {
-  emit('viewAll');
-  close();
+  emit('viewAll')
+  close()
 }
 
 function handleMakeAll() {
-  emit('makeAll');
+  emit('makeAll')
 }
 
 function handleClear() {
-  emit('clear');
+  emit('clear')
 }
 
 function handleClick(item: NotificationItem) {
-  emit('read', item);
+  emit('read', item)
 }
 </script>
 <template>

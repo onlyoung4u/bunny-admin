@@ -1,31 +1,31 @@
 <script setup lang="ts">
-import type { Recordable } from '@vben/types';
+import type { Recordable } from '@vben/types'
 
-import { computed, reactive } from 'vue';
+import { computed, reactive } from 'vue'
 
-import { $t } from '@vben/locales';
+import { $t } from '@vben/locales'
 
-import { useVbenForm, z } from '@vben-core/form-ui';
-import { useVbenModal } from '@vben-core/popup-ui';
-import { VbenAvatar, VbenButton } from '@vben-core/shadcn-ui';
+import { useVbenForm, z } from '@vben-core/form-ui'
+import { useVbenModal } from '@vben-core/popup-ui'
+import { VbenAvatar, VbenButton } from '@vben-core/shadcn-ui'
 
 interface Props {
-  avatar?: string;
-  text?: string;
+  avatar?: string
+  text?: string
 }
 
 defineOptions({
   name: 'LockScreenModal',
-});
+})
 
 withDefaults(defineProps<Props>(), {
   avatar: '',
   text: '',
-});
+})
 
 const emit = defineEmits<{
-  submit: [Recordable<any>];
-}>();
+  submit: [Recordable<any>]
+}>()
 
 const [Form, { resetForm, validate, getValues }] = useVbenForm(
   reactive({
@@ -49,24 +49,24 @@ const [Form, { resetForm, validate, getValues }] = useVbenForm(
     ]),
     showDefaultActions: false,
   }),
-);
+)
 
 const [Modal] = useVbenModal({
   onConfirm() {
-    handleSubmit();
+    handleSubmit()
   },
   onOpenChange(isOpen) {
     if (isOpen) {
-      resetForm();
+      resetForm()
     }
   },
-});
+})
 
 async function handleSubmit() {
-  const { valid } = await validate();
-  const values = await getValues();
+  const { valid } = await validate()
+  const values = await getValues()
   if (valid) {
-    emit('submit', values?.lockScreenPassword);
+    emit('submit', values?.lockScreenPassword)
   }
 }
 </script>

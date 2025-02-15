@@ -11,14 +11,14 @@ When the interface returns a `401` status code, the framework will consider the 
 Upon login timeout, it will redirect to the login page.
 
 ```ts
-import { defineOverridesPreferences } from '@vben/preferences';
+import { defineOverridesPreferences } from '@vben/preferences'
 
 export const overridesPreferences = defineOverridesPreferences({
   // overrides
   app: {
     loginExpiredMode: 'page',
   },
-});
+})
 ```
 
 ### Open Login Popup
@@ -30,14 +30,14 @@ When login times out, a login popup will open.
 Configuration:
 
 ```ts
-import { defineOverridesPreferences } from '@vben/preferences';
+import { defineOverridesPreferences } from '@vben/preferences'
 
 export const overridesPreferences = defineOverridesPreferences({
   // overrides
   app: {
     loginExpiredMode: 'modal',
   },
-});
+})
 ```
 
 ## Dynamic Title
@@ -52,7 +52,7 @@ export const overridesPreferences = defineOverridesPreferences({
   app: {
     dynamicTitle: true,
   },
-});
+})
 ```
 
 ## Page Watermark
@@ -67,18 +67,18 @@ export const overridesPreferences = defineOverridesPreferences({
   app: {
     watermark: true,
   },
-});
+})
 ```
 
 If you want to update the content of the watermark, you can do so. The parameters can be referred to [watermark-js-plus](https://zhensherlock.github.io/watermark-js-plus/):
 
 ```ts
-import { useWatermark } from '@vben/hooks';
+import { useWatermark } from '@vben/hooks'
 
-const { destroyWatermark, updateWatermark } = useWatermark();
+const { destroyWatermark, updateWatermark } = useWatermark()
 
 await updateWatermark({
   // watermark content
   content: 'hello my watermark',
-});
+})
 ```

@@ -1,30 +1,30 @@
 <script setup lang="ts">
-import type { Component } from 'vue';
+import type { Component } from 'vue'
 
-import { computed } from 'vue';
+import { computed } from 'vue'
 
-import { IconDefault, IconifyIcon } from '@vben-core/icons';
+import { IconDefault, IconifyIcon } from '@vben-core/icons'
 import {
   isFunction,
   isHttpUrl,
   isObject,
   isString,
-} from '@vben-core/shared/utils';
+} from '@vben-core/shared/utils'
 
 const props = defineProps<{
   // 没有是否显示默认图标
-  fallback?: boolean;
-  icon?: Component | Function | string;
-}>();
+  fallback?: boolean
+  icon?: Component | Function | string
+}>()
 
 const isRemoteIcon = computed(() => {
-  return isString(props.icon) && isHttpUrl(props.icon);
-});
+  return isString(props.icon) && isHttpUrl(props.icon)
+})
 
 const isComponent = computed(() => {
-  const { icon } = props;
-  return !isString(icon) && (isObject(icon) || isFunction(icon));
-});
+  const { icon } = props
+  return !isString(icon) && (isObject(icon) || isFunction(icon))
+})
 </script>
 
 <template>

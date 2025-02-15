@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { WorkbenchProjectItem } from '../typing';
+import type { WorkbenchProjectItem } from '../typing'
 
 import {
   Card,
@@ -7,22 +7,22 @@ import {
   CardHeader,
   CardTitle,
   VbenIcon,
-} from '@vben-core/shadcn-ui';
+} from '@vben-core/shadcn-ui'
 
 interface Props {
-  items: WorkbenchProjectItem[];
-  title: string;
+  items: WorkbenchProjectItem[]
+  title: string
 }
 
 defineOptions({
   name: 'WorkbenchProject',
-});
+})
 
 withDefaults(defineProps<Props>(), {
   items: () => [],
-});
+})
 
-defineEmits(['click']);
+defineEmits(['click'])
 </script>
 
 <template>

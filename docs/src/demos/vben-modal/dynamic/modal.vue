@@ -1,27 +1,27 @@
 <script lang="ts" setup>
-import { useVbenModal, VbenButton } from '@vben/common-ui';
+import { useVbenModal, VbenButton } from '@vben/common-ui'
 
 const [Modal, modalApi] = useVbenModal({
   draggable: true,
   onCancel() {
-    modalApi.close();
+    modalApi.close()
   },
   onConfirm() {
-    console.info('onConfirm');
+    console.info('onConfirm')
   },
   title: '动态修改配置示例',
-});
+})
 
-const state = modalApi.useStore();
+const state = modalApi.useStore()
 
 function handleUpdateTitle() {
-  modalApi.setState({ title: '内部动态标题' });
+  modalApi.setState({ title: '内部动态标题' })
 }
 
 function handleToggleFullscreen() {
   modalApi.setState((prev) => {
-    return { ...prev, fullscreen: !prev.fullscreen };
-  });
+    return { ...prev, fullscreen: !prev.fullscreen }
+  })
 }
 </script>
 <template>

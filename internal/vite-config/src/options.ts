@@ -1,8 +1,8 @@
-import type { Options as PwaPluginOptions } from 'vite-plugin-pwa';
+import type { Options as PwaPluginOptions } from 'vite-plugin-pwa'
 
-import type { ImportmapPluginOptions } from './typing';
+import type { ImportmapPluginOptions } from './typing'
 
-const isDevelopment = process.env.NODE_ENV === 'development';
+const isDevelopment = process.env.NODE_ENV === 'development'
 
 const getDefaultPwaOptions = (name: string): Partial<PwaPluginOptions> => ({
   manifest: {
@@ -23,7 +23,7 @@ const getDefaultPwaOptions = (name: string): Partial<PwaPluginOptions> => ({
     name: `${name}${isDevelopment ? ' dev' : ''}`,
     short_name: `${name}${isDevelopment ? ' dev' : ''}`,
   },
-});
+})
 
 /**
  * importmap CDN 暂时不开启，因为有些包不支持，且网络不稳定
@@ -40,6 +40,6 @@ const defaultImportmapOptions: ImportmapPluginOptions = {
     { name: 'dayjs' },
     { name: 'vue-demi' },
   ],
-};
+}
 
-export { defaultImportmapOptions, getDefaultPwaOptions };
+export { defaultImportmapOptions, getDefaultPwaOptions }

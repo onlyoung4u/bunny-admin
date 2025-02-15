@@ -1,23 +1,23 @@
 <script setup lang="ts">
-import type { LayoutType } from '@vben/types';
+import type { LayoutType } from '@vben/types'
 
-import { $t } from '@vben/locales';
+import { $t } from '@vben/locales'
 
-import NumberFieldItem from '../number-field-item.vue';
-import SwitchItem from '../switch-item.vue';
+import NumberFieldItem from '../number-field-item.vue'
+import SwitchItem from '../switch-item.vue'
 
-defineProps<{ currentLayout?: LayoutType; disabled: boolean }>();
+defineProps<{ currentLayout?: LayoutType; disabled: boolean }>()
 
-const sidebarEnable = defineModel<boolean>('sidebarEnable');
-const sidebarWidth = defineModel<number>('sidebarWidth');
+const sidebarEnable = defineModel<boolean>('sidebarEnable')
+const sidebarWidth = defineModel<number>('sidebarWidth')
 const sidebarCollapsedShowTitle = defineModel<boolean>(
   'sidebarCollapsedShowTitle',
-);
+)
 const sidebarAutoActivateChild = defineModel<boolean>(
   'sidebarAutoActivateChild',
-);
-const sidebarCollapsed = defineModel<boolean>('sidebarCollapsed');
-const sidebarExpandOnHover = defineModel<boolean>('sidebarExpandOnHover');
+)
+const sidebarCollapsed = defineModel<boolean>('sidebarCollapsed')
+const sidebarExpandOnHover = defineModel<boolean>('sidebarExpandOnHover')
 </script>
 
 <template>

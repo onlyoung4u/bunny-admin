@@ -1,23 +1,23 @@
 <script lang="ts" setup>
-import type { NotificationItem } from '@vben/layouts';
+import type { NotificationItem } from '@vben/layouts'
 
-import { computed, ref, watch } from 'vue';
+import { computed, ref, watch } from 'vue'
 
-import { AuthenticationLoginExpiredModal, useVbenModal } from '@vben/common-ui';
-import { useWatermark } from '@vben/hooks';
-import { CarbonPassword } from '@vben/icons';
+import { AuthenticationLoginExpiredModal, useVbenModal } from '@vben/common-ui'
+import { useWatermark } from '@vben/hooks'
+import { CarbonPassword } from '@vben/icons'
 import {
   BasicLayout,
   LockScreen,
   Notification,
   UserDropdown,
-} from '@vben/layouts';
-import { preferences } from '@vben/preferences';
-import { useAccessStore, useUserStore } from '@vben/stores';
+} from '@vben/layouts'
+import { preferences } from '@vben/preferences'
+import { useAccessStore, useUserStore } from '@vben/stores'
 
-import { useAuthStore } from '#/store';
-import LoginForm from '#/views/_core/authentication/login.vue';
-import ResetPassword from '#/views/_core/authentication/reset-password.vue';
+import { useAuthStore } from '#/store'
+import LoginForm from '#/views/_core/authentication/login.vue'
+import ResetPassword from '#/views/_core/authentication/reset-password.vue'
 
 const notifications = ref<NotificationItem[]>([
   // {
@@ -27,44 +27,42 @@ const notifications = ref<NotificationItem[]>([
   //   message: '描述信息描述信息描述信息',
   //   title: '收到了 14 份新周报',
   // },
-]);
+])
 
-const userStore = useUserStore();
-const authStore = useAuthStore();
-const accessStore = useAccessStore();
-const { destroyWatermark, updateWatermark } = useWatermark();
-const showDot = computed(() =>
-  notifications.value.some((item) => !item.isRead),
-);
+const userStore = useUserStore()
+const authStore = useAuthStore()
+const accessStore = useAccessStore()
+const { destroyWatermark, updateWatermark } = useWatermark()
+const showDot = computed(() => notifications.value.some((item) => !item.isRead))
 
 const [ResetPasswordModal, resetPasswordModalApi] = useVbenModal({
   connectedComponent: ResetPassword,
-});
+})
 
 const menus = computed(() => [
   {
     handler: () => {
-      resetPasswordModalApi.open();
+      resetPasswordModalApi.open()
     },
     icon: CarbonPassword,
     text: '修改密码',
   },
-]);
+])
 
 const avatar = computed(() => {
-  return userStore.userInfo?.avatar ?? preferences.app.defaultAvatar;
-});
+  return userStore.userInfo?.avatar ?? preferences.app.defaultAvatar
+})
 
 async function handleLogout() {
-  await authStore.logout(false);
+  await authStore.logout(false)
 }
 
 function handleNoticeClear() {
-  notifications.value = [];
+  notifications.value = []
 }
 
 function handleMakeAll() {
-  notifications.value.forEach((item) => (item.isRead = true));
+  notifications.value.forEach((item) => (item.isRead = true))
 }
 watch(
   () => preferences.app.watermark,
@@ -72,15 +70,15 @@ watch(
     if (enable) {
       await updateWatermark({
         content: `${userStore.userInfo?.username}`,
-      });
+      })
     } else {
-      destroyWatermark();
+      destroyWatermark()
     }
   },
   {
     immediate: true,
   },
-);
+)
 </script>
 
 <template>

@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import type { VbenFormProps } from './types';
+import type { VbenFormProps } from './types'
 
-import { ref, watchEffect } from 'vue';
+import { ref, watchEffect } from 'vue'
 
-import { useForwardPropsEmits } from '@vben-core/composables';
+import { useForwardPropsEmits } from '@vben-core/composables'
 
-import FormActions from './components/form-actions.vue';
+import FormActions from './components/form-actions.vue'
 import {
   COMPONENT_BIND_EVENT_MAP,
   COMPONENT_MAP,
   DEFAULT_FORM_COMMON_CONFIG,
-} from './config';
-import { Form } from './form-render';
-import { provideFormProps, useFormInitial } from './use-form-context';
+} from './config'
+import { Form } from './form-render'
+import { provideFormProps, useFormInitial } from './use-form-context'
 
 // 通过 extends 会导致热更新卡死
 interface Props extends VbenFormProps {}
@@ -29,23 +29,23 @@ const props = withDefaults(defineProps<Props>(), {
   showDefaultActions: true,
   submitButtonOptions: () => ({}),
   wrapperClass: 'grid-cols-1',
-});
+})
 
-const forward = useForwardPropsEmits(props);
+const forward = useForwardPropsEmits(props)
 
-const currentCollapsed = ref(false);
+const currentCollapsed = ref(false)
 
-const { delegatedSlots, form } = useFormInitial(props);
+const { delegatedSlots, form } = useFormInitial(props)
 
-provideFormProps([props, form]);
+provideFormProps([props, form])
 
 const handleUpdateCollapsed = (value: boolean) => {
-  currentCollapsed.value = !!value;
-};
+  currentCollapsed.value = !!value
+}
 
 watchEffect(() => {
-  currentCollapsed.value = props.collapsed;
-});
+  currentCollapsed.value = props.collapsed
+})
 </script>
 
 <template>

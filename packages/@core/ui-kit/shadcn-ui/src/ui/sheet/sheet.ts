@@ -1,6 +1,6 @@
-import type { VariantProps } from 'class-variance-authority';
+import type { VariantProps } from 'class-variance-authority'
 
-import { cva } from 'class-variance-authority';
+import { cva } from 'class-variance-authority'
 
 export const sheetVariants = cva(
   'bg-background shadow-lg transition ease-in-out data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-300 data-[state=open]:duration-500 border-border',
@@ -19,6 +19,6 @@ export const sheetVariants = cva(
       },
     },
   },
-);
+)
 
-export type SheetVariants = VariantProps<typeof sheetVariants>;
+export type SheetVariants = VariantProps<typeof sheetVariants>

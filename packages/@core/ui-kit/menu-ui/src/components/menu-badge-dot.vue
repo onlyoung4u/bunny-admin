@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import type { CSSProperties } from 'vue';
+import type { CSSProperties } from 'vue'
 
 interface Props {
-  dotClass?: string;
-  dotStyle?: CSSProperties;
+  dotClass?: string
+  dotStyle?: CSSProperties
 }
 
 withDefaults(defineProps<Props>(), {
   dotClass: '',
   dotStyle: () => ({}),
-});
+})
 </script>
 <template>
   <span class="relative mr-1 flex size-1.5">

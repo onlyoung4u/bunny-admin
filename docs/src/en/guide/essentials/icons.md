@@ -19,16 +19,16 @@ You can add new icons in the `packages/icons/src/iconify` directory:
 
 ```ts
 // packages/icons/src/iconify/index.ts
-import { createIconifyIcon } from '@vben-core/icons';
+import { createIconifyIcon } from '@vben-core/icons'
 
-export const MdiKeyboardEsc = createIconifyIcon('mdi:keyboard-esc');
+export const MdiKeyboardEsc = createIconifyIcon('mdi:keyboard-esc')
 ```
 
 ### Usage
 
 ```vue
 <script setup lang="ts">
-import { MdiKeyboardEsc } from '@vben/icons';
+import { MdiKeyboardEsc } from '@vben/icons'
 </script>
 
 <template>
@@ -47,18 +47,18 @@ You can add new icon files `test.svg` in the `packages/icons/src/svg/icons` dire
 
 ```ts
 // packages/icons/src/svg/index.ts
-import { createIconifyIcon } from '@vben-core/icons';
+import { createIconifyIcon } from '@vben-core/icons'
 
-const SvgTestIcon = createIconifyIcon('svg:test');
+const SvgTestIcon = createIconifyIcon('svg:test')
 
-export { SvgTestIcon };
+export { SvgTestIcon }
 ```
 
 ### Usage
 
 ```vue
 <script setup lang="ts">
-import { SvgTestIcon } from '@vben/icons';
+import { SvgTestIcon } from '@vben/icons'
 </script>
 
 <template>

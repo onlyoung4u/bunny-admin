@@ -41,14 +41,14 @@ Permission control is controlled by the `authority` field in the `meta` property
 ```ts
 // Uncomment if needed and create the folder
 // const externalRouteFiles = import.meta.glob('./external/**/*.ts', { eager: true }); // [!code --]
-const staticRouteFiles = import.meta.glob('./static/**/*.ts', { eager: true }); // [!code ++]
+const staticRouteFiles = import.meta.glob('./static/**/*.ts', { eager: true }) // [!code ++]
 /** Dynamic routes */
-const dynamicRoutes: RouteRecordRaw[] = mergeRouteModules(dynamicRouteFiles);
+const dynamicRoutes: RouteRecordRaw[] = mergeRouteModules(dynamicRouteFiles)
 
 /** External route list, these pages can be accessed without Layout, possibly used for embedding in other systems */
 // const externalRoutes: RouteRecordRaw[] = mergeRouteModules(externalRouteFiles) // [!code --]
-const externalRoutes: RouteRecordRaw[] = []; // [!code --]
-const externalRoutes: RouteRecordRaw[] = mergeRouteModules(externalRouteFiles); // [!code ++]
+const externalRoutes: RouteRecordRaw[] = [] // [!code --]
+const externalRoutes: RouteRecordRaw[] = mergeRouteModules(externalRouteFiles) // [!code ++]
 ```
 
 ### Dynamic Routes
@@ -64,12 +64,12 @@ The configuration method of static routes and dynamic routes is the same. Below 
 ::: details Secondary Route Example Code
 
 ```ts
-import type { RouteRecordRaw } from 'vue-router';
+import type { RouteRecordRaw } from 'vue-router'
 
-import { VBEN_LOGO_URL } from '@vben/constants';
+import { VBEN_LOGO_URL } from '@vben/constants'
 
-import { BasicLayout } from '#/layouts';
-import { $t } from '#/locales';
+import { BasicLayout } from '#/layouts'
+import { $t } from '#/locales'
 
 const routes: RouteRecordRaw[] = [
   {
@@ -97,9 +97,9 @@ const routes: RouteRecordRaw[] = [
       },
     ],
   },
-];
+]
 
-export default routes;
+export default routes
 ```
 
 :::
@@ -116,10 +116,10 @@ export default routes;
 ::: details Multi-level Route Example Code
 
 ```ts
-import type { RouteRecordRaw } from 'vue-router';
+import type { RouteRecordRaw } from 'vue-router'
 
-import { BasicLayout } from '#/layouts';
-import { $t } from '#/locales';
+import { BasicLayout } from '#/layouts'
+import { $t } from '#/locales'
 
 const routes: RouteRecordRaw[] = [
   {
@@ -222,9 +222,9 @@ const routes: RouteRecordRaw[] = [
       },
     ],
   },
-];
+]
 
-export default routes;
+export default routes
 ```
 
 :::
@@ -238,12 +238,12 @@ To add a new page, you only need to add a route and the corresponding page compo
 Add a route object in the corresponding route file, as follows:
 
 ```ts
-import type { RouteRecordRaw } from 'vue-router';
+import type { RouteRecordRaw } from 'vue-router'
 
-import { VBEN_LOGO_URL } from '@vben/constants';
+import { VBEN_LOGO_URL } from '@vben/constants'
 
-import { BasicLayout } from '#/layouts';
-import { $t } from '#/locales';
+import { BasicLayout } from '#/layouts'
+import { $t } from '#/locales'
 
 const routes: RouteRecordRaw[] = [
   {
@@ -266,9 +266,9 @@ const routes: RouteRecordRaw[] = [
       },
     ],
   },
-];
+]
 
-export default routes;
+export default routes
 ```
 
 ### Adding a Page Component
@@ -301,7 +301,7 @@ const routes = [
       title: $t('page.home.index'),
     },
   },
-];
+]
 ```
 
 ::: details Route Meta Configuration Type Definition
@@ -311,34 +311,34 @@ interface RouteMeta {
   /**
    * Active icon (menu)
    */
-  activeIcon?: string;
+  activeIcon?: string
   /**
    * The currently active menu, sometimes you don't want to activate the existing menu, use this to activate the parent menu
    */
-  activePath?: string;
+  activePath?: string
   /**
    * Whether to fix the tab
    * @default false
    */
-  affixTab?: boolean;
+  affixTab?: boolean
   /**
    * The order of fixed tabs
    * @default 0
    */
-  affixTabOrder?: number;
+  affixTabOrder?: number
   /**
    * Specific roles required to access
    * @default []
    */
-  authority?: string[];
+  authority?: string[]
   /**
    * Badge
    */
-  badge?: string;
+  badge?: string
   /**
    * Badge type
    */
-  badgeType?: 'dot' | 'normal';
+  badgeType?: 'dot' | 'normal'
   /**
    * Badge color
    */
@@ -348,77 +348,77 @@ interface RouteMeta {
     | 'primary'
     | 'success'
     | 'warning'
-    | string;
+    | string
   /**
    * The children of the current route are not displayed in the menu
    * @default false
    */
-  hideChildrenInMenu?: boolean;
+  hideChildrenInMenu?: boolean
   /**
    * The current route is not displayed in the breadcrumb
    * @default false
    */
-  hideInBreadcrumb?: boolean;
+  hideInBreadcrumb?: boolean
   /**
    * The current route is not displayed in the menu
    * @default false
    */
-  hideInMenu?: boolean;
+  hideInMenu?: boolean
   /**
    * The current route is not displayed in the tab
    * @default false
    */
-  hideInTab?: boolean;
+  hideInTab?: boolean
   /**
    * Icon (menu/tab)
    */
-  icon?: string;
+  icon?: string
   /**
    * iframe address
    */
-  iframeSrc?: string;
+  iframeSrc?: string
   /**
    * Ignore permissions, can be accessed directly
    * @default false
    */
-  ignoreAccess?: boolean;
+  ignoreAccess?: boolean
   /**
    * Enable KeepAlive cache
    */
-  keepAlive?: boolean;
+  keepAlive?: boolean
   /**
    * External link - jump path
    */
-  link?: string;
+  link?: string
   /**
    * Whether the route has been loaded
    */
-  loaded?: boolean;
+  loaded?: boolean
   /**
    * Maximum number of open tabs
    * @default false
    */
-  maxNumOfOpenTab?: number;
+  maxNumOfOpenTab?: number
   /**
    * The menu can be seen, but access will be redirected to 403
    */
-  menuVisibleWithForbidden?: boolean;
+  menuVisibleWithForbidden?: boolean
   /**
    * Open in a new window
    */
-  openInNewWindow?: boolean;
+  openInNewWindow?: boolean
   /**
    * Used for route -> menu sorting
    */
-  order?: number;
+  order?: number
   /**
    * Parameters carried by the menu
    */
-  query?: Recordable;
+  query?: Recordable
   /**
    * Title name
    */
-  title: string;
+  title: string
 }
 ```
 
@@ -593,11 +593,11 @@ The route refresh method is as follows:
 
 ```vue
 <script setup lang="ts">
-import { useRefresh } from '@vben/hooks';
+import { useRefresh } from '@vben/hooks'
 
-const { refresh } = useRefresh();
+const { refresh } = useRefresh()
 
 // Refresh the current route
-refresh();
+refresh()
 </script>
 ```
